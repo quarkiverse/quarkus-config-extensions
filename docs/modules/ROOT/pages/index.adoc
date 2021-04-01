@@ -1,0 +1,22 @@
+= Quarkus - Config Extensions
+:extension-status: preview
+
+Describe what the extension does here.
+
+== Installation
+
+If you want to use this extension, you need to add the `io.quarkiverse.configextensions:quarkus-config-extensions` extension first.
+In your `pom.xml` file, add:
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkiverse.configextensions</groupId>
+    <artifactId>quarkus-config-extensions</artifactId>
+</dependency>
+----
+
+[[extension-configuration-reference]]
+== Extension Configuration Reference
+
+include::config.adoc[leveloffset=+1, opts=optional]

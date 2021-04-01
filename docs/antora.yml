@@ -1,0 +1,5 @@
+name: quarkus-config-extensions
+title: Quarkus - Config Extensions
+version: dev
+nav:
+  - modules/ROOT/nav.adoc
