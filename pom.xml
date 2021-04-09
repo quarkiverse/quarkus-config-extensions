@@ -14,6 +14,7 @@
   <name>Quarkus - Config Extensions - Parent</name>
   <modules>
     <module>sample</module>
+    <module>jdbc</module>
   </modules>
   <properties>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
