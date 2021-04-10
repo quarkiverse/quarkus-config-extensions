@@ -1,4 +1,4 @@
-package io.quarkiverse.configextensions.config.extensions.test;
+package io.quarkiverse.configextensions.jdbc.extensions.test;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -7,13 +7,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.quarkus.test.QuarkusDevModeTest;
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.h2.H2DatabaseTestResource;
 
+@QuarkusTestResource(H2DatabaseTestResource.class)
 public class ConfigExtensionsDevModeTest {
 
     // Start hot reload (DevMode) test with your extension loaded
     @RegisterExtension
     static final QuarkusDevModeTest devModeTest = new QuarkusDevModeTest()
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class).addAsResource("application.properties"));
 
     @Test
     public void writeYourOwnDevModeTest() {

@@ -1,4 +1,4 @@
-package io.quarkiverse.configextensions.config.extensions.test;
+package io.quarkiverse.configextensions.jdbc.extensions.test;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -13,7 +13,7 @@ public class ConfigExtensionsTest {
     // Start unit test with your extension loaded
     @RegisterExtension
     static final QuarkusUnitTest unitTest = new QuarkusUnitTest()
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class).addAsResource("application.properties"));
 
     @Test
     public void writeYourOwnUnitTest() {

@@ -1,9 +1,10 @@
 name: Config JDBC
-#description: Config JDBC ...
 metadata:
-#  keywords:
-#    - config-jdbc
-#  guide: ...
-#  categories:
-#    - "miscellaneous"
-#  status: "preview"
+  keywords:
+  - "config"
+  - "configuration"
+  - "jdbc"
+  - "agroal"
+  categories:
+  - "miscellaneous"
+  status: "preview"
