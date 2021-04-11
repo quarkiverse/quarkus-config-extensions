@@ -1,10 +1,6 @@
 package io.quarkiverse.configextensions.jdbc.runtime;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,17 +12,12 @@ import java.util.Set;
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.jboss.logging.Logger;
 
-import io.agroal.api.AgroalDataSource;
-import io.agroal.api.configuration.supplier.AgroalConnectionFactoryConfigurationSupplier;
-import io.agroal.api.configuration.supplier.AgroalConnectionPoolConfigurationSupplier;
-import io.agroal.api.configuration.supplier.AgroalDataSourceConfigurationSupplier;
-import io.agroal.api.security.NamePrincipal;
-import io.agroal.api.security.SimplePassword;
 import io.smallrye.config.ConfigSourceContext;
 import io.smallrye.config.ConfigSourceFactory;
 
 public class JdbcConfigSourceFactory implements ConfigSourceFactory {
     private static final Logger log = Logger.getLogger(JdbcConfigSourceFactory.class);
+    Repository repository = null;
 
     @Override
     public Iterable<ConfigSource> getConfigSources(ConfigSourceContext context) {
@@ -53,23 +44,14 @@ public class JdbcConfigSourceFactory implements ConfigSourceFactory {
         String password = context.getValue("quarkus.datasource.password").getValue();
         String url = context.getValue("quarkus.datasource.jdbc.url").getValue();
 
-        Map<String, String> result = new HashMap<>();
+        Map<String, String> result;
         List<ConfigSource> list = new ArrayList<>();
+        if (repository == null) {
+            repository = new Repository(url, username, password);
+        }
+        try {
 
-        try (AgroalDataSource datasource = getDataSource(url, username, password)) {
-
-            String selectAllQuery = new StringBuilder("SELECT conf.").append(keyColumn).append(", conf.")
-                    .append(valueColumn).append(" FROM ").append(table).append(" conf").toString();
-            PreparedStatement selectAll = datasource.getConnection().prepareStatement(selectAllQuery);
-
-            if (selectAll != null) {
-                try (ResultSet rs = selectAll.executeQuery()) {
-                    while (rs.next()) {
-                        result.put(rs.getString(1), rs.getString(2));
-                    }
-                }
-            }
-
+            result = repository.getAllConfigValues(table, keyColumn, valueColumn);
         } catch (SQLException e) {
             log.warn("jdbc-config disabled. reason: " + e.getLocalizedMessage());
             return Collections.emptyList();
@@ -78,27 +60,6 @@ public class JdbcConfigSourceFactory implements ConfigSourceFactory {
         list.add(new InMemoryConfigSource(400, "jdbc-config", result));
         return list;
 
-    }
-
-    private AgroalDataSource getDataSource(String url, String username, String password) throws SQLException {
-        // create supplier
-        AgroalDataSourceConfigurationSupplier dataSourceConfiguration = new AgroalDataSourceConfigurationSupplier();
-        // get reference to connection pool
-        AgroalConnectionPoolConfigurationSupplier poolConfiguration = dataSourceConfiguration
-                .connectionPoolConfiguration();
-        // get reference to connection factory
-        AgroalConnectionFactoryConfigurationSupplier connectionFactoryConfiguration = poolConfiguration
-                .connectionFactoryConfiguration();
-
-        // configure pool
-        poolConfiguration.initialSize(2).maxSize(2).minSize(2).maxLifetime(Duration.of(30, ChronoUnit.SECONDS))
-                .acquisitionTimeout(Duration.of(20, ChronoUnit.SECONDS));
-
-        // configure supplier
-        connectionFactoryConfiguration.jdbcUrl(url).credential(new NamePrincipal(username))
-                .credential(new SimplePassword(password));
-
-        return AgroalDataSource.from(dataSourceConfiguration.get());
     }
 
     private static final class InMemoryConfigSource implements ConfigSource {
