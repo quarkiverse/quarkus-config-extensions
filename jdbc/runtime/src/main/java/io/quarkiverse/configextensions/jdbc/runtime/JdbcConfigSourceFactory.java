@@ -33,7 +33,7 @@ public class JdbcConfigSourceFactory implements ConfigSourceFactory {
         return getConfigSource(context);
     }
 
-    public List<ConfigSource> getConfigSource(ConfigSourceContext context) {
+    private List<ConfigSource> getConfigSource(ConfigSourceContext context) {
 
         boolean enabled = Boolean.valueOf(
                 Optional.ofNullable(context.getValue("quarkus.jdbc-config.enabled").getValue()).orElse("true"));
