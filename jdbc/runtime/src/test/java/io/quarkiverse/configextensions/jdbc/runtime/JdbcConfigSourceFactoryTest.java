@@ -67,7 +67,7 @@ public class JdbcConfigSourceFactoryTest {
     void testDisabledJdbcConfig() {
         JdbcConfigSourceFactory factory = new JdbcConfigSourceFactory();
 
-        when(context.getValue("quarkus.jdbc-config.enabled")).thenReturn(config);
+        when(context.getValue("quarkus.config.source.jdbc.enabled")).thenReturn(config);
         when(config.getValue()).thenReturn("false");
 
         Iterable<ConfigSource> it = factory.getConfigSources(context);
