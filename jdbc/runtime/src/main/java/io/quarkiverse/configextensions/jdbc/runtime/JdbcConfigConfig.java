@@ -12,7 +12,7 @@ import io.quarkus.runtime.annotations.ConfigRoot;
  *
  * The config itself is loaded using the ConfigSourceContext on the ConfigSourceFactory
  */
-@ConfigRoot(name = "quarkus.config.source.jdbc", phase = ConfigPhase.BOOTSTRAP)
+@ConfigRoot(name = "config.source.jdbc", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class JdbcConfigConfig {
 
     /**
