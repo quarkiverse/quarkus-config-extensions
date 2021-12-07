@@ -1,6 +1,6 @@
 # Quarkus Config Extensions
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Version](https://img.shields.io/maven-central/v/io.quarkiverse.config/quarkus-config-extensions?logo=apache-maven&style=flat-square)](https://search.maven.org/artifact/io.quarkiverse.config/quarkus-config-extensions)
@@ -27,6 +27,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="http://www.mipagar.com"><img src="https://avatars.githubusercontent.com/u/168596?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Duncan</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-config-extensions/commits?author=dabloem" title="Code">💻</a> <a href="#maintenance-dabloem" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="http://www.radcortez.com"><img src="https://avatars.githubusercontent.com/u/5796305?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Roberto Cortez</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-config-extensions/commits?author=radcortez" title="Code">💻</a> <a href="#maintenance-radcortez" title="Maintenance">🚧</a></td>
   </tr>
 </table>
 
