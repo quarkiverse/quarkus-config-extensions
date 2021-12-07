@@ -10,7 +10,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>quarkus-config-jdbc-deployment</artifactId>
-    <name>Quarkus - Config JDBC - Deployment</name>
+    <name>Quarkus - Config Extensions - JDBC - Deployment</name>
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
