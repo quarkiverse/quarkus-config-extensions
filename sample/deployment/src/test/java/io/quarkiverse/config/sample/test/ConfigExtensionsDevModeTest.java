@@ -1,4 +1,4 @@
-package io.quarkiverse.configextensions.config.extensions.test;
+package io.quarkiverse.config.sample.test;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;

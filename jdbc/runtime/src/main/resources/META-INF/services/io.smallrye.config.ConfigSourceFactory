@@ -1,1 +1,1 @@
-io.quarkiverse.configextensions.jdbc.runtime.JdbcConfigSourceFactory
+io.quarkiverse.config.jdbc.runtime.JdbcConfigSourceFactory

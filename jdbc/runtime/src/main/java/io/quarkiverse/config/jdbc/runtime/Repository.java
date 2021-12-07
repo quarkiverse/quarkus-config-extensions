@@ -1,4 +1,4 @@
-package io.quarkiverse.configextensions.jdbc.runtime;
+package io.quarkiverse.config.jdbc.runtime;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
