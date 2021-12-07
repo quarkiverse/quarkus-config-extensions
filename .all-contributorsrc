@@ -14,6 +14,16 @@
         "code",
         "maintenance"
       ]
+    },
+    {
+      "login": "radcortez",
+      "name": "Roberto Cortez",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5796305?v=4",
+      "profile": "http://www.radcortez.com",
+      "contributions": [
+        "code",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
