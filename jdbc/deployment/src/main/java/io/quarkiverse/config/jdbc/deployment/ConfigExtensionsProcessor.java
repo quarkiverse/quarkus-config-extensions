@@ -1,6 +1,6 @@
-package io.quarkiverse.configextensions.jdbc.deployment;
+package io.quarkiverse.config.jdbc.deployment;
 
-import io.quarkiverse.configextensions.jdbc.runtime.JdbcConfigConfig;
+import io.quarkiverse.config.jdbc.runtime.JdbcConfigConfig;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 

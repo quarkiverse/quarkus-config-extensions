@@ -3,7 +3,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-[![Version](https://img.shields.io/maven-central/v/io.quarkiverse.configextensions/quarkus-config-extensions?logo=apache-maven&style=flat-square)](https://search.maven.org/artifact/io.quarkiverse.configextensions/quarkus-config-extensions)
+[![Version](https://img.shields.io/maven-central/v/io.quarkiverse.config/quarkus-config-extensions?logo=apache-maven&style=flat-square)](https://search.maven.org/artifact/io.quarkiverse.config/quarkus-config-extensions)
 
 ## Introduction
 

@@ -1,4 +1,4 @@
-package io.quarkiverse.configextensions.jdbc.runtime;
+package io.quarkiverse.config.jdbc.runtime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

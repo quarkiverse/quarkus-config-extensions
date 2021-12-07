@@ -64,7 +64,7 @@ This will add the following to your `pom.xml`:
 [source,xml,subs=attributes+]
 ----
 <dependency>
-    <groupId>io.quarkiverse.configextensions</groupId>
+    <groupId>io.quarkiverse.config</groupId>
     <artifactId>quarkus-config-consul</artifactId>
     <version>{quarkus-config-extensions-version}</version>
 </dependency>
