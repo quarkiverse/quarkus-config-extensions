@@ -16,7 +16,7 @@ env:
   # Repo specific setting #
   #########################
 
-  ECOSYSTEM_CI_REPO_PATH: quarkus-config-extensions
+  ECOSYSTEM_CI_REPO_PATH: quarkiverse-config-extensions
 
 jobs:
   build:

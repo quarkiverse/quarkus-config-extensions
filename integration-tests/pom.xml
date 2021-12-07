@@ -9,11 +9,12 @@
         <artifactId>quarkus-config-extensions</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>quarkus-config-extensions-integration-tests</artifactId>
+    <artifactId>quarkus-config-extensions-integration-tests-parent</artifactId>
     <packaging>pom</packaging>
     <name>Quarkus - Config Extensions - Integration Tests - Parent</name>
     <modules>
         <module>sample</module>
+        <module>consul</module>
     </modules>
 
     <profiles>

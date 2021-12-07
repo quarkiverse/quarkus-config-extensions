@@ -1,1 +1,2 @@
-* xref:index.adoc[Quarkus - Config Extensions]
+* xref:index.adoc[Quarkus Config Extensions]
+* xref:consul.adoc[HashiCorp Consul]

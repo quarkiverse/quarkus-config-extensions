@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.quarkiverse.configextensions</groupId>
+        <artifactId>quarkus-config-extensions-integration-tests-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>quarkus-config-extensions-integration-test-consul</artifactId>
+    <name>Quarkus - Config Extensions - Integration Tests - Consul</name>
+
+    <properties>
+        <wiremock-jre8.version>2.27.2</wiremock-jre8.version>
+        <wiremock-maven-plugin.version>7.0.0</wiremock-maven-plugin.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.github.tomakehurst</groupId>
+                <artifactId>wiremock-jre8</artifactId>
+                <version>${wiremock-jre8.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>javax.servlet-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.checkerframework</groupId>
+                        <artifactId>checker-qual</artifactId>
+                    </exclusion>
+                    <exclusion> <!-- fix dependencyConvergence clash with junit-jupiter -->
+                        <groupId>org.opentest4j</groupId>
+                        <artifactId>opentest4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.quarkiverse.configextensions</groupId>
+            <artifactId>quarkus-config-consul</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>uk.co.automatictester</groupId>
+                <artifactId>wiremock-maven-plugin</artifactId>
+                <version>${wiremock-maven-plugin.version}</version>
+                <dependencies>
+                    <!-- plugin defines "wiremock" artifactId (in provided scope), not the preferred "wiremock-jre8"
+                         which cannot be forced here, see https://issues.apache.org/jira/browse/MNG-6222 -->
+                    <dependency>
+                        <groupId>com.github.tomakehurst</groupId>
+                        <artifactId>wiremock</artifactId>
+                        <version>${wiremock-jre8.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>wiremock-start</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>stop</goal>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <dir>target/classes</dir>
+                            <params>--port=8500 --disable-banner</params>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>wiremock-stop</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
