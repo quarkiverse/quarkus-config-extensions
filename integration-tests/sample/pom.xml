@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.quarkiverse.configextensions</groupId>
-        <artifactId>quarkus-config-extensions-integration-tests</artifactId>
+        <artifactId>quarkus-config-extensions-integration-tests-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>quarkus-config-extensions-integration-test-sample</artifactId>

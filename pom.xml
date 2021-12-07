@@ -17,6 +17,8 @@
     <modules>
         <module>sample</module>
         <module>jdbc</module>
+        <module>consul</module>
+        <module>docs</module>
         <module>integration-tests</module>
     </modules>
     <properties>
