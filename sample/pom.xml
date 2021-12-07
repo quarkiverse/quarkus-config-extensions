@@ -11,23 +11,9 @@
     </parent>
     <artifactId>quarkus-config-sample-parent</artifactId>
     <packaging>pom</packaging>
-    <name>Quarkus - Config Sample - Parent</name>
+    <name>Quarkus - Config Extensions - Sample - Parent</name>
     <modules>
         <module>deployment</module>
         <module>runtime</module>
     </modules>
-    <profiles>
-        <profile>
-            <id>it</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>!true</value>
-                </property>
-            </activation>
-            <modules>
-                <module>integration-tests</module>
-            </modules>
-        </profile>
-    </profiles>
 </project>

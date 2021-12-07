@@ -11,7 +11,7 @@
     </parent>
     <artifactId>quarkus-config-jdbc-parent</artifactId>
     <packaging>pom</packaging>
-    <name>Quarkus - Config JDBC - Parent</name>
+    <name>Quarkus - Config Extensions - JDBC - Parent</name>
     <modules>
         <module>deployment</module>
         <module>runtime</module>
