@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.quarkiverse.config</groupId>
         <artifactId>quarkus-config-extensions-integration-tests-parent</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>quarkus-config-extensions-integration-test-consul</artifactId>
     <name>Quarkus - Config Extensions - Integration Tests - Consul</name>
