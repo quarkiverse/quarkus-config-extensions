@@ -9,6 +9,6 @@ metadata:
   - "consul"
   categories:
   - "core"
-  status: "preview"
+  guide: https://quarkiverse.github.io/quarkiverse-docs/quarkus-config-extensions/dev/consul.html
   config:
   - "quarkus.consul-config."
