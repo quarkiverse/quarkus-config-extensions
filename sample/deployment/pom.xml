@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.quarkiverse.config</groupId>
         <artifactId>quarkus-config-sample-parent</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.1</version>
     </parent>
     <artifactId>quarkus-config-sample-deployment</artifactId>
     <name>Quarkus - Config Extensions - Sample - Deployment</name>
