@@ -1,8 +1,12 @@
 package io.quarkiverse.config.jdbc.deployment;
 
 import io.quarkiverse.config.jdbc.runtime.JdbcConfigConfig;
+import io.quarkiverse.config.jdbc.runtime.JdbcConfigSourceFactoryBuilder;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.RunTimeConfigBuilderBuildItem;
+import io.quarkus.deployment.builditem.StaticInitConfigBuilderBuildItem;
 
 class ConfigExtensionsProcessor {
 
@@ -14,7 +18,10 @@ class ConfigExtensionsProcessor {
     }
 
     @BuildStep
-    void initFakeConfig(JdbcConfigConfig config) {
+    void jdbcConfigFactory(JdbcConfigConfig config,
+            BuildProducer<StaticInitConfigBuilderBuildItem> staticInitConfigBuilder,
+            BuildProducer<RunTimeConfigBuilderBuildItem> runTimeConfigBuilder) {
+        staticInitConfigBuilder.produce(new StaticInitConfigBuilderBuildItem(JdbcConfigSourceFactoryBuilder.class.getName()));
+        runTimeConfigBuilder.produce(new RunTimeConfigBuilderBuildItem(JdbcConfigSourceFactoryBuilder.class.getName()));
     }
-
 }
