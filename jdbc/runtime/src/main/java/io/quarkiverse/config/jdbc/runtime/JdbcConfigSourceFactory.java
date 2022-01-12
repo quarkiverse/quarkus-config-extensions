@@ -37,6 +37,9 @@ public class JdbcConfigSourceFactory implements ConfigSourceFactory {
                 .orElse("key");
         String valueColumn = Optional.ofNullable(context.getValue("quarkus.config.source.jdbc.value").getValue())
                 .orElse("value");
+        boolean cacheEnabled = Boolean
+                .valueOf(Optional.ofNullable(context.getValue("quarkus.config.source.jdbc.cache").getValue())
+                        .orElse("true"));
 
         // Datasource config
         String username = context.getValue("quarkus.datasource.username").getValue();
@@ -45,18 +48,22 @@ public class JdbcConfigSourceFactory implements ConfigSourceFactory {
 
         Map<String, String> result;
         List<ConfigSource> list = new ArrayList<>();
-        if (repository == null) {
-            repository = new Repository(url, username, password);
-        }
         try {
+            if (repository == null) {
+                repository = new Repository(url, username, password, table, keyColumn, valueColumn);
+            }
+            result = repository.getAllConfigValues();
 
-            result = repository.getAllConfigValues(table, keyColumn, valueColumn);
+            if (cacheEnabled) {
+                list.add(new InMemoryConfigSource("jdbc-config", result, 400));
+            } else {
+                list.add(new JdbcConfigSource("jdbc-config", repository, 400));
+            }
+
         } catch (SQLException e) {
             log.warn("jdbc-config disabled. reason: " + e.getLocalizedMessage());
             return Collections.emptyList();
         }
-
-        list.add(new InMemoryConfigSource("jdbc-config", result, 400));
         return list;
 
     }

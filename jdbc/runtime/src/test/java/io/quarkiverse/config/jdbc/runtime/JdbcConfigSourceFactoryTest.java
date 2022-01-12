@@ -26,14 +26,17 @@ public class JdbcConfigSourceFactoryTest {
     @Test
     @DisplayName("Repository returns data")
     void testOnStoredData() throws SQLException {
+        String key = "foo";
+        String value = "sample value";
         JdbcConfigSourceFactory factory = new JdbcConfigSourceFactory();
         Map<String, String> map = new HashMap<>();
-        map.put("foo", "sample value");
+        map.put(key, value);
 
         when(context.getValue(Mockito.anyString())).thenReturn(config);
         when(config.getValue()).thenReturn(null);
-        when(repository.getAllConfigValues(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
-                .thenReturn(map);
+
+        when(repository.getAllConfigValues()).thenReturn(map);
+        when(repository.getValue(key)).thenReturn(value);
 
         factory.repository = repository;
         Iterable<ConfigSource> it = factory.getConfigSources(context);
@@ -42,7 +45,7 @@ public class JdbcConfigSourceFactoryTest {
 
         ConfigSource configSource = it.iterator().next();
 
-        assertEquals("sample value", configSource.getValue("foo"));
+        assertEquals(value, configSource.getValue(key));
 
     }
 
@@ -53,13 +56,13 @@ public class JdbcConfigSourceFactoryTest {
 
         when(context.getValue(Mockito.anyString())).thenReturn(config);
         when(config.getValue()).thenReturn(null);
-        when(repository.getAllConfigValues(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+        when(repository.getAllConfigValues())
                 .thenThrow(new SQLException());
 
         factory.repository = repository;
         Iterable<ConfigSource> it = factory.getConfigSources(context);
 
-        assertTrue(((Collection<?>) it).size() == 0);
+        assertTrue(((Collection<?>) it).isEmpty());
     }
 
     @Test
@@ -72,7 +75,7 @@ public class JdbcConfigSourceFactoryTest {
 
         Iterable<ConfigSource> it = factory.getConfigSources(context);
 
-        assertTrue(((Collection<?>) it).size() == 0);
+        assertTrue(((Collection<?>) it).isEmpty());
     }
 
 }

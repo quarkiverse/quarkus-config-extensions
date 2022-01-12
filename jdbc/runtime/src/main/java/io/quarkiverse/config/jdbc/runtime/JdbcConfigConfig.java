@@ -38,4 +38,11 @@ public class JdbcConfigConfig {
      */
     @ConfigItem(name = "value", defaultValue = "value")
     public Optional<String> valueColumn;
+
+    /**
+     * If set to true, the application will cache all looked up the configuration from DB in memory
+     * If set to false, the application will always get the latest values from the DB
+     */
+    @ConfigItem(name = "cache", defaultValue = "true")
+    public boolean cache;
 }
