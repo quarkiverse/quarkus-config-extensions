@@ -31,8 +31,7 @@ public class Repository implements AutoCloseable {
     private PreparedStatement selectKeys;
     private PreparedStatement selectValue;
 
-    public Repository(String url, String username, String password, String table, String keyColumn, String valueColumn)
-            throws SQLException {
+    public Repository(String url, String username, String password, String table, String keyColumn, String valueColumn) {
         this.url = url;
         this.username = username;
         this.password = password;

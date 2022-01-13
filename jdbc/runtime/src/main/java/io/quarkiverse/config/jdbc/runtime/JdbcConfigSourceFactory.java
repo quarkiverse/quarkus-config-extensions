@@ -48,10 +48,10 @@ public class JdbcConfigSourceFactory implements ConfigSourceFactory {
 
         Map<String, String> result;
         List<ConfigSource> list = new ArrayList<>();
+        if (repository == null) {
+            repository = new Repository(url, username, password, table, keyColumn, valueColumn);
+        }
         try {
-            if (repository == null) {
-                repository = new Repository(url, username, password, table, keyColumn, valueColumn);
-            }
             result = repository.getAllConfigValues();
 
             if (cacheEnabled) {
