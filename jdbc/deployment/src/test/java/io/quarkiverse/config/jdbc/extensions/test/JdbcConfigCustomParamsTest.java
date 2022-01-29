@@ -38,6 +38,7 @@ public class JdbcConfigCustomParamsTest {
 
         int result = updateConfigValue("greeting.message", "updated hello from custom table");
         Assertions.assertTrue(result > 0);
+        // assert we are getting the updated message because cache is disabled
         message = c.getValue("greeting.message", String.class);
         Assertions.assertEquals("updated hello from custom table", message);
     }

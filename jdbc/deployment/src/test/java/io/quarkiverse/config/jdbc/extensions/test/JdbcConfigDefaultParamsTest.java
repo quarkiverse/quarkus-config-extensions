@@ -38,6 +38,7 @@ public class JdbcConfigDefaultParamsTest {
 
         int result = updateConfigValue("greeting.message", "updated hello from default table");
         Assertions.assertTrue(result > 0);
+        // assert we are still getting the original message because cache is enabled
         message = c.getValue("greeting.message", String.class);
         Assertions.assertEquals("hello from default table", message);
     }

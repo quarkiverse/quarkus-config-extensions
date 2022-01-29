@@ -3,8 +3,6 @@ package io.quarkiverse.config.jdbc.runtime;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -19,25 +17,15 @@ import io.agroal.api.security.SimplePassword;
 
 public class Repository implements AutoCloseable {
 
-    private final String url;
-    private final String username;
-    private final String password;
-    private final String table;
-    private final String keyColumn;
-    private final String valueColumn;
+    private JdbcConfigConfig config;
 
     private AgroalDataSource dataSource;
     private PreparedStatement selectAll;
     private PreparedStatement selectKeys;
     private PreparedStatement selectValue;
 
-    public Repository(String url, String username, String password, String table, String keyColumn, String valueColumn) {
-        this.url = url;
-        this.username = username;
-        this.password = password;
-        this.table = table;
-        this.keyColumn = keyColumn;
-        this.valueColumn = valueColumn;
+    public Repository(JdbcConfigConfig config) {
+        this.config = config;
     }
 
     public synchronized Map<String, String> getAllConfigValues()
@@ -100,23 +88,31 @@ public class Repository implements AutoCloseable {
                 .connectionFactoryConfiguration();
 
         // configure pool
-        poolConfiguration.initialSize(5).maxSize(5).minSize(1)
-                .acquisitionTimeout(Duration.of(20, ChronoUnit.SECONDS));
+        poolConfiguration
+                .initialSize(config.initialSize)
+                .minSize(config.initialSize)
+                .maxSize(config.maxSize)
+                .acquisitionTimeout(config.acquisitionTimeout);
 
         // configure supplier
-        connectionFactoryConfiguration.jdbcUrl(url).credential(new NamePrincipal(username))
-                .credential(new SimplePassword(password));
+        connectionFactoryConfiguration
+                .jdbcUrl(config.url.get())
+                .credential(new NamePrincipal(config.username.get()))
+                .credential(new SimplePassword(config.password.get()));
 
         dataSource = AgroalDataSource.from(dataSourceConfiguration.get());
     }
 
     private void prepareStatments() throws SQLException {
-        String selectAllQuery = new StringBuilder("SELECT conf.").append(keyColumn).append(", conf.").append(valueColumn)
-                .append(" FROM ").append(table).append(" conf").toString();
-        String selectKeysQuery = new StringBuilder("SELECT conf.").append(keyColumn).append(" FROM ").append(table)
+        String selectAllQuery = new StringBuilder("SELECT conf.").append(config.keyColumn.get()).append(", conf.")
+                .append(config.valueColumn.get())
+                .append(" FROM ").append(config.table.get()).append(" conf").toString();
+        String selectKeysQuery = new StringBuilder("SELECT conf.").append(config.keyColumn.get()).append(" FROM ")
+                .append(config.table.get())
                 .append(" conf").toString();
-        String selectValueQuery = new StringBuilder("SELECT conf.").append(valueColumn).append(" FROM ").append(table)
-                .append(" conf").append(" WHERE conf.").append(keyColumn).append(" = ?").toString();
+        String selectValueQuery = new StringBuilder("SELECT conf.").append(config.valueColumn.get()).append(" FROM ")
+                .append(config.table.get())
+                .append(" conf").append(" WHERE conf.").append(config.keyColumn.get()).append(" = ?").toString();
 
         selectAll = dataSource.getConnection().prepareStatement(selectAllQuery);
         selectKeys = dataSource.getConnection().prepareStatement(selectKeysQuery);
