@@ -1,0 +1,135 @@
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time - All other configuration properties are overridable at runtime
+[.configuration-reference.searchable, cols="80,.^10,.^10"]
+|===
+
+h|[[quarkus-jdbc-config_configuration]]link:#quarkus-jdbc-config_configuration[Configuration property]
+
+h|Type
+h|Default
+
+a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.enabled]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.enabled[quarkus.config.source.jdbc.enabled]`
+
+[.description]
+--
+If set to true, the application will attempt to look up the configuration from DB
+--|boolean 
+|`true`
+
+a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.cache]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.cache[quarkus.config.source.jdbc.cache]`
+
+[.description]
+--
+If set to true, the application will cache all looked up the configuration from DB in memory
+If set to false, the application will always get the latest values from the DB
+--|boolean 
+|`true`
+
+
+a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.table]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.table[quarkus.config.source.jdbc.table]`
+
+[.description]
+--
+Table name for configuration records
+--|string 
+|`configuration`
+
+
+a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.key]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.key[quarkus.config.source.jdbc.key]`
+
+[.description]
+--
+Name of the column containing the key
+--|string 
+|`key`
+
+
+a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.value]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.value[quarkus.config.source.jdbc.value]`
+
+[.description]
+--
+Name of the column containing the value
+--|string 
+|`value`
+
+
+a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.username]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.username[quarkus.config.source.jdbc.username]`
+
+[.description]
+--
+The datasource username, if not defined the usename of the default datasource is used
+--|string 
+| value of `quarkus.datasource.username`
+
+
+a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.password]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.password[quarkus.config.source.jdbc.password]`
+
+[.description]
+--
+The datasource password, if not defined the password of the default datasource is used
+--|string 
+| value of `quarkus.datasource.password`
+
+
+a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.url]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.url[quarkus.config.source.jdbc.url]`
+
+[.description]
+--
+The datasource URL, if not defined the URL of the default datasource is used
+--|string 
+| value of `quarkus.datasource..jdbc.url`
+
+
+a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.initial-size]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.initial-size[quarkus.config.source.jdbc.initial-size]`
+
+[.description]
+--
+The initial size of the pool. Usually you will want to set the initial size to match at least the minimal size, but this is not enforced so to allow for architectures which prefer a lazy initialization of the connections on boot, while being able to sustain a minimal pool size after boot.
+--|int 
+|`0`
+
+
+a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.min-size]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.min-size[quarkus.config.source.jdbc.min-size]`
+
+[.description]
+--
+The int pool minimum size
+--|int 
+|`0`
+
+
+a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.max-size]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.max-size[quarkus.config.source.jdbc.max-size]`
+
+[.description]
+--
+The datasource pool maximum size
+--|int 
+|`5`
+
+
+a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.acquisition-timeout]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.acquisition-timeout[quarkus.config.source.jdbc.acquisition-timeout]`
+
+[.description]
+--
+The timeout before cancelling the acquisition of a new connection
+--|link:https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html[Duration]
+  link:#duration-note-anchor[icon:question-circle[], title=More information about the Duration format]
+|`5`
+
+
+
+
+|===
+ifndef::no-duration-note[]
+[NOTE]
+[[duration-note-anchor]]
+.About the Duration format
+====
+The format for durations uses the standard `java.time.Duration` format.
+You can learn more about it in the link:https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html#parse-java.lang.CharSequence-[Duration#parse() javadoc].
+
+You can also provide duration values starting with a number.
+In this case, if the value consists only of a number, the converter treats the value as seconds.
+Otherwise, `PT` is implicitly prepended to the value to obtain a standard `java.time.Duration` format.
+====
+endif::no-duration-note[]
