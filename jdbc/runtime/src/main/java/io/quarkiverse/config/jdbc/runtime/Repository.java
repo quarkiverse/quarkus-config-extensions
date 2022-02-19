@@ -1,12 +1,16 @@
 package io.quarkiverse.config.jdbc.runtime;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import org.jboss.logging.Logger;
 
 import io.agroal.api.AgroalDataSource;
 import io.agroal.api.configuration.supplier.AgroalConnectionFactoryConfigurationSupplier;
@@ -17,64 +21,73 @@ import io.agroal.api.security.SimplePassword;
 
 public class Repository implements AutoCloseable {
 
-    private JdbcConfigConfig config;
+    private static final Logger log = Logger.getLogger(Repository.class);
+
+    private final JdbcConfigConfig config;
 
     private AgroalDataSource dataSource;
-    private PreparedStatement selectAll;
-    private PreparedStatement selectKeys;
-    private PreparedStatement selectValue;
 
-    public Repository(JdbcConfigConfig config) {
+    public Repository(JdbcConfigConfig config) throws SQLException {
         this.config = config;
+        prepareDataSource();
     }
 
-    public synchronized Map<String, String> getAllConfigValues()
-            throws SQLException {
-        Map<String, String> result = new HashMap<>();
-        initializeRepository();
-        if (selectAll != null) {
-            try (ResultSet rs = selectAll.executeQuery()) {
+    public synchronized Map<String, String> getAllConfigValues() throws SQLException {
+        final String selectAllQuery = new StringBuilder("SELECT conf.").append(config.keyColumn.get())
+                .append(", conf.").append(config.valueColumn.get())
+                .append(" FROM ").append(config.table.get()).append(" conf").toString();
+
+        try (final Connection connection = dataSource.getConnection()) {
+            final PreparedStatement selectAllStmt = connection.prepareStatement(selectAllQuery);
+            try (ResultSet rs = selectAllStmt.executeQuery()) {
+                final Map<String, String> result = new HashMap<>();
                 while (rs.next()) {
                     result.put(rs.getString(1), rs.getString(2));
                 }
+                return result;
             }
+        } catch (SQLException e) {
+            log.trace("config-jdbc: could not get values: " + e.getLocalizedMessage());
+            return Collections.emptyMap();
         }
-
-        return result;
     }
 
-    public Set<String> getPropertyNames() throws SQLException {
-        Set<String> keys = new HashSet<>();
-        initializeRepository();
-        if (selectKeys != null) {
-            try (ResultSet rs = selectKeys.executeQuery()) {
+    public synchronized Set<String> getPropertyNames() throws SQLException {
+        final String selectKeysQuery = new StringBuilder("SELECT conf.").append(config.keyColumn.get())
+                .append(" FROM ").append(config.table.get()).append(" conf").toString();
+
+        try (final Connection connection = dataSource.getConnection()) {
+            final PreparedStatement selectKeysStmt = connection.prepareStatement(selectKeysQuery);
+            final Set<String> keys = new HashSet<>();
+            try (ResultSet rs = selectKeysStmt.executeQuery()) {
                 while (rs.next()) {
                     keys.add(rs.getString(1));
                 }
+                return keys;
             }
+        } catch (SQLException e) {
+            log.trace("config-jdbc: could not get keys: " + e.getLocalizedMessage());
+            return Collections.emptySet();
         }
-        return keys;
     }
 
     public String getValue(String propertyName) throws SQLException {
-        initializeRepository();
-        if (selectValue != null) {
-            selectValue.clearParameters();
-            selectValue.setString(1, propertyName);
-            try (ResultSet rs = selectValue.executeQuery()) {
+        final String selectValueQuery = new StringBuilder("SELECT conf.").append(config.valueColumn.get())
+                .append(" FROM ").append(config.table.get()).append(" conf")
+                .append(" WHERE conf.").append(config.keyColumn.get()).append(" = ?").toString();
+
+        try (final Connection connection = dataSource.getConnection()) {
+            final PreparedStatement selectValueStmt = connection.prepareStatement(selectValueQuery);
+            selectValueStmt.setString(1, propertyName);
+            try (ResultSet rs = selectValueStmt.executeQuery()) {
                 while (rs.next()) {
                     return rs.getString(1);
                 }
             }
+        } catch (SQLException e) {
+            log.trace("config-jdbc: could not get value for key " + propertyName + ": " + e.getLocalizedMessage());
         }
         return null;
-    }
-
-    private void initializeRepository() throws SQLException {
-        if (dataSource == null || !dataSource.isHealthy(false)) {
-            prepareDataSource();
-            prepareStatments();
-        }
     }
 
     private void prepareDataSource() throws SQLException {
@@ -101,23 +114,6 @@ public class Repository implements AutoCloseable {
                 .credential(new SimplePassword(config.password.get()));
 
         dataSource = AgroalDataSource.from(dataSourceConfiguration.get());
-    }
-
-    private void prepareStatments() throws SQLException {
-        String selectAllQuery = new StringBuilder("SELECT conf.").append(config.keyColumn.get()).append(", conf.")
-                .append(config.valueColumn.get())
-                .append(" FROM ").append(config.table.get()).append(" conf").toString();
-        String selectKeysQuery = new StringBuilder("SELECT conf.").append(config.keyColumn.get()).append(" FROM ")
-                .append(config.table.get())
-                .append(" conf").toString();
-        String selectValueQuery = new StringBuilder("SELECT conf.").append(config.valueColumn.get()).append(" FROM ")
-                .append(config.table.get())
-                .append(" conf").append(" WHERE conf.").append(config.keyColumn.get()).append(" = ?").toString();
-
-        selectAll = dataSource.getConnection().prepareStatement(selectAllQuery);
-        selectKeys = dataSource.getConnection().prepareStatement(selectKeysQuery);
-        selectValue = dataSource.getConnection().prepareStatement(selectValueQuery);
-
     }
 
     @Override

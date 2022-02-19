@@ -131,7 +131,7 @@ VALUES ('greeting.message', 'Hello from DB');
 Run the application with: `./mvnw compile quarkus:dev`.
 Open your browser to http://localhost:8080/greeting.
 
-The result should be: `Hello from DB` as it is the value obtained from the Consul Key Value store.
+The result should be: `Hello from DB` as it is the value obtained from the database.
 
 == Run the application as a native executable
 

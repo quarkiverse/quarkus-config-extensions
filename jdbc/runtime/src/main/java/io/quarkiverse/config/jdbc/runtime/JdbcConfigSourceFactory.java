@@ -33,13 +33,12 @@ public class JdbcConfigSourceFactory implements ConfigSourceFactory {
             return Collections.emptyList();
         }
 
-        Map<String, String> result;
-        List<ConfigSource> list = new ArrayList<>();
-        if (repository == null) {
-            repository = new Repository(config);
-        }
+        final List<ConfigSource> list = new ArrayList<>();
         try {
-            result = repository.getAllConfigValues();
+            if (repository == null) {
+                repository = new Repository(config);
+            }
+            final Map<String, String> result = repository.getAllConfigValues();
 
             if (config.cache) {
                 list.add(new InMemoryConfigSource("jdbc-config", result, 400));
