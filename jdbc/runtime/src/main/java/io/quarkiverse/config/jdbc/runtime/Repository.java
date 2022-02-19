@@ -32,7 +32,7 @@ public class Repository implements AutoCloseable {
         prepareDataSource();
     }
 
-    public synchronized Map<String, String> getAllConfigValues() throws SQLException {
+    public synchronized Map<String, String> getAllConfigValues() {
         final String selectAllQuery = new StringBuilder("SELECT conf.").append(config.keyColumn.get())
                 .append(", conf.").append(config.valueColumn.get())
                 .append(" FROM ").append(config.table.get()).append(" conf").toString();
@@ -52,7 +52,7 @@ public class Repository implements AutoCloseable {
         }
     }
 
-    public synchronized Set<String> getPropertyNames() throws SQLException {
+    public synchronized Set<String> getPropertyNames() {
         final String selectKeysQuery = new StringBuilder("SELECT conf.").append(config.keyColumn.get())
                 .append(" FROM ").append(config.table.get()).append(" conf").toString();
 
@@ -71,7 +71,7 @@ public class Repository implements AutoCloseable {
         }
     }
 
-    public String getValue(String propertyName) throws SQLException {
+    public String getValue(String propertyName) {
         final String selectValueQuery = new StringBuilder("SELECT conf.").append(config.valueColumn.get())
                 .append(" FROM ").append(config.table.get()).append(" conf")
                 .append(" WHERE conf.").append(config.keyColumn.get()).append(" = ?").toString();
