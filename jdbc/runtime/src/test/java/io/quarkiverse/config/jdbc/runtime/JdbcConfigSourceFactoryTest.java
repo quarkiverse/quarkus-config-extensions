@@ -15,6 +15,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import io.agroal.api.AgroalDataSource;
 import io.smallrye.config.ConfigSourceContext;
 import io.smallrye.config.ConfigValue;
 
@@ -22,6 +23,7 @@ public class JdbcConfigSourceFactoryTest {
     private ConfigSourceContext context = mock(ConfigSourceContext.class);
     private Repository repository = mock(Repository.class);
     private ConfigValue config = mock(ConfigValue.class);
+    private AgroalDataSource dataSource = mock(AgroalDataSource.class);
 
     @Test
     @DisplayName("Repository returns data")
@@ -47,22 +49,6 @@ public class JdbcConfigSourceFactoryTest {
 
         assertEquals(value, configSource.getValue(key));
 
-    }
-
-    @Test
-    @DisplayName("On SQLException datasource is empty")
-    void testOnSqlException() throws SQLException {
-        JdbcConfigSourceFactory factory = new JdbcConfigSourceFactory();
-
-        when(context.getValue(Mockito.anyString())).thenReturn(config);
-        when(config.getValue()).thenReturn(null);
-        when(repository.getAllConfigValues())
-                .thenThrow(new SQLException());
-
-        factory.repository = repository;
-        Iterable<ConfigSource> it = factory.getConfigSources(context);
-
-        assertTrue(((Collection<?>) it).isEmpty());
     }
 
     @Test
