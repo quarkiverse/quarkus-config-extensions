@@ -7,8 +7,6 @@ import io.smallrye.config.common.AbstractConfigSource;
 
 public class JdbcConfigSource extends AbstractConfigSource {
 
-    private static final org.jboss.logging.Logger log = org.jboss.logging.Logger.getLogger(JdbcConfigSource.class);
-
     private final Repository repository;
 
     public JdbcConfigSource(String name, Repository repository, int defaultOrdinal) {

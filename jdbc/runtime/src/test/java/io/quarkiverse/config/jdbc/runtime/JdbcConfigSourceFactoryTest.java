@@ -6,24 +6,17 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import io.agroal.api.AgroalDataSource;
-import io.smallrye.config.ConfigSourceContext;
-import io.smallrye.config.ConfigValue;
 
 public class JdbcConfigSourceFactoryTest {
-    private ConfigSourceContext context = mock(ConfigSourceContext.class);
-    private Repository repository = mock(Repository.class);
-    private ConfigValue config = mock(ConfigValue.class);
-    private AgroalDataSource dataSource = mock(AgroalDataSource.class);
+    private final JdbcConfigConfig config = mock(JdbcConfigConfig.class);
+    private final Repository repository = mock(Repository.class);
 
     @Test
     @DisplayName("Repository returns data")
@@ -34,19 +27,15 @@ public class JdbcConfigSourceFactoryTest {
         Map<String, String> map = new HashMap<>();
         map.put(key, value);
 
-        when(context.getValue(Mockito.anyString())).thenReturn(config);
-        when(config.getValue()).thenReturn(null);
+        config.enabled = true;
 
         when(repository.getAllConfigValues()).thenReturn(map);
         when(repository.getValue(key)).thenReturn(value);
 
-        factory.repository = repository;
-        Iterable<ConfigSource> it = factory.getConfigSources(context);
+        List<ConfigSource> configSources = factory.getConfigSource(config, repository);
+        assertEquals(1, configSources.size());
 
-        assertTrue(((Collection<?>) it).size() == 1);
-
-        ConfigSource configSource = it.iterator().next();
-
+        ConfigSource configSource = configSources.iterator().next();
         assertEquals(value, configSource.getValue(key));
 
     }
@@ -56,12 +45,11 @@ public class JdbcConfigSourceFactoryTest {
     void testDisabledJdbcConfig() {
         JdbcConfigSourceFactory factory = new JdbcConfigSourceFactory();
 
-        when(context.getValue("quarkus.config.source.jdbc.enabled")).thenReturn(config);
-        when(config.getValue()).thenReturn("false");
+        config.enabled = false;
 
-        Iterable<ConfigSource> it = factory.getConfigSources(context);
+        List<ConfigSource> configSources = factory.getConfigSource(config, repository);
+        assertTrue(configSources.isEmpty());
 
-        assertTrue(((Collection<?>) it).isEmpty());
     }
 
 }

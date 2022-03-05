@@ -33,36 +33,36 @@ public class JdbcConfigConfig {
      * Table name for configuration records
      */
     @ConfigItem(name = "table", defaultValue = "configuration")
-    public Optional<String> table = Optional.of("configuration");
+    public String table;
 
     /**
      * Name of the column containing the key
      */
     @ConfigItem(name = "key", defaultValue = "key")
-    public Optional<String> keyColumn = Optional.of("key");
+    public String keyColumn;
 
     /**
      * Name of the column containing the value
      */
     @ConfigItem(name = "value", defaultValue = "value")
-    public Optional<String> valueColumn = Optional.of("value");
+    public String valueColumn;
 
     /**
      * The datasource username, if not defined the usename of the default datasource is used
      */
-    @ConfigItem
+    @ConfigItem(name = "username")
     public Optional<String> username = Optional.empty();;
 
     /**
      * The datasource password, if not defined the password of the default datasource is used
      */
-    @ConfigItem
+    @ConfigItem(name = "password")
     public Optional<String> password = Optional.empty();;
 
     /**
      * The datasource URL, if not defined the URL of the default datasource is used
      */
-    @ConfigItem
+    @ConfigItem(name = "url")
     public Optional<String> url = Optional.empty();
 
     /**
@@ -70,24 +70,24 @@ public class JdbcConfigConfig {
      * minimal size, but this is not enforced so to allow for architectures which prefer a lazy initialization
      * of the connections on boot, while being able to sustain a minimal pool size after boot.
      */
-    @ConfigItem(defaultValue = "0")
+    @ConfigItem(name = "initial-size", defaultValue = "0")
     public int initialSize = 0;
 
     /**
      * The datasource pool minimum size
      */
-    @ConfigItem(defaultValue = "0")
+    @ConfigItem(name = "min-size", defaultValue = "0")
     public int minSize = 0;
 
     /**
      * The datasource pool maximum size
      */
-    @ConfigItem(defaultValue = "5")
+    @ConfigItem(name = "max-size", defaultValue = "5")
     public int maxSize = 5;
 
     /**
      * The timeout before cancelling the acquisition of a new connection
      */
-    @ConfigItem(defaultValue = "5")
+    @ConfigItem(name = "acquisition-timeout", defaultValue = "5")
     public Duration acquisitionTimeout = Duration.ofSeconds(5);
 }

@@ -18,44 +18,40 @@ import io.smallrye.config.common.MapBackedConfigSource;
 public class JdbcConfigSourceFactory implements ConfigSourceFactory {
 
     private static final Logger log = Logger.getLogger(JdbcConfigSourceFactory.class);
-    Repository repository = null;
-    JdbcConfigConfig config;
 
     @Override
     public Iterable<ConfigSource> getConfigSources(ConfigSourceContext context) {
-        populateConfig(context);
-        return getConfigSource();
+        try {
+            final JdbcConfigConfig config = populateConfig(context);
+            final Repository repository = new Repository(config);
+            return getConfigSource(config, repository);
+        } catch (SQLException e) {
+            log.warn("jdbc-config disabled. reason: " + e.getLocalizedMessage());
+            return Collections.emptyList();
+        }
     }
 
-    private List<ConfigSource> getConfigSource() {
+    protected List<ConfigSource> getConfigSource(final JdbcConfigConfig config, final Repository repository) {
 
         if (!config.enabled) {
             return Collections.emptyList();
         }
 
         final List<ConfigSource> list = new ArrayList<>();
-        try {
-            if (repository == null) {
-                repository = new Repository(config);
-            }
-            final Map<String, String> result = repository.getAllConfigValues();
+        final Map<String, String> result = repository.getAllConfigValues();
 
-            if (config.cache) {
-                list.add(new InMemoryConfigSource("jdbc-config", result, 400));
-            } else {
-                list.add(new JdbcConfigSource("jdbc-config", repository, 400));
-            }
-
-        } catch (SQLException e) {
-            log.warn("jdbc-config disabled. reason: " + e.getLocalizedMessage());
-            return Collections.emptyList();
+        if (config.cache) {
+            list.add(new InMemoryConfigSource("jdbc-config", result, 400));
+        } else {
+            list.add(new JdbcConfigSource("jdbc-config", repository, 400));
         }
+
         return list;
 
     }
 
-    private void populateConfig(ConfigSourceContext context) {
-        config = new JdbcConfigConfig();
+    private JdbcConfigConfig populateConfig(ConfigSourceContext context) {
+        final JdbcConfigConfig config = new JdbcConfigConfig();
 
         // jdbc-config parameters
 
@@ -64,7 +60,7 @@ public class JdbcConfigSourceFactory implements ConfigSourceFactory {
 
         // short-circuit if config is disabled
         if (!config.enabled) {
-            return;
+            return config;
         }
 
         config.cache = Boolean.valueOf(Optional.ofNullable(context.getValue("quarkus.config.source.jdbc.cache").getValue())
@@ -72,11 +68,11 @@ public class JdbcConfigSourceFactory implements ConfigSourceFactory {
 
         // table, keyColumn, valueColumn
         config.table = Optional.ofNullable(context.getValue("quarkus.config.source.jdbc.table").getValue())
-                .or(() -> config.table);
+                .orElse(config.table);
         config.keyColumn = Optional.ofNullable(context.getValue("quarkus.config.source.jdbc.key").getValue())
-                .or(() -> config.keyColumn);
+                .orElse(config.keyColumn);
         config.valueColumn = Optional.ofNullable(context.getValue("quarkus.config.source.jdbc.value").getValue())
-                .or(() -> config.valueColumn);
+                .orElse(config.valueColumn);
 
         // connection parameters
 
@@ -108,6 +104,7 @@ public class JdbcConfigSourceFactory implements ConfigSourceFactory {
         } else {
             config.acquisitionTimeout = Duration.parse(timeout.orElse(config.acquisitionTimeout.toString()));
         }
+        return config;
     }
 
     private static final class InMemoryConfigSource extends MapBackedConfigSource {
