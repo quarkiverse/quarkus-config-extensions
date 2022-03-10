@@ -45,6 +45,8 @@ public class Repository implements AutoCloseable {
                     result.put(rs.getString(1), rs.getString(2));
                 }
                 return result;
+            } finally {
+                selectAllStmt.close();
             }
         } catch (SQLException e) {
             log.trace("config-jdbc: could not get values: " + e.getLocalizedMessage());
@@ -61,6 +63,8 @@ public class Repository implements AutoCloseable {
                     keys.add(rs.getString(1));
                 }
                 return keys;
+            } finally {
+                selectKeysStmt.close();
             }
         } catch (SQLException e) {
             log.trace("config-jdbc: could not get keys: " + e.getLocalizedMessage());
@@ -76,6 +80,8 @@ public class Repository implements AutoCloseable {
                 while (rs.next()) {
                     return rs.getString(1);
                 }
+            } finally {
+                selectValueStmt.close();
             }
         } catch (SQLException e) {
             log.trace("config-jdbc: could not get value for key " + propertyName + ": " + e.getLocalizedMessage());
