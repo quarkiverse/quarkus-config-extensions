@@ -6,60 +6,38 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import io.smallrye.config.ConfigSourceContext;
-import io.smallrye.config.ConfigValue;
 
 public class JdbcConfigSourceFactoryTest {
-    private ConfigSourceContext context = mock(ConfigSourceContext.class);
-    private Repository repository = mock(Repository.class);
-    private ConfigValue config = mock(ConfigValue.class);
+    private final JdbcConfigConfig config = mock(JdbcConfigConfig.class);
+    private final Repository repository = mock(Repository.class);
 
     @Test
     @DisplayName("Repository returns data")
     void testOnStoredData() throws SQLException {
+        String key = "foo";
+        String value = "sample value";
         JdbcConfigSourceFactory factory = new JdbcConfigSourceFactory();
         Map<String, String> map = new HashMap<>();
-        map.put("foo", "sample value");
+        map.put(key, value);
 
-        when(context.getValue(Mockito.anyString())).thenReturn(config);
-        when(config.getValue()).thenReturn(null);
-        when(repository.getAllConfigValues(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
-                .thenReturn(map);
+        config.enabled = true;
 
-        factory.repository = repository;
-        Iterable<ConfigSource> it = factory.getConfigSources(context);
+        when(repository.getAllConfigValues()).thenReturn(map);
+        when(repository.getValue(key)).thenReturn(value);
 
-        assertTrue(((Collection<?>) it).size() == 1);
+        List<ConfigSource> configSources = factory.getConfigSource(config, repository);
+        assertEquals(1, configSources.size());
 
-        ConfigSource configSource = it.iterator().next();
+        ConfigSource configSource = configSources.iterator().next();
+        assertEquals(value, configSource.getValue(key));
 
-        assertEquals("sample value", configSource.getValue("foo"));
-
-    }
-
-    @Test
-    @DisplayName("On SQLException datasource is empty")
-    void testOnSqlException() throws SQLException {
-        JdbcConfigSourceFactory factory = new JdbcConfigSourceFactory();
-
-        when(context.getValue(Mockito.anyString())).thenReturn(config);
-        when(config.getValue()).thenReturn(null);
-        when(repository.getAllConfigValues(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
-                .thenThrow(new SQLException());
-
-        factory.repository = repository;
-        Iterable<ConfigSource> it = factory.getConfigSources(context);
-
-        assertTrue(((Collection<?>) it).size() == 0);
     }
 
     @Test
@@ -67,12 +45,11 @@ public class JdbcConfigSourceFactoryTest {
     void testDisabledJdbcConfig() {
         JdbcConfigSourceFactory factory = new JdbcConfigSourceFactory();
 
-        when(context.getValue("quarkus.config.source.jdbc.enabled")).thenReturn(config);
-        when(config.getValue()).thenReturn("false");
+        config.enabled = false;
 
-        Iterable<ConfigSource> it = factory.getConfigSources(context);
+        List<ConfigSource> configSources = factory.getConfigSource(config, repository);
+        assertTrue(configSources.isEmpty());
 
-        assertTrue(((Collection<?>) it).size() == 0);
     }
 
 }

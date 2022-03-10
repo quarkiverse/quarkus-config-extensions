@@ -1,12 +1,16 @@
 package io.quarkiverse.config.jdbc.runtime;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+
+import org.jboss.logging.Logger;
 
 import io.agroal.api.AgroalDataSource;
 import io.agroal.api.configuration.supplier.AgroalConnectionFactoryConfigurationSupplier;
@@ -15,42 +19,68 @@ import io.agroal.api.configuration.supplier.AgroalDataSourceConfigurationSupplie
 import io.agroal.api.security.NamePrincipal;
 import io.agroal.api.security.SimplePassword;
 
-public class Repository {
-    private String url;
-    private String username;
-    private String password;
+public class Repository implements AutoCloseable {
+    private static final Logger log = Logger.getLogger(Repository.class);
 
-    public Repository(String url, String username, String password) {
-        this.url = url;
-        this.username = username;
-        this.password = password;
+    private AgroalDataSource dataSource;
 
+    private String selectAllQuery;
+    private String selectKeysQuery;
+    private String selectValueQuery;
+
+    public Repository(JdbcConfigConfig config) throws SQLException {
+        prepareDataSource(config);
+        prepareQueries(config);
     }
 
-    public synchronized Map<String, String> getAllConfigValues(String table, String keyColumn, String valueColumn)
-            throws SQLException {
-        Map<String, String> result = new HashMap<>();
+    public synchronized Map<String, String> getAllConfigValues() {
+        try (final Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement selectAllStmt = connection.prepareStatement(selectAllQuery);
+                    ResultSet rs = selectAllStmt.executeQuery()) {
+                final Map<String, String> result = new HashMap<>();
+                while (rs.next()) {
+                    result.put(rs.getString(1), rs.getString(2));
+                }
+                return result;
+            }
+        } catch (SQLException e) {
+            log.trace("config-jdbc: could not get values: " + e.getLocalizedMessage());
+            return Collections.emptyMap();
+        }
+    }
 
-        try (AgroalDataSource datasource = getDataSource(url, username, password)) {
+    public synchronized Set<String> getPropertyNames() {
+        try (final Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement selectKeysStmt = connection.prepareStatement(selectKeysQuery);
+                    ResultSet rs = selectKeysStmt.executeQuery()) {
+                final Set<String> keys = new HashSet<>();
+                while (rs.next()) {
+                    keys.add(rs.getString(1));
+                }
+                return keys;
+            }
+        } catch (SQLException e) {
+            log.trace("config-jdbc: could not get keys: " + e.getLocalizedMessage());
+            return Collections.emptySet();
+        }
+    }
 
-            String selectAllQuery = new StringBuilder("SELECT conf.").append(keyColumn).append(", conf.")
-                    .append(valueColumn).append(" FROM ").append(table).append(" conf").toString();
-            PreparedStatement selectAll = datasource.getConnection().prepareStatement(selectAllQuery);
-
-            if (selectAll != null) {
-                try (ResultSet rs = selectAll.executeQuery()) {
-                    while (rs.next()) {
-                        result.put(rs.getString(1), rs.getString(2));
-                    }
+    public String getValue(String propertyName) {
+        try (final Connection connection = dataSource.getConnection()) {
+            final PreparedStatement selectValueStmt = connection.prepareStatement(selectValueQuery);
+            selectValueStmt.setString(1, propertyName);
+            try (ResultSet rs = selectValueStmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString(1);
                 }
             }
-
+        } catch (SQLException e) {
+            log.trace("config-jdbc: could not get value for key " + propertyName + ": " + e.getLocalizedMessage());
         }
-
-        return result;
+        return null;
     }
 
-    private AgroalDataSource getDataSource(String url, String username, String password) throws SQLException {
+    private void prepareDataSource(final JdbcConfigConfig config) throws SQLException {
         // create supplier
         AgroalDataSourceConfigurationSupplier dataSourceConfiguration = new AgroalDataSourceConfigurationSupplier();
         // get reference to connection pool
@@ -61,14 +91,32 @@ public class Repository {
                 .connectionFactoryConfiguration();
 
         // configure pool
-        poolConfiguration.initialSize(2).maxSize(2).minSize(2).maxLifetime(Duration.of(30, ChronoUnit.SECONDS))
-                .acquisitionTimeout(Duration.of(20, ChronoUnit.SECONDS));
+        poolConfiguration
+                .initialSize(config.initialSize)
+                .minSize(config.initialSize)
+                .maxSize(config.maxSize)
+                .acquisitionTimeout(config.acquisitionTimeout);
 
         // configure supplier
-        connectionFactoryConfiguration.jdbcUrl(url).credential(new NamePrincipal(username))
-                .credential(new SimplePassword(password));
+        connectionFactoryConfiguration
+                .jdbcUrl(config.url.get())
+                .credential(new NamePrincipal(config.username.get()))
+                .credential(new SimplePassword(config.password.get()));
 
-        return AgroalDataSource.from(dataSourceConfiguration.get());
+        dataSource = AgroalDataSource.from(dataSourceConfiguration.get());
     }
 
+    private void prepareQueries(final JdbcConfigConfig config) {
+        selectAllQuery = "SELECT conf." + config.keyColumn + ", conf." + config.valueColumn + " FROM " + config.table + " conf";
+        selectKeysQuery = "SELECT conf." + config.keyColumn + " FROM " + config.table + " conf";
+        selectValueQuery = "SELECT conf." + config.valueColumn + " FROM " + config.table + " conf WHERE conf."
+                + config.keyColumn + " = ?1";
+    }
+
+    @Override
+    public void close() {
+        if (dataSource != null) {
+            dataSource.close();
+        }
+    }
 }
