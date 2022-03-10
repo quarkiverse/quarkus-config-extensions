@@ -32,7 +32,6 @@ public class JdbcConfigSourceFactory implements ConfigSourceFactory {
     }
 
     protected List<ConfigSource> getConfigSource(final JdbcConfigConfig config, final Repository repository) {
-
         if (!config.enabled) {
             return Collections.emptyList();
         }
@@ -47,23 +46,22 @@ public class JdbcConfigSourceFactory implements ConfigSourceFactory {
         }
 
         return list;
-
     }
 
     private JdbcConfigConfig populateConfig(ConfigSourceContext context) {
         final JdbcConfigConfig config = new JdbcConfigConfig();
 
         // jdbc-config parameters
-
-        config.enabled = Boolean.valueOf(Optional.ofNullable(context.getValue("quarkus.config.source.jdbc.enabled").getValue())
-                .orElse(String.valueOf(config.enabled)));
+        config.enabled = Boolean
+                .parseBoolean(Optional.ofNullable(context.getValue("quarkus.config.source.jdbc.enabled").getValue())
+                        .orElse(String.valueOf(config.enabled)));
 
         // short-circuit if config is disabled
         if (!config.enabled) {
             return config;
         }
 
-        config.cache = Boolean.valueOf(Optional.ofNullable(context.getValue("quarkus.config.source.jdbc.cache").getValue())
+        config.cache = Boolean.parseBoolean(Optional.ofNullable(context.getValue("quarkus.config.source.jdbc.cache").getValue())
                 .orElse(String.valueOf(config.cache)));
 
         // table, keyColumn, valueColumn
@@ -98,7 +96,7 @@ public class JdbcConfigSourceFactory implements ConfigSourceFactory {
         Optional<String> timeout = Optional
                 .ofNullable(context.getValue("quarkus.config.source.jdbc.acquisition-timeout").getValue());
 
-        // acquisitionTimeout (java.time.Duration) is allowed to be just numbers (seconds) or standart Duratino format (PTXX)
+        // acquisitionTimeout (java.time.Duration) is allowed to be just numbers (seconds) or standard Duration format (PTXX)
         if (timeout.isPresent() && timeout.get().matches("[0-9]+")) {
             config.acquisitionTimeout = Duration.ofSeconds(Long.parseLong(timeout.get()));
         } else {
@@ -108,11 +106,8 @@ public class JdbcConfigSourceFactory implements ConfigSourceFactory {
     }
 
     private static final class InMemoryConfigSource extends MapBackedConfigSource {
-
         public InMemoryConfigSource(String name, Map<String, String> propertyMap, int defaultOrdinal) {
             super(name, propertyMap, defaultOrdinal);
         }
-
     }
-
 }

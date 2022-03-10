@@ -48,7 +48,7 @@ public class JdbcConfigConfig {
     public String valueColumn;
 
     /**
-     * The datasource username, if not defined the usename of the default datasource is used
+     * The datasource username, if not defined the username of the default datasource is used
      */
     @ConfigItem(name = "username")
     public Optional<String> username = Optional.empty();;

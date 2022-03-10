@@ -6,7 +6,6 @@ import java.util.Set;
 import io.smallrye.config.common.AbstractConfigSource;
 
 public class JdbcConfigSource extends AbstractConfigSource {
-
     private final Repository repository;
 
     public JdbcConfigSource(String name, Repository repository, int defaultOrdinal) {
@@ -28,5 +27,4 @@ public class JdbcConfigSource extends AbstractConfigSource {
     public String getValue(String propertyName) {
         return repository.getValue(propertyName);
     }
-
 }

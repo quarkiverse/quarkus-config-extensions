@@ -20,10 +20,8 @@ import io.agroal.api.security.NamePrincipal;
 import io.agroal.api.security.SimplePassword;
 
 public class Repository implements AutoCloseable {
-
     private static final Logger log = Logger.getLogger(Repository.class);
 
-    private final JdbcConfigConfig config;
     private AgroalDataSource dataSource;
 
     private String selectAllQuery;
@@ -31,22 +29,19 @@ public class Repository implements AutoCloseable {
     private String selectValueQuery;
 
     public Repository(JdbcConfigConfig config) throws SQLException {
-        this.config = config;
-        prepareDataSource();
-        prepareQueries();
+        prepareDataSource(config);
+        prepareQueries(config);
     }
 
     public synchronized Map<String, String> getAllConfigValues() {
         try (final Connection connection = dataSource.getConnection()) {
-            final PreparedStatement selectAllStmt = connection.prepareStatement(selectAllQuery);
-            try (ResultSet rs = selectAllStmt.executeQuery()) {
+            try (PreparedStatement selectAllStmt = connection.prepareStatement(selectAllQuery);
+                    ResultSet rs = selectAllStmt.executeQuery()) {
                 final Map<String, String> result = new HashMap<>();
                 while (rs.next()) {
                     result.put(rs.getString(1), rs.getString(2));
                 }
                 return result;
-            } finally {
-                selectAllStmt.close();
             }
         } catch (SQLException e) {
             log.trace("config-jdbc: could not get values: " + e.getLocalizedMessage());
@@ -56,15 +51,13 @@ public class Repository implements AutoCloseable {
 
     public synchronized Set<String> getPropertyNames() {
         try (final Connection connection = dataSource.getConnection()) {
-            final PreparedStatement selectKeysStmt = connection.prepareStatement(selectKeysQuery);
-            final Set<String> keys = new HashSet<>();
-            try (ResultSet rs = selectKeysStmt.executeQuery()) {
+            try (PreparedStatement selectKeysStmt = connection.prepareStatement(selectKeysQuery);
+                    ResultSet rs = selectKeysStmt.executeQuery()) {
+                final Set<String> keys = new HashSet<>();
                 while (rs.next()) {
                     keys.add(rs.getString(1));
                 }
                 return keys;
-            } finally {
-                selectKeysStmt.close();
             }
         } catch (SQLException e) {
             log.trace("config-jdbc: could not get keys: " + e.getLocalizedMessage());
@@ -77,11 +70,9 @@ public class Repository implements AutoCloseable {
             final PreparedStatement selectValueStmt = connection.prepareStatement(selectValueQuery);
             selectValueStmt.setString(1, propertyName);
             try (ResultSet rs = selectValueStmt.executeQuery()) {
-                while (rs.next()) {
+                if (rs.next()) {
                     return rs.getString(1);
                 }
-            } finally {
-                selectValueStmt.close();
             }
         } catch (SQLException e) {
             log.trace("config-jdbc: could not get value for key " + propertyName + ": " + e.getLocalizedMessage());
@@ -89,7 +80,7 @@ public class Repository implements AutoCloseable {
         return null;
     }
 
-    private void prepareDataSource() throws SQLException {
+    private void prepareDataSource(final JdbcConfigConfig config) throws SQLException {
         // create supplier
         AgroalDataSourceConfigurationSupplier dataSourceConfiguration = new AgroalDataSourceConfigurationSupplier();
         // get reference to connection pool
@@ -115,17 +106,11 @@ public class Repository implements AutoCloseable {
         dataSource = AgroalDataSource.from(dataSourceConfiguration.get());
     }
 
-    private void prepareQueries() {
-        selectAllQuery = new StringBuilder("SELECT conf.").append(config.keyColumn)
-                .append(", conf.").append(config.valueColumn)
-                .append(" FROM ").append(config.table).append(" conf").toString();
-
-        selectKeysQuery = new StringBuilder("SELECT conf.").append(config.keyColumn)
-                .append(" FROM ").append(config.table).append(" conf").toString();
-
-        selectValueQuery = new StringBuilder("SELECT conf.").append(config.valueColumn)
-                .append(" FROM ").append(config.table).append(" conf")
-                .append(" WHERE conf.").append(config.keyColumn).append(" = ?").toString();
+    private void prepareQueries(final JdbcConfigConfig config) {
+        selectAllQuery = "SELECT conf." + config.keyColumn + ", conf." + config.valueColumn + " FROM " + config.table + " conf";
+        selectKeysQuery = "SELECT conf." + config.keyColumn + " FROM " + config.table + " conf";
+        selectValueQuery = "SELECT conf." + config.valueColumn + " FROM " + config.table + " conf WHERE conf."
+                + config.keyColumn + " = ?1";
     }
 
     @Override
@@ -134,5 +119,4 @@ public class Repository implements AutoCloseable {
             dataSource.close();
         }
     }
-
 }
