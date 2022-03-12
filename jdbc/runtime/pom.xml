@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.quarkiverse.config</groupId>
         <artifactId>quarkus-config-jdbc-parent</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
     <artifactId>quarkus-config-jdbc</artifactId>
     <name>Quarkus - Config Extensions - JDBC - Runtime</name>
