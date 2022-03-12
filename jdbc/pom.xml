@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.quarkiverse.config</groupId>
         <artifactId>quarkus-config-extensions</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.2</version>
     </parent>
     <artifactId>quarkus-config-jdbc-parent</artifactId>
     <packaging>pom</packaging>
