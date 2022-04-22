@@ -12,6 +12,7 @@
     <modules>
         <module>sample</module>
         <module>consul</module>
+        <module>jdbc</module>
     </modules>
 
     <profiles>

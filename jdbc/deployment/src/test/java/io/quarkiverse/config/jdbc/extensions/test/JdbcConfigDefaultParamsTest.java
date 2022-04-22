@@ -45,7 +45,7 @@ public class JdbcConfigDefaultParamsTest {
 
     private int updateConfigValue(String key, String value) throws SQLException {
         PreparedStatement updateStatement = dataSource.getConnection()
-                .prepareStatement("UPDATE configuration c SET c.value = ? WHERE c.key = ?");
+                .prepareStatement("UPDATE configuration c SET c.configuration_value = ? WHERE c.configuration_key = ?");
         updateStatement.setString(1, value);
         updateStatement.setString(2, key);
         return updateStatement.executeUpdate();
