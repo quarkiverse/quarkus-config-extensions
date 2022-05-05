@@ -38,13 +38,13 @@ public class JdbcConfigConfig {
     /**
      * Name of the column containing the key
      */
-    @ConfigItem(name = "key", defaultValue = "key")
+    @ConfigItem(name = "key", defaultValue = "configuration_key")
     public String keyColumn;
 
     /**
      * Name of the column containing the value
      */
-    @ConfigItem(name = "value", defaultValue = "value")
+    @ConfigItem(name = "value", defaultValue = "configuration_value")
     public String valueColumn;
 
     /**
