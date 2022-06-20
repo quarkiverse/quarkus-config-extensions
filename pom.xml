@@ -8,7 +8,7 @@
     </parent>
     <groupId>io.quarkiverse.config</groupId>
     <artifactId>quarkus-config-extensions</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Quarkus - Config Extensions - Parent</name>
     <modules>
@@ -65,8 +65,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
-  <scm>
-    <tag>1.1.0</tag>
-  </scm>
 </project>
