@@ -37,7 +37,7 @@ public class VertxConsulConfigGateway implements ConsulConfigGateway {
     public VertxConsulConfigGateway(ConsulConfig consulConfig) {
         this.consulConfig = consulConfig;
         this.vertx = createVertxInstance();
-        this.webClient = createHttpClient(vertx, consulConfig.agent);
+        this.webClient = createHttpClient(vertx, consulConfig.agent());
     }
 
     private Vertx createVertxInstance() {
@@ -64,15 +64,15 @@ public class VertxConsulConfigGateway implements ConsulConfigGateway {
     public static WebClient createHttpClient(Vertx vertx, ConsulConfig.AgentConfig agentConfig) {
 
         WebClientOptions webClientOptions = new WebClientOptions()
-                .setConnectTimeout((int) agentConfig.connectionTimeout.toMillis())
-                .setIdleTimeout((int) agentConfig.readTimeout.getSeconds());
+                .setConnectTimeout((int) agentConfig.connectionTimeout().toMillis())
+                .setIdleTimeout((int) agentConfig.readTimeout().getSeconds());
 
-        boolean trustAll = agentConfig.trustCerts;
+        boolean trustAll = agentConfig.trustCerts();
         try {
-            if (agentConfig.trustStore.isPresent()) {
-                Path trustStorePath = agentConfig.trustStore.get();
+            if (agentConfig.trustStore().isPresent()) {
+                Path trustStorePath = agentConfig.trustStore().get();
                 String type = determineStoreType(trustStorePath);
-                KeyStoreOptionsBase storeOptions = storeOptions(trustStorePath, agentConfig.trustStorePassword,
+                KeyStoreOptionsBase storeOptions = storeOptions(trustStorePath, agentConfig.trustStorePassword(),
                         createStoreOptions(type));
                 if (isPfx(type)) {
                     webClientOptions.setPfxTrustOptions((PfxOptions) storeOptions);
@@ -81,10 +81,10 @@ public class VertxConsulConfigGateway implements ConsulConfigGateway {
                 }
             } else if (trustAll) {
                 skipVerify(webClientOptions);
-            } else if (agentConfig.keyStore.isPresent()) {
-                Path trustStorePath = agentConfig.keyStore.get();
+            } else if (agentConfig.keyStore().isPresent()) {
+                Path trustStorePath = agentConfig.keyStore().get();
                 String type = determineStoreType(trustStorePath);
-                KeyStoreOptionsBase storeOptions = storeOptions(trustStorePath, agentConfig.keyStorePassword,
+                KeyStoreOptionsBase storeOptions = storeOptions(trustStorePath, agentConfig.keyStorePassword(),
                         createStoreOptions(type));
                 if (isPfx(type)) {
                     webClientOptions.setPfxTrustOptions((PfxOptions) storeOptions);
@@ -159,11 +159,12 @@ public class VertxConsulConfigGateway implements ConsulConfigGateway {
     @Override
     public Uni<Response> getValue(String key) {
         HttpRequest<Buffer> request = webClient
-                .get(consulConfig.agent.hostPort.getPort(), consulConfig.agent.hostPort.getHostString(), "/v1/kv/" + key)
-                .ssl(consulConfig.agent.useHttps)
+                .get(consulConfig.agent().hostPort().getPort(), consulConfig.agent().hostPort().getHostString(),
+                        "/v1/kv/" + key)
+                .ssl(consulConfig.agent().useHttps())
                 .putHeader("Accept", "application/json;charset=UTF-8");
-        if (consulConfig.agent.token.isPresent()) {
-            request.putHeader("Authorization", "Bearer " + consulConfig.agent.token.get());
+        if (consulConfig.agent().token().isPresent()) {
+            request.putHeader("Authorization", "Bearer " + consulConfig.agent().token().get());
         }
 
         log.debug("Attempting to look up value of key '" + key + "' from Consul.");

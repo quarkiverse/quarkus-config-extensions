@@ -19,7 +19,7 @@ class ResponseConfigSourceUtil {
 
     private static final int ORDINAL = 270; // this is higher than the file system or jar ordinals, but lower than env vars
 
-    public ConfigSource toConfigSource(Response response, ValueType valueType, Optional<String> prefix) {
+    public static ConfigSource toConfigSource(Response response, ValueType valueType, Optional<String> prefix) {
         if (log.isDebugEnabled()) {
             log.debug("Attempting to convert data of key " + " '" + response.getKey()
                     + "' to a list of ConfigSource objects");
@@ -40,7 +40,7 @@ class ResponseConfigSourceUtil {
         return result;
     }
 
-    private String keyWithoutPrefix(Response response, Optional<String> prefix) {
+    private static String keyWithoutPrefix(Response response, Optional<String> prefix) {
         return prefix.isPresent() ? response.getKey().replace(prefix.get() + "/", "") : response.getKey();
     }
 

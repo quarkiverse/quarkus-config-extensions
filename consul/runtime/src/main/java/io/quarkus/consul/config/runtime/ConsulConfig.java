@@ -3,149 +3,132 @@ package io.quarkus.consul.config.runtime;
 import java.net.InetSocketAddress;
 import java.nio.file.Path;
 import java.time.Duration;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.quarkus.runtime.configuration.DurationConverter;
+import io.quarkus.runtime.configuration.InetSocketAddressConverter;
+import io.quarkus.runtime.configuration.PathConverter;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithConverter;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "consul-config", phase = ConfigPhase.BOOTSTRAP)
-public class ConsulConfig {
+@ConfigMapping(prefix = "quarkus.consul-config")
+@ConfigRoot(phase = ConfigPhase.RUN_TIME)
+public interface ConsulConfig {
 
     /**
      * If set to true, the application will attempt to look up the configuration from Consul
      */
-    @ConfigItem(defaultValue = "false")
-    boolean enabled;
+    @WithDefault("false")
+    boolean enabled();
 
     /**
      * Consul agent related configuration
      */
-    @ConfigItem
-    AgentConfig agent;
+    AgentConfig agent();
 
     /**
      * Common prefix that all keys share when looking up the keys from Consul.
      * The prefix is <b>not</b> included in the keys of the user configuration
      */
-    @ConfigItem
-    Optional<String> prefix;
+    Optional<String> prefix();
 
     /**
      * Keys whose value is a raw string.
      * When this is used, the keys that end up in the user configuration are the keys specified her with '/' replaced by '.'
      */
-    @ConfigItem
-    Optional<List<String>> rawValueKeys;
+    Optional<List<String>> rawValueKeys();
 
     /**
      * Keys whose value represents a properties file.
      * When this is used, the keys that end up in the user configuration are the keys of the properties file,
      * not these keys
      */
-    @ConfigItem
-    Optional<List<String>> propertiesValueKeys;
+    Optional<List<String>> propertiesValueKeys();
 
     /**
      * If set to true, the application will not start if any of the configured config sources cannot be located
      */
-    @ConfigItem(defaultValue = "true")
-    boolean failOnMissingKey;
-
-    Map<String, ValueType> keysAsMap() {
-        Map<String, ValueType> result = new LinkedHashMap<>();
-        if (rawValueKeys.isPresent()) {
-            for (String key : rawValueKeys.get()) {
-                result.put(key, ValueType.RAW);
-            }
-        }
-        if (propertiesValueKeys.isPresent()) {
-            for (String key : propertiesValueKeys.get()) {
-                result.put(key, ValueType.PROPERTIES);
-            }
-        }
-        return result;
-    }
+    @WithDefault("true")
+    boolean failOnMissingKey();
 
     @ConfigGroup
-    public static class AgentConfig {
+    interface AgentConfig {
 
         /**
          * Consul agent host
          */
-        @ConfigItem(defaultValue = "localhost:8500")
-        InetSocketAddress hostPort;
+        @WithDefault("localhost:8500")
+        @WithConverter(InetSocketAddressConverter.class)
+        InetSocketAddress hostPort();
 
         /**
          * Whether or not to use HTTPS when communicating with the agent
          */
-        @ConfigItem(defaultValue = "false")
-        boolean useHttps;
+        @WithDefault("false")
+        boolean useHttps();
 
         /**
          * Consul token to be provided when authentication is enabled
          */
-        @ConfigItem
-        Optional<String> token;
+        Optional<String> token();
 
         /**
          * TrustStore to be used containing the SSL certificate used by Consul agent
          * Can be either a classpath resource or a file system path
          */
-        @ConfigItem
-        public Optional<Path> trustStore;
+        @WithConverter(PathConverter.class)
+        Optional<Path> trustStore();
 
         /**
          * Password of TrustStore to be used containing the SSL certificate used by Consul agent
          */
-        @ConfigItem
-        public Optional<String> trustStorePassword;
+        Optional<String> trustStorePassword();
 
         /**
          * KeyStore to be used containing the SSL certificate for authentication with Consul agent
          * Can be either a classpath resource or a file system path
          */
-        @ConfigItem
-        public Optional<Path> keyStore;
+        @WithConverter(PathConverter.class)
+        Optional<Path> keyStore();
 
         /**
          * Password of KeyStore to be used containing the SSL certificate for authentication with Consul agent
          */
-        @ConfigItem
-        public Optional<String> keyStorePassword;
+        Optional<String> keyStorePassword();
 
         /**
          * Password to recover key from KeyStore for SSL client authentication with Consul agent
          * If no value is provided, the key-store-password will be used
          */
-        @ConfigItem
-        public Optional<String> keyPassword;
+        Optional<String> keyPassword();
 
         /**
          * When using HTTPS and no keyStore has been specified, whether or not to trust all certificates
          */
-        @ConfigItem(defaultValue = "false")
-        boolean trustCerts;
+        @WithDefault("false")
+        boolean trustCerts();
 
         /**
          * The amount of time to wait when initially establishing a connection before giving up and timing out.
          * <p>
          * Specify `0` to wait indefinitely.
          */
-        @ConfigItem(defaultValue = "10S")
-        public Duration connectionTimeout;
+        @WithDefault("10s")
+        @WithConverter(DurationConverter.class)
+        Duration connectionTimeout();
 
         /**
          * The amount of time to wait for a read on a socket before an exception is thrown.
          * <p>
          * Specify `0` to wait indefinitely.
          */
-        @ConfigItem(defaultValue = "60S")
-        public Duration readTimeout;
+        @WithDefault("60s")
+        @WithConverter(DurationConverter.class)
+        Duration readTimeout();
     }
-
 }
