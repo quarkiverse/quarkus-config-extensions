@@ -1,9 +1,10 @@
 # Quarkus Config Extensions
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![Build](https://github.com/quarkiverse/quarkus-config-extensions/workflows/Build/badge.svg?branch=main)](https://github.com/quarkiverse/quarkus-config-extensions/actions?query=workflow%3ABuild)
+[![License](https://img.shields.io/github/license/quarkiverse/quarkus-config-extensions.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Central](https://img.shields.io/maven-central/v/io.quarkiverse.config/quarkus-config-extensions?color=green)](https://search.maven.org/search?q=a:quarkus-config-extensions)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-green.svg)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-
-[![Version](https://img.shields.io/maven-central/v/io.quarkiverse.config/quarkus-config-extensions?logo=apache-maven&style=flat-square)](https://search.maven.org/artifact/io.quarkiverse.config/quarkus-config-extensions)
 
 ## Introduction
 
