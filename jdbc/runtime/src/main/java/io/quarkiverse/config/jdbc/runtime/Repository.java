@@ -93,25 +93,26 @@ public class Repository implements AutoCloseable {
 
         // configure pool
         poolConfiguration
-                .initialSize(config.initialSize)
-                .minSize(config.initialSize)
-                .maxSize(config.maxSize)
-                .acquisitionTimeout(config.acquisitionTimeout);
+                .initialSize(config.initialSize())
+                .minSize(config.minSize())
+                .maxSize(config.maxSize())
+                .acquisitionTimeout(config.acquisitionTimeout());
 
         // configure supplier
         connectionFactoryConfiguration
-                .jdbcUrl(config.url.get())
-                .credential(new NamePrincipal(config.username.get()))
-                .credential(new SimplePassword(config.password.get()));
+                .jdbcUrl(config.url())
+                .credential(new NamePrincipal(config.username()))
+                .credential(new SimplePassword(config.password()));
 
         dataSource = AgroalDataSource.from(dataSourceConfiguration.get());
     }
 
     private void prepareQueries(final JdbcConfigConfig config) {
-        selectAllQuery = "SELECT conf." + config.keyColumn + ", conf." + config.valueColumn + " FROM " + config.table + " conf";
-        selectKeysQuery = "SELECT conf." + config.keyColumn + " FROM " + config.table + " conf";
-        selectValueQuery = "SELECT conf." + config.valueColumn + " FROM " + config.table + " conf WHERE conf."
-                + config.keyColumn + " = ?1";
+        selectAllQuery = "SELECT conf." + config.keyColumn() + ", conf." + config.valueColumn() + " FROM " + config.table()
+                + " conf";
+        selectKeysQuery = "SELECT conf." + config.keyColumn() + " FROM " + config.table() + " conf";
+        selectValueQuery = "SELECT conf." + config.valueColumn() + " FROM " + config.table() + " conf WHERE conf."
+                + config.keyColumn() + " = ?1";
     }
 
     @Override

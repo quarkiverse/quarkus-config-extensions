@@ -12,8 +12,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -21,18 +19,17 @@ import java.util.Optional;
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.junit.jupiter.api.Test;
 
-class ConsulConfigSourceProviderTest {
+import io.quarkus.consul.config.runtime.ConsulConfig.AgentConfig;
 
+class ConsulConfigSourceFactoryTest {
     private static final int EXPECTED_ORDINAL = 270;
 
     @Test
-    void testEmptyKeys() throws IOException {
-        ConsulConfig config = defaultConfig();
-
+    void testEmptyKeys() {
+        ConsulConfig config = mock(ConsulConfig.class);
         ConsulConfigGateway mockGateway = mock(ConsulConfigGateway.class);
-        ConsulConfigSourceProvider sut = new ConsulConfigSourceProvider(config, mockGateway);
 
-        Iterable<ConfigSource> configSources = sut.getConfigSources(null);
+        Iterable<ConfigSource> configSources = new ConsulConfigSourceFactory().getConfigSources(config, mockGateway);
         assertThat(configSources).isEmpty();
 
         // no interactions with Consul should have taken place
@@ -40,21 +37,21 @@ class ConsulConfigSourceProviderTest {
     }
 
     @Test
-    void testWithMissingKeysAndFailureConfigured() throws IOException {
-        ConsulConfig config = defaultConfig();
-        config.rawValueKeys = keyValues("some/first", "some/second");
-        config.failOnMissingKey = true;
+    void testWithMissingKeysAndFailureConfigured() {
+        ConsulConfig config = mock(ConsulConfig.class);
+        when(config.rawValueKeys()).thenReturn(keyValues("some/first", "some/second"));
+        when(config.failOnMissingKey()).thenReturn(true);
+        AgentConfig agentConfig = mock(AgentConfig.class);
+        when(config.agent()).thenReturn(agentConfig);
 
         ConsulConfigGateway mockGateway = mock(ConsulConfigGateway.class);
-        // make sure the first is is properly resolved
+        // make sure the first is properly resolved
         when(mockGateway.getValue("some/first")).thenReturn(validResponse("some/first", "whatever"));
         // make sure the second is not resolved
         when(mockGateway.getValue("some/second")).thenReturn(emptyResponse());
 
-        ConsulConfigSourceProvider sut = new ConsulConfigSourceProvider(config, mockGateway);
-
         assertThatThrownBy(() -> {
-            sut.getConfigSources(null);
+            new ConsulConfigSourceFactory().getConfigSources(config, mockGateway);
         }).isInstanceOf(RuntimeException.class).hasMessageContaining("some/second");
 
         //both of the keys should have been resolved because we resolve keys in the order they were given by the user
@@ -63,22 +60,21 @@ class ConsulConfigSourceProviderTest {
     }
 
     @Test
-    void testWithMissingKeysAndIgnoreFailureConfigured() throws IOException {
-        ConsulConfig config = defaultConfig();
-        config.rawValueKeys = keyValues("some/first", "some/second", "some/third");
-        config.failOnMissingKey = false;
+    void testWithMissingKeysAndIgnoreFailureConfigured() {
+        ConsulConfig config = mock(ConsulConfig.class);
+        when(config.rawValueKeys()).thenReturn(keyValues("some/first", "some/second", "some/third"));
+        AgentConfig agentConfig = mock(AgentConfig.class);
+        when(config.agent()).thenReturn(agentConfig);
 
         ConsulConfigGateway mockGateway = mock(ConsulConfigGateway.class);
-        // make sure the first is is properly resolved
+        // make sure the first is properly resolved
         when(mockGateway.getValue("some/first")).thenReturn(validResponse("some/first", "whatever"));
         // make sure the second is not resolved
         when(mockGateway.getValue("some/second")).thenReturn(emptyResponse());
-        // make sure the third is is properly resolved
+        // make sure the third is properly resolved
         when(mockGateway.getValue("some/third")).thenReturn(validResponse("some/third", "other"));
 
-        ConsulConfigSourceProvider sut = new ConsulConfigSourceProvider(config, mockGateway);
-
-        Iterable<ConfigSource> configSources = sut.getConfigSources(null);
+        Iterable<ConfigSource> configSources = new ConsulConfigSourceFactory().getConfigSources(config, mockGateway);
         assertThat(configSources).hasSize(2);
         assertThat(configSources).filteredOn(c -> c.getName().contains("first")).singleElement().satisfies(c -> {
             assertThat(c.getOrdinal()).isEqualTo(EXPECTED_ORDINAL);
@@ -96,9 +92,11 @@ class ConsulConfigSourceProviderTest {
     }
 
     @Test
-    void testRawKeysWithoutPrefix() throws IOException {
-        ConsulConfig config = defaultConfig();
-        config.rawValueKeys = keyValues("greeting/message", "greeting/name");
+    void testRawKeysWithoutPrefix() {
+        ConsulConfig config = mock(ConsulConfig.class);
+        when(config.rawValueKeys()).thenReturn(keyValues("greeting/message", "greeting/name"));
+        AgentConfig agentConfig = mock(AgentConfig.class);
+        when(config.agent()).thenReturn(agentConfig);
 
         ConsulConfigGateway mockGateway = mock(ConsulConfigGateway.class);
         when(mockGateway.getValue("greeting/message"))
@@ -106,9 +104,7 @@ class ConsulConfigSourceProviderTest {
         when(mockGateway.getValue("greeting/name"))
                 .thenReturn(validResponse("greeting/name", "quarkus"));
 
-        ConsulConfigSourceProvider sut = new ConsulConfigSourceProvider(config, mockGateway);
-
-        Iterable<ConfigSource> configSources = sut.getConfigSources(null);
+        Iterable<ConfigSource> configSources = new ConsulConfigSourceFactory().getConfigSources(config, mockGateway);
         assertThat(configSources).hasSize(2);
         assertThat(configSources).filteredOn(c -> c.getName().contains("message")).singleElement().satisfies(c -> {
             assertThat(c.getOrdinal()).isEqualTo(EXPECTED_ORDINAL);
@@ -124,10 +120,12 @@ class ConsulConfigSourceProviderTest {
     }
 
     @Test
-    void testRawKeysWithPrefix() throws IOException {
-        ConsulConfig config = defaultConfig();
-        config.prefix = Optional.of("whatever");
-        config.rawValueKeys = keyValues("greeting/message", "greeting/name");
+    void testRawKeysWithPrefix() {
+        ConsulConfig config = mock(ConsulConfig.class);
+        when(config.rawValueKeys()).thenReturn(keyValues("greeting/message", "greeting/name"));
+        when(config.prefix()).thenReturn(Optional.of("whatever"));
+        AgentConfig agentConfig = mock(AgentConfig.class);
+        when(config.agent()).thenReturn(agentConfig);
 
         ConsulConfigGateway mockGateway = mock(ConsulConfigGateway.class);
         when(mockGateway.getValue("whatever/greeting/message"))
@@ -135,9 +133,7 @@ class ConsulConfigSourceProviderTest {
         when(mockGateway.getValue("whatever/greeting/name"))
                 .thenReturn(validResponse("whatever/greeting/name", "quarkus"));
 
-        ConsulConfigSourceProvider sut = new ConsulConfigSourceProvider(config, mockGateway);
-
-        Iterable<ConfigSource> configSources = sut.getConfigSources(null);
+        Iterable<ConfigSource> configSources = new ConsulConfigSourceFactory().getConfigSources(config, mockGateway);
         assertThat(configSources).hasSize(2);
         assertThat(configSources).filteredOn(c -> c.getName().contains("message")).singleElement().satisfies(c -> {
             assertThat(c.getOrdinal()).isEqualTo(EXPECTED_ORDINAL);
@@ -153,9 +149,11 @@ class ConsulConfigSourceProviderTest {
     }
 
     @Test
-    void testPropertiesKeysWithoutPrefix() throws IOException {
-        ConsulConfig config = defaultConfig();
-        config.propertiesValueKeys = keyValues("first", "second");
+    void testPropertiesKeysWithoutPrefix() {
+        ConsulConfig config = mock(ConsulConfig.class);
+        when(config.propertiesValueKeys()).thenReturn(keyValues("first", "second"));
+        AgentConfig agentConfig = mock(AgentConfig.class);
+        when(config.agent()).thenReturn(agentConfig);
 
         ConsulConfigGateway mockGateway = mock(ConsulConfigGateway.class);
         when(mockGateway.getValue("first"))
@@ -163,9 +161,7 @@ class ConsulConfigSourceProviderTest {
         when(mockGateway.getValue("second"))
                 .thenReturn(validResponse("second", "other.key=value"));
 
-        ConsulConfigSourceProvider sut = new ConsulConfigSourceProvider(config, mockGateway);
-
-        Iterable<ConfigSource> configSources = sut.getConfigSources(null);
+        Iterable<ConfigSource> configSources = new ConsulConfigSourceFactory().getConfigSources(config, mockGateway);
         assertThat(configSources).hasSize(2);
         assertThat(configSources).filteredOn(c -> c.getName().contains("first")).singleElement().satisfies(c -> {
             assertThat(c.getOrdinal()).isEqualTo(EXPECTED_ORDINAL);
@@ -182,10 +178,12 @@ class ConsulConfigSourceProviderTest {
     }
 
     @Test
-    void testPropertiesKeysWithPrefix() throws IOException {
-        ConsulConfig config = defaultConfig();
-        config.prefix = Optional.of("config");
-        config.propertiesValueKeys = keyValues("first", "second");
+    void testPropertiesKeysWithPrefix() {
+        ConsulConfig config = mock(ConsulConfig.class);
+        when(config.propertiesValueKeys()).thenReturn(keyValues("first", "second"));
+        when(config.prefix()).thenReturn(Optional.of("config"));
+        AgentConfig agentConfig = mock(AgentConfig.class);
+        when(config.agent()).thenReturn(agentConfig);
 
         ConsulConfigGateway mockGateway = mock(ConsulConfigGateway.class);
         when(mockGateway.getValue("config/first"))
@@ -193,9 +191,7 @@ class ConsulConfigSourceProviderTest {
         when(mockGateway.getValue("config/second"))
                 .thenReturn(validResponse("config/second", "other.key=value"));
 
-        ConsulConfigSourceProvider sut = new ConsulConfigSourceProvider(config, mockGateway);
-
-        Iterable<ConfigSource> configSources = sut.getConfigSources(null);
+        Iterable<ConfigSource> configSources = new ConsulConfigSourceFactory().getConfigSources(config, mockGateway);
         assertThat(configSources).hasSize(2);
         assertThat(configSources).filteredOn(c -> c.getName().contains("first")).singleElement().satisfies(c -> {
             assertThat(c.getOrdinal()).isEqualTo(EXPECTED_ORDINAL);
@@ -211,21 +207,7 @@ class ConsulConfigSourceProviderTest {
         verify(mockGateway, times(1)).getValue("config/second");
     }
 
-    private ConsulConfig defaultConfig() {
-        ConsulConfig config = new ConsulConfig();
-        config.enabled = true;
-        config.failOnMissingKey = true;
-        config.rawValueKeys = Optional.empty();
-        config.propertiesValueKeys = Optional.empty();
-        config.prefix = Optional.empty();
-        config.agent = new ConsulConfig.AgentConfig();
-        config.agent.readTimeout = Duration.ofSeconds(10);
-        config.agent.connectionTimeout = Duration.ofSeconds(10);
-        return config;
-    }
-
     private Optional<List<String>> keyValues(String... keys) {
         return Optional.of(Arrays.asList(keys));
     }
-
 }

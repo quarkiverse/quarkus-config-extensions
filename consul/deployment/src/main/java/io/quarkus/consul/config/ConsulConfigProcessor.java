@@ -2,18 +2,15 @@ package io.quarkus.consul.config;
 
 import org.jsoup.Connection.Response;
 
-import io.quarkus.consul.config.runtime.ConsulConfigRecorder;
+import io.quarkus.consul.config.runtime.ConsulConfigSourceFactoryBuilder;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.RunTimeConfigurationSourceValueBuildItem;
+import io.quarkus.deployment.builditem.RunTimeConfigBuilderBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 public class ConsulConfigProcessor {
-
     private static final String FEATURE = "consul-config";
 
     @BuildStep
@@ -32,10 +29,7 @@ public class ConsulConfigProcessor {
     }
 
     @BuildStep
-    @Record(ExecutionTime.RUNTIME_INIT)
-    public RunTimeConfigurationSourceValueBuildItem configure(ConsulConfigRecorder recorder) {
-        return new RunTimeConfigurationSourceValueBuildItem(
-                recorder.configSources());
+    void consulConfigFactory(BuildProducer<RunTimeConfigBuilderBuildItem> runTimeConfigBuilder) {
+        runTimeConfigBuilder.produce(new RunTimeConfigBuilderBuildItem(ConsulConfigSourceFactoryBuilder.class.getName()));
     }
-
 }
