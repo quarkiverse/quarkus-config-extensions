@@ -17,6 +17,7 @@
         <module>consul</module>
         <module>docs</module>
         <module>integration-tests</module>
+        <module>hocon</module>
     </modules>
     <properties>
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
@@ -26,6 +27,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <quarkus.version>2.15.3.Final</quarkus.version>
+        <smallrye-config.version>3.1.1</smallrye-config.version>
         <assertj.version>3.24.1</assertj.version>
         <jsoup.version>1.15.3</jsoup.version>
     </properties>
@@ -47,6 +49,11 @@
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.smallrye.config</groupId>
+                <artifactId>smallrye-config-source-hocon</artifactId>
+                <version>${smallrye-config.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
