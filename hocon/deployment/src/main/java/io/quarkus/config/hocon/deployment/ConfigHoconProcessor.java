@@ -6,13 +6,10 @@ import java.util.List;
 
 import org.eclipse.microprofile.config.ConfigProvider;
 
-import io.quarkus.config.hocon.runtime.ApplicationHoconConfigSourceLoader;
+import io.quarkus.config.hocon.runtime.HoconConfigBuilder;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.AdditionalBootstrapConfigSourceProviderBuildItem;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
-import io.quarkus.deployment.builditem.StaticInitConfigSourceProviderBuildItem;
+import io.quarkus.deployment.builditem.*;
 import io.smallrye.config.SmallRyeConfig;
 
 public final class ConfigHoconProcessor {
@@ -25,17 +22,12 @@ public final class ConfigHoconProcessor {
     }
 
     @BuildStep
-    public void bootstrap(
-            BuildProducer<AdditionalBootstrapConfigSourceProviderBuildItem> additionalBootstrapConfigSourceProvider,
-            BuildProducer<StaticInitConfigSourceProviderBuildItem> staticInitConfigSourceProvider) {
-        additionalBootstrapConfigSourceProvider.produce(new AdditionalBootstrapConfigSourceProviderBuildItem(
-                ApplicationHoconConfigSourceLoader.InFileSystem.class.getName()));
-        additionalBootstrapConfigSourceProvider.produce(new AdditionalBootstrapConfigSourceProviderBuildItem(
-                ApplicationHoconConfigSourceLoader.InClassPath.class.getName()));
-        staticInitConfigSourceProvider.produce(new StaticInitConfigSourceProviderBuildItem(
-                ApplicationHoconConfigSourceLoader.InFileSystem.class.getName()));
-        staticInitConfigSourceProvider.produce(new StaticInitConfigSourceProviderBuildItem(
-                ApplicationHoconConfigSourceLoader.InClassPath.class.getName()));
+    public void hoconConfig(BuildProducer<StaticInitConfigBuilderBuildItem> staticInitConfigBuilder,
+            BuildProducer<RunTimeConfigBuilderBuildItem> runTimeConfigBuilder) {
+        staticInitConfigBuilder.produce(
+                new StaticInitConfigBuilderBuildItem(HoconConfigBuilder.class.getName()));
+        runTimeConfigBuilder.produce(
+                new RunTimeConfigBuilderBuildItem(HoconConfigBuilder.class.getName()));
     }
 
     @BuildStep
