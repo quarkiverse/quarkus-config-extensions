@@ -11,12 +11,6 @@
 
   <artifactId>quarkus-config-hocon-deployment</artifactId>
 
-  <properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -41,7 +35,7 @@
     <dependency>
       <groupId>io.quarkiverse.config</groupId>
       <artifactId>quarkus-config-hocon</artifactId>
-      <version>1.1.1-SNAPSHOT</version>
+      <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

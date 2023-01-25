@@ -1,4 +1,4 @@
-package io.quarkus.config.yaml.deployment;
+package io.quarkus.config.hocon.deployment;
 
 import static org.hamcrest.Matchers.is;
 

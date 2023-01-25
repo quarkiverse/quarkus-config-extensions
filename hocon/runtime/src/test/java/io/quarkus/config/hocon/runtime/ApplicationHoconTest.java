@@ -15,7 +15,7 @@ import io.smallrye.config.SmallRyeConfig;
 import io.smallrye.config.SmallRyeConfigBuilder;
 
 /**
- * Test the YAML config provider (plan JUnit). We aren't re-testing the whole config source
+ * Test the HOCON config provider (plain JUnit). We aren't re-testing the whole config source
  * (that's done in SmallRye Config) but we do make sure that both the file system and in-JAR
  * properties are being picked up.
  */
@@ -25,8 +25,13 @@ public class ApplicationHoconTest {
 
     @BeforeAll
     public static void doBefore() {
-        SmallRyeConfigBuilder builder = new SmallRyeConfigBuilder();
-        builder.addDefaultSources().addDiscoveredConverters().addDiscoveredSources();
+        final HoconConfigBuilder hoconConfigBuilder = new HoconConfigBuilder();
+        final SmallRyeConfigBuilder builder = hoconConfigBuilder.configBuilder(new SmallRyeConfigBuilder());
+
+        builder.addDefaultSources()
+               .addDiscoveredConverters()
+               .addDiscoveredSources();
+
         QuarkusConfigFactory.setConfig(config = builder.build());
         Config conf = ConfigProvider.getConfig();
         if (conf != config) {
@@ -38,7 +43,7 @@ public class ApplicationHoconTest {
     }
 
     @Test
-    public void testBasicApplicationYaml() {
+    public void testBasicApplicationHocon() {
         assertEquals("something", ConfigProvider.getConfig().getValue("foo.bar", String.class));
         assertEquals("somethingElse", ConfigProvider.getConfig().getValue("foo2.bar", String.class));
         assertEquals("other", ConfigProvider.getConfig().getValue("foo.baz", String.class));
