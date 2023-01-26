@@ -29,8 +29,8 @@ public class ApplicationHoconTest {
         final SmallRyeConfigBuilder builder = hoconConfigBuilder.configBuilder(new SmallRyeConfigBuilder());
 
         builder.addDefaultSources()
-               .addDiscoveredConverters()
-               .addDiscoveredSources();
+                .addDiscoveredConverters()
+                .addDiscoveredSources();
 
         QuarkusConfigFactory.setConfig(config = builder.build());
         Config conf = ConfigProvider.getConfig();

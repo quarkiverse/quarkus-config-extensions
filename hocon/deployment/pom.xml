@@ -10,6 +10,7 @@
   </parent>
 
   <artifactId>quarkus-config-hocon-deployment</artifactId>
+  <name>Quarkus - Config Extensions - HOCON - Deployment</name>
 
   <dependencies>
     <dependency>
