@@ -1,4 +1,4 @@
-package io.quarkus.it.consul.config;
+package io.quarkus.it.hocon.config;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
