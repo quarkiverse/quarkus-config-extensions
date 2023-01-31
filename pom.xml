@@ -15,6 +15,7 @@
         <module>sample</module>
         <module>jdbc</module>
         <module>consul</module>
+        <module>hocon</module>
         <module>docs</module>
         <module>integration-tests</module>
     </modules>
@@ -26,6 +27,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <quarkus.version>2.15.3.Final</quarkus.version>
+        <smallrye-config.version>2.13.1</smallrye-config.version>
         <assertj.version>3.24.1</assertj.version>
         <jsoup.version>1.15.3</jsoup.version>
     </properties>
@@ -48,6 +50,11 @@
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.smallrye.config</groupId>
+                <artifactId>smallrye-config-source-hocon</artifactId>
+                <version>${smallrye-config.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
@@ -64,5 +71,25 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>enforce</id>
+                        <configuration>
+                            <rules>
+                                <dependencyConvergence/>
+                            </rules>
+                        </configuration>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>

@@ -13,6 +13,7 @@
         <module>sample</module>
         <module>consul</module>
         <module>jdbc</module>
+        <module>hocon</module>
     </modules>
 
     <profiles>
