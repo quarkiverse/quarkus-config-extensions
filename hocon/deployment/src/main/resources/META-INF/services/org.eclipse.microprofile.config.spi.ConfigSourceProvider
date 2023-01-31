@@ -1,0 +1,2 @@
+io.quarkus.config.hocon.runtime.ApplicationHoconConfigSourceLoader$InClassPath
+io.quarkus.config.hocon.runtime.ApplicationHoconConfigSourceLoader$InFileSystem
