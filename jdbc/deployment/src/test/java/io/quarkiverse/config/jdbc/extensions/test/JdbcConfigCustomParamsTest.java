@@ -3,8 +3,9 @@ package io.quarkiverse.config.jdbc.extensions.test;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import javax.inject.Inject;
 import javax.sql.DataSource;
+
+import jakarta.inject.Inject;
 
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
