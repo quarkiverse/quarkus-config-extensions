@@ -112,7 +112,7 @@ public class Repository implements AutoCloseable {
                 + " conf";
         selectKeysQuery = "SELECT conf." + config.keyColumn() + " FROM " + config.table() + " conf";
         selectValueQuery = "SELECT conf." + config.valueColumn() + " FROM " + config.table() + " conf WHERE conf."
-                + config.keyColumn() + " = ?1";
+                + config.keyColumn() + " = ?";
     }
 
     @Override
