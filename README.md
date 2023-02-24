@@ -13,6 +13,7 @@ These extensions allows reading the Quarkus configuration properties from variou
 
 * JDBC
 * [HashiCorp Consul](https://www.consul.io)
+* HOCON
 
 ## Documentation
 

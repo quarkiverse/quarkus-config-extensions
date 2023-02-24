@@ -1,10 +1,10 @@
 package io.quarkus.it.jdbc.config;
 
 import static io.restassured.RestAssured.given;
-import static javax.ws.rs.core.Response.Status.OK;
+import static jakarta.ws.rs.core.Response.Status.OK;
 import static org.hamcrest.Matchers.equalTo;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Test;
