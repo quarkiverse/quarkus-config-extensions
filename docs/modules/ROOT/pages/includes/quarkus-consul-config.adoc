@@ -30,6 +30,8 @@ a| [[quarkus-consul-config_quarkus.consul-config.agent.host-port]]`link:#quarkus
 
 [.description]
 --
+Consul agent host
+
 ifdef::add-copy-button-to-env-var[]
 Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_HOST_PORT+++[]
 endif::add-copy-button-to-env-var[]
@@ -44,6 +46,8 @@ a| [[quarkus-consul-config_quarkus.consul-config.agent.use-https]]`link:#quarkus
 
 [.description]
 --
+Whether or not to use HTTPS when communicating with the agent
+
 ifdef::add-copy-button-to-env-var[]
 Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_USE_HTTPS+++[]
 endif::add-copy-button-to-env-var[]
@@ -58,6 +62,8 @@ a| [[quarkus-consul-config_quarkus.consul-config.agent.token]]`link:#quarkus-con
 
 [.description]
 --
+Consul token to be provided when authentication is enabled
+
 ifdef::add-copy-button-to-env-var[]
 Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_TOKEN+++[]
 endif::add-copy-button-to-env-var[]
@@ -72,6 +78,8 @@ a| [[quarkus-consul-config_quarkus.consul-config.agent.trust-store]]`link:#quark
 
 [.description]
 --
+TrustStore to be used containing the SSL certificate used by Consul agent Can be either a classpath resource or a file system path
+
 ifdef::add-copy-button-to-env-var[]
 Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_TRUST_STORE+++[]
 endif::add-copy-button-to-env-var[]
@@ -86,6 +94,8 @@ a| [[quarkus-consul-config_quarkus.consul-config.agent.trust-store-password]]`li
 
 [.description]
 --
+Password of TrustStore to be used containing the SSL certificate used by Consul agent
+
 ifdef::add-copy-button-to-env-var[]
 Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_TRUST_STORE_PASSWORD+++[]
 endif::add-copy-button-to-env-var[]
@@ -100,6 +110,8 @@ a| [[quarkus-consul-config_quarkus.consul-config.agent.key-store]]`link:#quarkus
 
 [.description]
 --
+KeyStore to be used containing the SSL certificate for authentication with Consul agent Can be either a classpath resource or a file system path
+
 ifdef::add-copy-button-to-env-var[]
 Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_KEY_STORE+++[]
 endif::add-copy-button-to-env-var[]
@@ -114,6 +126,8 @@ a| [[quarkus-consul-config_quarkus.consul-config.agent.key-store-password]]`link
 
 [.description]
 --
+Password of KeyStore to be used containing the SSL certificate for authentication with Consul agent
+
 ifdef::add-copy-button-to-env-var[]
 Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_KEY_STORE_PASSWORD+++[]
 endif::add-copy-button-to-env-var[]
@@ -128,6 +142,8 @@ a| [[quarkus-consul-config_quarkus.consul-config.agent.key-password]]`link:#quar
 
 [.description]
 --
+Password to recover key from KeyStore for SSL client authentication with Consul agent If no value is provided, the key-store-password will be used
+
 ifdef::add-copy-button-to-env-var[]
 Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_KEY_PASSWORD+++[]
 endif::add-copy-button-to-env-var[]
@@ -142,6 +158,8 @@ a| [[quarkus-consul-config_quarkus.consul-config.agent.trust-certs]]`link:#quark
 
 [.description]
 --
+When using HTTPS and no keyStore has been specified, whether or not to trust all certificates
+
 ifdef::add-copy-button-to-env-var[]
 Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_TRUST_CERTS+++[]
 endif::add-copy-button-to-env-var[]
@@ -156,6 +174,9 @@ a| [[quarkus-consul-config_quarkus.consul-config.agent.connection-timeout]]`link
 
 [.description]
 --
+The amount of time to wait when initially establishing a connection before giving up and timing out. 
+Specify `0` to wait indefinitely.
+
 ifdef::add-copy-button-to-env-var[]
 Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_CONNECTION_TIMEOUT+++[]
 endif::add-copy-button-to-env-var[]
@@ -170,6 +191,9 @@ a| [[quarkus-consul-config_quarkus.consul-config.agent.read-timeout]]`link:#quar
 
 [.description]
 --
+The amount of time to wait for a read on a socket before an exception is thrown. 
+Specify `0` to wait indefinitely.
+
 ifdef::add-copy-button-to-env-var[]
 Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_READ_TIMEOUT+++[]
 endif::add-copy-button-to-env-var[]
