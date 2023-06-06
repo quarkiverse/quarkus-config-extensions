@@ -20,7 +20,7 @@
     <module>integration-tests</module>
   </modules>
   <scm>
-    <connection>:git:git@github.com:quarkiverse/quarkus-config-extensions.git</connection>
+    <connection>scm:git:git@github.com:quarkiverse/quarkus-config-extensions.git</connection>
     <developerConnection>scm:git:git@github.com:quarkiverse/quarkus-config-extensions.git</developerConnection>
     <url>https://github.com/quarkiverse/quarkus-config-extensions</url>
   </scm>
