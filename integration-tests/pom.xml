@@ -14,6 +14,7 @@
         <module>consul</module>
         <module>jdbc</module>
         <module>hocon</module>
+        <module>jasypt</module>
     </modules>
 
     <profiles>
