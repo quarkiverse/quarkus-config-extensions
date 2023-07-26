@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>io.quarkiverse.config</groupId>
+    <artifactId>quarkus-config-extensions</artifactId>
+    <version>2.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>quarkus-config-git-parent</artifactId>
+  <packaging>pom</packaging>
+  <name>Quarkus - Config Extensions - GIT - Parent</name>
+  <modules>
+    <module>deployment</module>
+    <module>runtime</module>
+  </modules>
+  <properties>
+    <quarkus.jgit.version>3.0.2</quarkus.jgit.version>
+  </properties>
+</project>

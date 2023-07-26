@@ -1,0 +1,16 @@
+---
+name: Git Config Source
+description: Add a microprofile config source to provide config entries from a git repository.
+artifact: ${project.groupId}:${project.artifactId}:${project.version}
+metadata:
+  extension-dependencies:
+  - "io.quarkiverse.jgit:quarkus-jgit-deployment"
+  keywords:
+  - "git"
+  - "config"
+  - "configuration"
+  categories:
+  - "miscellaneous"
+  status: "preview"
+  config:
+  - "quarkus.git-config-source."
