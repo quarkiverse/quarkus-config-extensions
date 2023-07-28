@@ -16,6 +16,7 @@
     <module>jdbc</module>
     <module>consul</module>
     <module>hocon</module>
+    <module>jasypt</module>
     <module>docs</module>
     <module>integration-tests</module>
   </modules>
@@ -54,6 +55,11 @@
         <groupId>org.assertj</groupId>
         <artifactId>assertj-core</artifactId>
         <version>${assertj.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.smallrye.config</groupId>
+        <artifactId>smallrye-config-jasypt</artifactId>
+        <version>${smallrye-config.version}</version>
       </dependency>
       <dependency>
         <groupId>io.smallrye.config</groupId>

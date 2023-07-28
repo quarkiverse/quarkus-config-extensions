@@ -1,0 +1,74 @@
+= Quarkus Jasypt Secret Keys Expressions
+
+include::./includes/attributes.adoc[]
+
+This guide explains how your Quarkus application can read configuration properties using
+http://www.jasypt.org[Jasypt] encryption.
+
+== Prerequisites
+
+To complete this guide, you need:
+
+* less than 15 minutes
+* an IDE
+* JDK 11+ installed with `JAVA_HOME` configured appropriately
+* Apache Maven {maven-version}
+
+== Solution
+
+We recommend that you follow the instructions in the next sections and create the application step by step.
+
+== Introduction
+
+http://www.jasypt.org[Jasypt] is a java library which allows the developer to add basic encryption capabilities.
+
+== Add the Extension
+
+Add the `config-jasypt` extension to your project by running the following command in your project base directory:
+
+[source,bash]
+----
+./mvnw quarkus:add-extension -Dextensions="config-jasypt"
+----
+
+This will add the following to your `pom.xml`:
+
+[source,xml,subs=attributes+]
+----
+<dependency>
+    <groupId>io.quarkiverse.config</groupId>
+    <artifactId>quarkus-config-jasypt</artifactId>
+    <version>{quarkus-config-extensions-version}</version>
+</dependency>
+----
+
+NOTE: The Jasypt Quarkus Extension is required to native mode. There is no difference in features to the
+https://smallrye.io/smallrye-config/Main/config/secret-keys/[SmallRye Config Jasypt].
+
+== Expressions
+
+A secret configuration may be expressed as `${jasypt::value}`. The ${jasypt::...} `SecretKeyHandler` requires both
+`smallrye.config.secret-handler.jasypt.password` and `smallrye.config.secret-handler.jasypt.algorithm` configurations
+to state the password and the algorithm to be used by the Jasypt encryptor.
+
+[source,properties]
+----
+application.properties
+
+smallrye.config.secret-handler.jasypt.password=jasypt
+smallrye.config.secret-handler.jasypt.algorithm=PBEWithHMACSHA512AndAES_256
+
+my.secret=${jasypt::ENC(wqp8zDeiCQ5JaFvwDtoAcr2WMLdlD0rjwvo8Rh0thG5qyTQVGxwJjBIiW26y0dtU)}
+----
+
+http://www.jasypt.org[Jasypt] encrypted values must be set with the handler expression as `${jasypt::ENC(value)}`. Note
+that the encrypted value must be generated using the proper Jasypt encryptor with the same password and algorithm set
+in the configuration.
+
+A possible encrypted value for `12345678` is `ENC(wqp8zDeiCQ5JaFvwDtoAcr2WMLdlD0rjwvo8Rh0thG5qyTQVGxwJjBIiW26y0dtU)`
+
+Lookups to the configuration `my.secret` will automatically decrypt the value with http://www.jasypt.org[Jasypt] and
+provide the original `12345678` string.
+
+TIP: It is possible to generate the encrypted secret with the following JBang script:
+`jbang https://raw.githubusercontent.com/smallrye/smallrye-config/main/documentation/src/main/docs/config/secret-handlers/jasypt.java -s=<secret> -p=<password>`
