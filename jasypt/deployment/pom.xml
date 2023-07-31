@@ -20,10 +20,6 @@
       <artifactId>quarkus-config-jasypt</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.graalvm.nativeimage</groupId>
-      <artifactId>svm</artifactId>
-    </dependency>
   </dependencies>
 
   <build>
