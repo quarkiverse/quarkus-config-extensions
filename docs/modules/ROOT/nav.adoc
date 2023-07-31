@@ -1,3 +1,4 @@
 * xref:index.adoc[Quarkus Config Extensions]
 * xref:consul.adoc[HashiCorp Consul]
 * xref:jdbc.adoc[JDBC Config]
+* xref:jasypt.adoc[Jasypt]
