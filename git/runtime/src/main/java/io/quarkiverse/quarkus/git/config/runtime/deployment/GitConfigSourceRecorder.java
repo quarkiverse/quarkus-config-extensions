@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.TreeSet;
 
 import jakarta.inject.Inject;
 
@@ -47,20 +48,20 @@ public class GitConfigSourceRecorder {
             try {
                 return Optional.of(Files.createTempDirectory("tmpgit").toFile());
             } catch (IOException e) {
+                LOG.error("Cannot create the stage directory", e);
                 return Optional.empty();
             }
         }
 
         @Override
         public Properties read(Path configContent) {
-            LOG.info("Reading [{}]", configContent);
+            Properties props = new Properties();
             try (var reader = new FileReader(configContent.toFile())) {
-                Properties props = new Properties();
                 props.load(reader);
-                return props;
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                LOG.error(String.format("Cannot load properties from [%s]", configContent), e);
             }
+            return props;
         }
     };
 
@@ -150,14 +151,13 @@ public class GitConfigSourceRecorder {
         var cloneCommand = gitCommandProvider.createCloneCommand(config.uri, config.tag.orElse("HEAD"),
                 config.authentication, stageDir);
         try (var git = cloneCommand.call()) {
-            var useFile = config.propertyFiles.iterator().next();
-            LOG.info("Fetching file [{}] of [{}]", useFile, config.propertyFiles);
-
-            // Just properties, todo yaml
-            Properties props = fsProvider.read(stageDir.toPath().resolve(useFile));
             var rv = new HashMap<String, String>();
-            props.stringPropertyNames().forEach(name -> {
-                rv.put(name, props.getProperty(name));
+            rv.putAll(loadProperties(stageDir));
+            loadYaml(stageDir).forEach((name, value) -> {
+                if (rv.containsKey(name)) {
+                    LOG.warn("Overlapping YAML entry with key [{}], skipping...", name);
+                }
+                rv.putIfAbsent(name, value);
             });
             return rv;
         } catch (Exception e) {
@@ -172,5 +172,34 @@ public class GitConfigSourceRecorder {
             } catch (IOException e) {
             }
         }
+    }
+
+    private Map<String, String> loadProperties(File stageDir) {
+        var rv = new HashMap<String, String>();
+        for (var useFile : new TreeSet<>(config.propertyFiles)) {
+            var props = fsProvider.read(stageDir.toPath().resolve(useFile));
+            props.stringPropertyNames().forEach(name -> {
+                if (rv.containsKey(name)) {
+                    LOG.warn("Duplicated entry with key [{}] in [{}], skipping...", name, useFile);
+                }
+                rv.putIfAbsent(name, props.getProperty(name));
+            });
+        }
+        return rv;
+    }
+
+    private Map<String, String> loadYaml(File stageDir) {
+        var rv = new HashMap<String, String>();
+        // for (var useFile : new TreeSet<>(config.yamlFiles)) {
+        // var props = fsProvider.read(stageDir.toPath().resolve(useFile));
+        // props.stringPropertyNames().forEach(name -> {
+        // if (rv.containsKey(name)) {
+        // LOG.warn("Duplicated entry with key [{}] in [{}], skipping...",
+        // name, useFile);
+        // }
+        // rv.putIfAbsent(name, props.getProperty(name));
+        // });
+        // }
+        return rv;
     }
 }
