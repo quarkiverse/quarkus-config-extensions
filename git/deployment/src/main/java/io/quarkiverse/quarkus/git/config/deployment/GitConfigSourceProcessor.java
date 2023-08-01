@@ -25,7 +25,7 @@ class GitConfigSourceProcessor {
 
     @BuildStep
     @Record(value = ExecutionTime.RUNTIME_INIT)
-    void initGitSource(GitConfigSourceRecorder recorder) {
-        recorder.init();
+    void initGitSource(GitConfigSourceRecorder recorder, GitConfigSourceConfiguration configuration) {
+        recorder.init(configuration);
     }
 }

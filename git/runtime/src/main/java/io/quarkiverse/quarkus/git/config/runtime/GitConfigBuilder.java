@@ -2,6 +2,7 @@ package io.quarkiverse.quarkus.git.config.runtime;
 
 import static java.util.Collections.singletonList;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,11 +16,23 @@ public class GitConfigBuilder implements ConfigBuilder {
 
     public static class GitConfigSource implements ConfigSource {
 
-        public static Map<String, String> properties = new ConcurrentHashMap<>();
+        private static Map<String, String> properties = new ConcurrentHashMap<>();
+        private static int ordinal;
+
+        public static Map<String, String> init(Map<String, String> newValues, int ordinal) {
+            var rv = new HashMap<>(properties);
+            GitConfigSource.properties = new ConcurrentHashMap<>(newValues);
+            GitConfigSource.ordinal = ordinal;
+            return rv;
+        }
+
+        public static Map<String, String> getPropertyStore() {
+            return new HashMap<>(properties);
+        }
 
         @Override
         public int getOrdinal() {
-            return Integer.MAX_VALUE;
+            return GitConfigSource.ordinal;
         }
 
         @Override

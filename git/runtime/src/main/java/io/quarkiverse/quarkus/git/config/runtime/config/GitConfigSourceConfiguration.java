@@ -13,6 +13,19 @@ public class GitConfigSourceConfiguration {
     public static final String EXTENSION_NAME = "git-config-source";
 
     /**
+     * Master switch to enable the Git config source.
+     */
+    @ConfigItem(defaultValue = "true")
+    public boolean enabled;
+
+    /**
+     * Ordinal to determine the config source prioritty, see
+     * {@link https://quarkus.io/guides/config-reference#configuration-sources}.
+     */
+    @ConfigItem(defaultValue = "500")
+    public int ordinal;
+
+    /**
      * The URI to clone from.
      */
     @ConfigItem
@@ -34,4 +47,10 @@ public class GitConfigSourceConfiguration {
      */
     @ConfigItem(defaultValue = "application.properties")
     public Set<String> propertyFiles;
+
+    /**
+     * JGit authentication criteria
+     */
+    // @ConfigItem
+    // public GitAuthentication authentication;
 }

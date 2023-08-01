@@ -90,9 +90,9 @@ public class GitConfigSourceRecorder {
         this.gitCommandProvider = gitCommandProvider;
     }
 
-    public void init() {
+    public void init(GitConfigSourceConfiguration config) {
         var remoteProperties = readRemoteRepository();
-        GitConfigSource.properties.putAll(remoteProperties);
+        GitConfigSource.init(remoteProperties, config.ordinal);
     }
 
     private Map<String, String> readRemoteRepository() {

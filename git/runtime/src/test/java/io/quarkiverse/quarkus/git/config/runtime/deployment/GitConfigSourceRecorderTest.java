@@ -51,7 +51,7 @@ public class GitConfigSourceRecorderTest {
     @BeforeEach
     public void beforeEach() {
 
-        GitConfigSource.properties = new ConcurrentHashMap<>();
+        GitConfigSource.init(new ConcurrentHashMap<>(), 0);
 
         var cfg = new GitConfigSourceConfiguration();
         cfg.uri = "";
@@ -65,12 +65,12 @@ public class GitConfigSourceRecorderTest {
     public void testFailToCreateStageDir() {
         doReturn(Optional.empty()).when(fsProvider).createStageDir();
 
-        recorder.init();
+        recorder.init(new GitConfigSourceConfiguration());
 
         verify(gitProvider, never()).createCloneCommand(anyString(), anyString(), any(File.class));
         verify(fsProvider, never()).read(any(Path.class));
 
-        assertThat(GitConfigSource.properties).isEmpty();
+        assertThat(GitConfigSource.getPropertyStore()).isEmpty();
     }
 
     @Test
@@ -79,13 +79,13 @@ public class GitConfigSourceRecorderTest {
         doReturn(cloneCommand).when(gitProvider).createCloneCommand(anyString(), anyString(), any(File.class));
         doThrow(new CanceledException("")).when(cloneCommand).call();
 
-        recorder.init();
+        recorder.init(new GitConfigSourceConfiguration());
 
         verify(fsProvider).createStageDir();
         verify(gitProvider).createCloneCommand(anyString(), anyString(), any(File.class));
         verify(fsProvider, never()).read(any(Path.class));
 
-        assertThat(GitConfigSource.properties).isEmpty();
+        assertThat(GitConfigSource.getPropertyStore()).isEmpty();
     }
 
     @Test
@@ -96,13 +96,13 @@ public class GitConfigSourceRecorderTest {
 
         doThrow(RuntimeException.class).when(fsProvider).read(any(Path.class));
 
-        recorder.init();
+        recorder.init(new GitConfigSourceConfiguration());
 
         verify(fsProvider).createStageDir();
         verify(gitProvider, only()).createCloneCommand(anyString(), anyString(), any(File.class));
         verify(fsProvider).read(any(Path.class));
 
-        assertThat(GitConfigSource.properties).isEmpty();
+        assertThat(GitConfigSource.getPropertyStore()).isEmpty();
     }
 
     @Test
@@ -113,13 +113,13 @@ public class GitConfigSourceRecorderTest {
         defaultCreateCloneCommandStub();
         defaultReadPropertiesStub();
 
-        recorder.init();
+        recorder.init(new GitConfigSourceConfiguration());
 
         verify(fsProvider).createStageDir();
         verify(gitProvider, only()).createCloneCommand(anyString(), anyString(), any(File.class));
         verify(fsProvider).read(any(Path.class));
 
-        assertThat(GitConfigSource.properties).isNotEmpty().containsOnlyKeys("a.test.key");
+        assertThat(GitConfigSource.getPropertyStore()).isNotEmpty().containsOnlyKeys("a.test.key");
     }
 
     private void defaultCreateCloneCommandStub() throws GitAPIException, InvalidRemoteException, TransportException {
