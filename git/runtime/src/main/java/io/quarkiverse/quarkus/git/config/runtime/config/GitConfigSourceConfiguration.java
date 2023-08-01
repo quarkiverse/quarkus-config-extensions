@@ -19,7 +19,7 @@ public class GitConfigSourceConfiguration {
     public boolean enabled;
 
     /**
-     * Ordinal to determine the config source prioritty, see
+     * Ordinal to determine the config source priority, see
      * {@link https://quarkus.io/guides/config-reference#configuration-sources}.
      */
     @ConfigItem(defaultValue = "500")
@@ -51,6 +51,6 @@ public class GitConfigSourceConfiguration {
     /**
      * JGit authentication criteria
      */
-    // @ConfigItem
-    // public GitAuthentication authentication;
+    @ConfigItem
+    public GitAuthentication authentication;
 }

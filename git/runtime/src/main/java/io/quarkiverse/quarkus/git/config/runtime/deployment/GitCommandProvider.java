@@ -4,6 +4,8 @@ import java.io.File;
 
 import org.eclipse.jgit.api.CloneCommand;
 
+import io.quarkiverse.quarkus.git.config.runtime.config.GitAuthentication;
+
 public interface GitCommandProvider {
-    CloneCommand createCloneCommand(String uri, String tag, File stageDir);
+    CloneCommand createCloneCommand(String uri, String tag, GitAuthentication auth, File stageDir);
 }

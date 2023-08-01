@@ -32,6 +32,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import io.quarkiverse.quarkus.git.config.runtime.GitConfigBuilder.GitConfigSource;
+import io.quarkiverse.quarkus.git.config.runtime.config.GitAuthentication;
 import io.quarkiverse.quarkus.git.config.runtime.config.GitConfigSourceConfiguration;
 
 @ExtendWith(MockitoExtension.class)
@@ -57,6 +58,9 @@ public class GitConfigSourceRecorderTest {
         cfg.uri = "";
         cfg.tag = Optional.empty();
         cfg.propertyFiles = Set.of("application.properties");
+        cfg.authentication = new GitAuthentication();
+        cfg.authentication.credentials = Optional.empty();
+        cfg.authentication.keys = Optional.empty();
 
         recorder = new GitConfigSourceRecorder(cfg, fsProvider, gitProvider);
     }
@@ -67,7 +71,8 @@ public class GitConfigSourceRecorderTest {
 
         recorder.init(new GitConfigSourceConfiguration());
 
-        verify(gitProvider, never()).createCloneCommand(anyString(), anyString(), any(File.class));
+        verify(gitProvider, never()).createCloneCommand(anyString(), anyString(), any(GitAuthentication.class),
+                any(File.class));
         verify(fsProvider, never()).read(any(Path.class));
 
         assertThat(GitConfigSource.getPropertyStore()).isEmpty();
@@ -76,13 +81,14 @@ public class GitConfigSourceRecorderTest {
     @Test
     public void testFailToCloneTheRepository() throws InvalidRemoteException, TransportException, GitAPIException, IOException {
         defaultCreateStageDirStub();
-        doReturn(cloneCommand).when(gitProvider).createCloneCommand(anyString(), anyString(), any(File.class));
+        doReturn(cloneCommand).when(gitProvider).createCloneCommand(anyString(), anyString(), any(GitAuthentication.class),
+                any(File.class));
         doThrow(new CanceledException("")).when(cloneCommand).call();
 
         recorder.init(new GitConfigSourceConfiguration());
 
         verify(fsProvider).createStageDir();
-        verify(gitProvider).createCloneCommand(anyString(), anyString(), any(File.class));
+        verify(gitProvider).createCloneCommand(anyString(), anyString(), any(GitAuthentication.class), any(File.class));
         verify(fsProvider, never()).read(any(Path.class));
 
         assertThat(GitConfigSource.getPropertyStore()).isEmpty();
@@ -99,7 +105,7 @@ public class GitConfigSourceRecorderTest {
         recorder.init(new GitConfigSourceConfiguration());
 
         verify(fsProvider).createStageDir();
-        verify(gitProvider, only()).createCloneCommand(anyString(), anyString(), any(File.class));
+        verify(gitProvider, only()).createCloneCommand(anyString(), anyString(), any(GitAuthentication.class), any(File.class));
         verify(fsProvider).read(any(Path.class));
 
         assertThat(GitConfigSource.getPropertyStore()).isEmpty();
@@ -116,7 +122,7 @@ public class GitConfigSourceRecorderTest {
         recorder.init(new GitConfigSourceConfiguration());
 
         verify(fsProvider).createStageDir();
-        verify(gitProvider, only()).createCloneCommand(anyString(), anyString(), any(File.class));
+        verify(gitProvider, only()).createCloneCommand(anyString(), anyString(), any(GitAuthentication.class), any(File.class));
         verify(fsProvider).read(any(Path.class));
 
         assertThat(GitConfigSource.getPropertyStore()).isNotEmpty().containsOnlyKeys("a.test.key");
@@ -124,7 +130,8 @@ public class GitConfigSourceRecorderTest {
 
     private void defaultCreateCloneCommandStub() throws GitAPIException, InvalidRemoteException, TransportException {
         doReturn(Git.wrap(repository)).when(cloneCommand).call();
-        doReturn(cloneCommand).when(gitProvider).createCloneCommand(anyString(), anyString(), any(File.class));
+        doReturn(cloneCommand).when(gitProvider).createCloneCommand(anyString(), anyString(), any(GitAuthentication.class),
+                any(File.class));
     }
 
     private void defaultCreateStageDirStub() throws IOException {

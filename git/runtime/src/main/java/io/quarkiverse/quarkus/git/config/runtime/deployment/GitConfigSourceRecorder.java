@@ -5,6 +5,7 @@ import static java.util.Collections.emptyMap;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -17,12 +18,20 @@ import jakarta.inject.Inject;
 
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.transport.SshSessionFactory;
+import org.eclipse.jgit.transport.SshTransport;
 import org.eclipse.jgit.transport.TagOpt;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.eclipse.jgit.transport.ssh.jsch.JschConfigSessionFactory;
 import org.eclipse.jgit.util.FS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+
 import io.quarkiverse.quarkus.git.config.runtime.GitConfigBuilder.GitConfigSource;
+import io.quarkiverse.quarkus.git.config.runtime.config.GitAuthentication;
 import io.quarkiverse.quarkus.git.config.runtime.config.GitConfigSourceConfiguration;
 import io.quarkus.runtime.annotations.Recorder;
 
@@ -58,8 +67,28 @@ public class GitConfigSourceRecorder {
     private static final GitCommandProvider DEFAULT_GIT_PROVIDER = new GitCommandProvider() {
 
         @Override
-        public CloneCommand createCloneCommand(String uri, String tag, File stageDir) {
-            return Git.cloneRepository()
+        public CloneCommand createCloneCommand(String uri, String tag, GitAuthentication auth, File stageDir) {
+            var rv = Git.cloneRepository();
+
+            if (auth.credentials.isPresent()) {
+                var usernamePasswordCredentials = auth.credentials.get();
+                rv.setCredentialsProvider(new UsernamePasswordCredentialsProvider(usernamePasswordCredentials.username,
+                        usernamePasswordCredentials.password));
+            }
+
+            if (auth.keys.isPresent()) {
+                var keysCredentials = auth.keys.get();
+                var sshSessionFactory = createSshSessionFactory(keysCredentials.privateKey,
+                        keysCredentials.publicKey, keysCredentials.passphrase);
+
+                rv.setTransportConfigCallback(transport -> {
+                    if (transport instanceof SshTransport) {
+                        ((SshTransport) transport).setSshSessionFactory(sshSessionFactory);
+                    }
+                });
+            }
+
+            return rv
                     .setBranch(tag)
                     .setCloneAllBranches(true)
                     .setTagOption(TagOpt.FETCH_TAGS)
@@ -69,6 +98,21 @@ public class GitConfigSourceRecorder {
                     .setURI(uri)
                     .setFs(FS.detect())
                     .setRemote("origin");
+        }
+
+        private SshSessionFactory createSshSessionFactory(String privateKey, String publicKey, String passphrase) {
+            return new JschConfigSessionFactory() {
+                @Override
+                protected void configureJSch(JSch jsch) {
+                    try {
+                        jsch.addIdentity(GitConfigSourceConfiguration.EXTENSION_NAME,
+                                privateKey.getBytes(StandardCharsets.UTF_8), publicKey.getBytes(StandardCharsets.UTF_8),
+                                passphrase.getBytes(StandardCharsets.UTF_8));
+                    } catch (JSchException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            };
         }
     };
 
@@ -97,15 +141,14 @@ public class GitConfigSourceRecorder {
 
     private Map<String, String> readRemoteRepository() {
 
-        // https://dzone.com/articles/how-to-authenticate-with-jgit
-
         Optional<File> tmpDir = fsProvider.createStageDir();
         if (tmpDir.isEmpty()) {
             LOG.warn("Failed to initialize the git config source");
             return emptyMap();
         }
         var stageDir = tmpDir.get();
-        var cloneCommand = gitCommandProvider.createCloneCommand(config.uri, config.tag.orElse("HEAD"), stageDir);
+        var cloneCommand = gitCommandProvider.createCloneCommand(config.uri, config.tag.orElse("HEAD"),
+                config.authentication, stageDir);
         try (var git = cloneCommand.call()) {
             var useFile = config.propertyFiles.iterator().next();
             LOG.info("Fetching file [{}] of [{}]", useFile, config.propertyFiles);

@@ -2,7 +2,7 @@
 :summaryTableId: quarkus-consul-config
 [.configuration-legend]
 icon:lock[title=Fixed at build time] Configuration property fixed at build time - All other configuration properties are overridable at runtime
-[.configuration-reference, cols="80,.^10,.^10"]
+[.configuration-reference.searchable, cols="80,.^10,.^10"]
 |===
 
 h|[[quarkus-consul-config_configuration]]link:#quarkus-consul-config_configuration[Configuration property]
@@ -10,167 +10,168 @@ h|[[quarkus-consul-config_configuration]]link:#quarkus-consul-config_configurati
 h|Type
 h|Default
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.enabled]]`link:#quarkus-consul-config_quarkus.enabled[quarkus.enabled]`
+a| [[quarkus-consul-config_quarkus.consul-config.enabled]]`link:#quarkus-consul-config_quarkus.consul-config.enabled[quarkus.consul-config.enabled]`
 
 [.description]
 --
 If set to true, the application will attempt to look up the configuration from Consul
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_ENABLED+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_ENABLED+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_ENABLED+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_ENABLED+++`
 endif::add-copy-button-to-env-var[]
 --|boolean 
 |`false`
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.agent.host-port]]`link:#quarkus-consul-config_quarkus.agent.host-port[quarkus.agent.host-port]`
+a| [[quarkus-consul-config_quarkus.consul-config.agent.host-port]]`link:#quarkus-consul-config_quarkus.consul-config.agent.host-port[quarkus.consul-config.agent.host-port]`
 
 [.description]
 --
 Consul agent host
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_AGENT_HOST_PORT+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_HOST_PORT+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_AGENT_HOST_PORT+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_AGENT_HOST_PORT+++`
 endif::add-copy-button-to-env-var[]
---|host:port 
+--|link:https://docs.oracle.com/javase/8/docs/api/java/net/InetSocketAddress.html[InetSocketAddress]
+ 
 |`localhost:8500`
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.agent.use-https]]`link:#quarkus-consul-config_quarkus.agent.use-https[quarkus.agent.use-https]`
+a| [[quarkus-consul-config_quarkus.consul-config.agent.use-https]]`link:#quarkus-consul-config_quarkus.consul-config.agent.use-https[quarkus.consul-config.agent.use-https]`
 
 [.description]
 --
 Whether or not to use HTTPS when communicating with the agent
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_AGENT_USE_HTTPS+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_USE_HTTPS+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_AGENT_USE_HTTPS+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_AGENT_USE_HTTPS+++`
 endif::add-copy-button-to-env-var[]
 --|boolean 
 |`false`
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.agent.token]]`link:#quarkus-consul-config_quarkus.agent.token[quarkus.agent.token]`
+a| [[quarkus-consul-config_quarkus.consul-config.agent.token]]`link:#quarkus-consul-config_quarkus.consul-config.agent.token[quarkus.consul-config.agent.token]`
 
 [.description]
 --
 Consul token to be provided when authentication is enabled
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_AGENT_TOKEN+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_TOKEN+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_AGENT_TOKEN+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_AGENT_TOKEN+++`
 endif::add-copy-button-to-env-var[]
 --|string 
 |
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.agent.trust-store]]`link:#quarkus-consul-config_quarkus.agent.trust-store[quarkus.agent.trust-store]`
+a| [[quarkus-consul-config_quarkus.consul-config.agent.trust-store]]`link:#quarkus-consul-config_quarkus.consul-config.agent.trust-store[quarkus.consul-config.agent.trust-store]`
 
 [.description]
 --
 TrustStore to be used containing the SSL certificate used by Consul agent Can be either a classpath resource or a file system path
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_AGENT_TRUST_STORE+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_TRUST_STORE+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_AGENT_TRUST_STORE+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_AGENT_TRUST_STORE+++`
 endif::add-copy-button-to-env-var[]
 --|path 
 |
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.agent.trust-store-password]]`link:#quarkus-consul-config_quarkus.agent.trust-store-password[quarkus.agent.trust-store-password]`
+a| [[quarkus-consul-config_quarkus.consul-config.agent.trust-store-password]]`link:#quarkus-consul-config_quarkus.consul-config.agent.trust-store-password[quarkus.consul-config.agent.trust-store-password]`
 
 [.description]
 --
 Password of TrustStore to be used containing the SSL certificate used by Consul agent
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_AGENT_TRUST_STORE_PASSWORD+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_TRUST_STORE_PASSWORD+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_AGENT_TRUST_STORE_PASSWORD+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_AGENT_TRUST_STORE_PASSWORD+++`
 endif::add-copy-button-to-env-var[]
 --|string 
 |
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.agent.key-store]]`link:#quarkus-consul-config_quarkus.agent.key-store[quarkus.agent.key-store]`
+a| [[quarkus-consul-config_quarkus.consul-config.agent.key-store]]`link:#quarkus-consul-config_quarkus.consul-config.agent.key-store[quarkus.consul-config.agent.key-store]`
 
 [.description]
 --
 KeyStore to be used containing the SSL certificate for authentication with Consul agent Can be either a classpath resource or a file system path
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_AGENT_KEY_STORE+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_KEY_STORE+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_AGENT_KEY_STORE+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_AGENT_KEY_STORE+++`
 endif::add-copy-button-to-env-var[]
 --|path 
 |
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.agent.key-store-password]]`link:#quarkus-consul-config_quarkus.agent.key-store-password[quarkus.agent.key-store-password]`
+a| [[quarkus-consul-config_quarkus.consul-config.agent.key-store-password]]`link:#quarkus-consul-config_quarkus.consul-config.agent.key-store-password[quarkus.consul-config.agent.key-store-password]`
 
 [.description]
 --
 Password of KeyStore to be used containing the SSL certificate for authentication with Consul agent
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_AGENT_KEY_STORE_PASSWORD+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_KEY_STORE_PASSWORD+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_AGENT_KEY_STORE_PASSWORD+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_AGENT_KEY_STORE_PASSWORD+++`
 endif::add-copy-button-to-env-var[]
 --|string 
 |
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.agent.key-password]]`link:#quarkus-consul-config_quarkus.agent.key-password[quarkus.agent.key-password]`
+a| [[quarkus-consul-config_quarkus.consul-config.agent.key-password]]`link:#quarkus-consul-config_quarkus.consul-config.agent.key-password[quarkus.consul-config.agent.key-password]`
 
 [.description]
 --
 Password to recover key from KeyStore for SSL client authentication with Consul agent If no value is provided, the key-store-password will be used
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_AGENT_KEY_PASSWORD+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_KEY_PASSWORD+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_AGENT_KEY_PASSWORD+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_AGENT_KEY_PASSWORD+++`
 endif::add-copy-button-to-env-var[]
 --|string 
 |
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.agent.trust-certs]]`link:#quarkus-consul-config_quarkus.agent.trust-certs[quarkus.agent.trust-certs]`
+a| [[quarkus-consul-config_quarkus.consul-config.agent.trust-certs]]`link:#quarkus-consul-config_quarkus.consul-config.agent.trust-certs[quarkus.consul-config.agent.trust-certs]`
 
 [.description]
 --
 When using HTTPS and no keyStore has been specified, whether or not to trust all certificates
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_AGENT_TRUST_CERTS+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_TRUST_CERTS+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_AGENT_TRUST_CERTS+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_AGENT_TRUST_CERTS+++`
 endif::add-copy-button-to-env-var[]
 --|boolean 
 |`false`
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.agent.connection-timeout]]`link:#quarkus-consul-config_quarkus.agent.connection-timeout[quarkus.agent.connection-timeout]`
+a| [[quarkus-consul-config_quarkus.consul-config.agent.connection-timeout]]`link:#quarkus-consul-config_quarkus.consul-config.agent.connection-timeout[quarkus.consul-config.agent.connection-timeout]`
 
 [.description]
 --
@@ -179,17 +180,17 @@ The amount of time to wait when initially establishing a connection before givin
 Specify `0` to wait indefinitely.
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_AGENT_CONNECTION_TIMEOUT+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_CONNECTION_TIMEOUT+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_AGENT_CONNECTION_TIMEOUT+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_AGENT_CONNECTION_TIMEOUT+++`
 endif::add-copy-button-to-env-var[]
 --|link:https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html[Duration]
   link:#duration-note-anchor-{summaryTableId}[icon:question-circle[], title=More information about the Duration format]
-|`10S`
+|`10s`
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.agent.read-timeout]]`link:#quarkus-consul-config_quarkus.agent.read-timeout[quarkus.agent.read-timeout]`
+a| [[quarkus-consul-config_quarkus.consul-config.agent.read-timeout]]`link:#quarkus-consul-config_quarkus.consul-config.agent.read-timeout[quarkus.consul-config.agent.read-timeout]`
 
 [.description]
 --
@@ -198,75 +199,75 @@ The amount of time to wait for a read on a socket before an exception is thrown.
 Specify `0` to wait indefinitely.
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_AGENT_READ_TIMEOUT+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_AGENT_READ_TIMEOUT+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_AGENT_READ_TIMEOUT+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_AGENT_READ_TIMEOUT+++`
 endif::add-copy-button-to-env-var[]
 --|link:https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html[Duration]
   link:#duration-note-anchor-{summaryTableId}[icon:question-circle[], title=More information about the Duration format]
-|`60S`
+|`60s`
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.prefix]]`link:#quarkus-consul-config_quarkus.prefix[quarkus.prefix]`
+a| [[quarkus-consul-config_quarkus.consul-config.prefix]]`link:#quarkus-consul-config_quarkus.consul-config.prefix[quarkus.consul-config.prefix]`
 
 [.description]
 --
 Common prefix that all keys share when looking up the keys from Consul. The prefix is *not* included in the keys of the user configuration
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_PREFIX+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_PREFIX+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_PREFIX+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_PREFIX+++`
 endif::add-copy-button-to-env-var[]
 --|string 
 |
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.raw-value-keys]]`link:#quarkus-consul-config_quarkus.raw-value-keys[quarkus.raw-value-keys]`
+a| [[quarkus-consul-config_quarkus.consul-config.raw-value-keys]]`link:#quarkus-consul-config_quarkus.consul-config.raw-value-keys[quarkus.consul-config.raw-value-keys]`
 
 [.description]
 --
 Keys whose value is a raw string. When this is used, the keys that end up in the user configuration are the keys specified her with '/' replaced by '.'
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RAW_VALUE_KEYS+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_RAW_VALUE_KEYS+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RAW_VALUE_KEYS+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_RAW_VALUE_KEYS+++`
 endif::add-copy-button-to-env-var[]
 --|list of string 
 |
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.properties-value-keys]]`link:#quarkus-consul-config_quarkus.properties-value-keys[quarkus.properties-value-keys]`
+a| [[quarkus-consul-config_quarkus.consul-config.properties-value-keys]]`link:#quarkus-consul-config_quarkus.consul-config.properties-value-keys[quarkus.consul-config.properties-value-keys]`
 
 [.description]
 --
 Keys whose value represents a properties file. When this is used, the keys that end up in the user configuration are the keys of the properties file, not these keys
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_PROPERTIES_VALUE_KEYS+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_PROPERTIES_VALUE_KEYS+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_PROPERTIES_VALUE_KEYS+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_PROPERTIES_VALUE_KEYS+++`
 endif::add-copy-button-to-env-var[]
 --|list of string 
 |
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-consul-config_quarkus.fail-on-missing-key]]`link:#quarkus-consul-config_quarkus.fail-on-missing-key[quarkus.fail-on-missing-key]`
+a| [[quarkus-consul-config_quarkus.consul-config.fail-on-missing-key]]`link:#quarkus-consul-config_quarkus.consul-config.fail-on-missing-key[quarkus.consul-config.fail-on-missing-key]`
 
 [.description]
 --
 If set to true, the application will not start if any of the configured config sources cannot be located
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_FAIL_ON_MISSING_KEY+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONSUL_CONFIG_FAIL_ON_MISSING_KEY+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_FAIL_ON_MISSING_KEY+++`
+Environment variable: `+++QUARKUS_CONSUL_CONFIG_FAIL_ON_MISSING_KEY+++`
 endif::add-copy-button-to-env-var[]
 --|boolean 
 |`true`
