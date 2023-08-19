@@ -155,9 +155,9 @@ public class GitConfigSourceRecorder {
             rv.putAll(loadProperties(stageDir));
             loadYaml(stageDir).forEach((name, value) -> {
                 if (rv.containsKey(name)) {
-                    LOG.warn("Overlapping YAML entry with key [{}], skipping...", name);
+                    LOG.warn("Overlapping YAML entry with key [{}], overriding with the latest...", name);
                 }
-                rv.putIfAbsent(name, value);
+                rv.put(name, value);
             });
             return rv;
         } catch (Exception e) {
@@ -180,9 +180,9 @@ public class GitConfigSourceRecorder {
             var props = fsProvider.read(stageDir.toPath().resolve(useFile));
             props.stringPropertyNames().forEach(name -> {
                 if (rv.containsKey(name)) {
-                    LOG.warn("Duplicated entry with key [{}] in [{}], skipping...", name, useFile);
+                    LOG.warn("Duplicated entry with key [{}] in [{}], overriding with the latest...", name, useFile);
                 }
-                rv.putIfAbsent(name, props.getProperty(name));
+                rv.put(name, props.getProperty(name));
             });
         }
         return rv;
