@@ -8,8 +8,6 @@ import io.quarkus.runtime.annotations.ConfigItem;
 @ConfigGroup
 public class GitAuthentication {
 
-    // https://dzone.com/articles/how-to-authenticate-with-jgit
-
     /**
      * Username and password credentials.
      */
