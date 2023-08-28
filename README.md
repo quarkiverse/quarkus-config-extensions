@@ -20,6 +20,8 @@ These extensions allows reading the Quarkus configuration properties from variou
 
 The documentation for these extensions can be found [here](https://quarkiverse.github.io/quarkiverse-docs/quarkus-config-extensions/dev/index.html).
 
+:information_source: **Recommended Quarkus version: `3.3.0` or higher**
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
