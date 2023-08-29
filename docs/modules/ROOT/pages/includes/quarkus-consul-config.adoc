@@ -12,6 +12,7 @@ h|Default
 
 a| [[quarkus-consul-config_quarkus.consul-config.enabled]]`link:#quarkus-consul-config_quarkus.consul-config.enabled[quarkus.consul-config.enabled]`
 
+
 [.description]
 --
 If set to true, the application will attempt to look up the configuration from Consul
@@ -27,6 +28,7 @@ endif::add-copy-button-to-env-var[]
 
 
 a| [[quarkus-consul-config_quarkus.consul-config.agent.host-port]]`link:#quarkus-consul-config_quarkus.consul-config.agent.host-port[quarkus.consul-config.agent.host-port]`
+
 
 [.description]
 --
@@ -45,6 +47,7 @@ endif::add-copy-button-to-env-var[]
 
 a| [[quarkus-consul-config_quarkus.consul-config.agent.use-https]]`link:#quarkus-consul-config_quarkus.consul-config.agent.use-https[quarkus.consul-config.agent.use-https]`
 
+
 [.description]
 --
 Whether or not to use HTTPS when communicating with the agent
@@ -60,6 +63,7 @@ endif::add-copy-button-to-env-var[]
 
 
 a| [[quarkus-consul-config_quarkus.consul-config.agent.token]]`link:#quarkus-consul-config_quarkus.consul-config.agent.token[quarkus.consul-config.agent.token]`
+
 
 [.description]
 --
@@ -77,6 +81,7 @@ endif::add-copy-button-to-env-var[]
 
 a| [[quarkus-consul-config_quarkus.consul-config.agent.trust-store]]`link:#quarkus-consul-config_quarkus.consul-config.agent.trust-store[quarkus.consul-config.agent.trust-store]`
 
+
 [.description]
 --
 TrustStore to be used containing the SSL certificate used by Consul agent Can be either a classpath resource or a file system path
@@ -92,6 +97,7 @@ endif::add-copy-button-to-env-var[]
 
 
 a| [[quarkus-consul-config_quarkus.consul-config.agent.trust-store-password]]`link:#quarkus-consul-config_quarkus.consul-config.agent.trust-store-password[quarkus.consul-config.agent.trust-store-password]`
+
 
 [.description]
 --
@@ -109,6 +115,7 @@ endif::add-copy-button-to-env-var[]
 
 a| [[quarkus-consul-config_quarkus.consul-config.agent.key-store]]`link:#quarkus-consul-config_quarkus.consul-config.agent.key-store[quarkus.consul-config.agent.key-store]`
 
+
 [.description]
 --
 KeyStore to be used containing the SSL certificate for authentication with Consul agent Can be either a classpath resource or a file system path
@@ -124,6 +131,7 @@ endif::add-copy-button-to-env-var[]
 
 
 a| [[quarkus-consul-config_quarkus.consul-config.agent.key-store-password]]`link:#quarkus-consul-config_quarkus.consul-config.agent.key-store-password[quarkus.consul-config.agent.key-store-password]`
+
 
 [.description]
 --
@@ -141,6 +149,7 @@ endif::add-copy-button-to-env-var[]
 
 a| [[quarkus-consul-config_quarkus.consul-config.agent.key-password]]`link:#quarkus-consul-config_quarkus.consul-config.agent.key-password[quarkus.consul-config.agent.key-password]`
 
+
 [.description]
 --
 Password to recover key from KeyStore for SSL client authentication with Consul agent If no value is provided, the key-store-password will be used
@@ -157,6 +166,7 @@ endif::add-copy-button-to-env-var[]
 
 a| [[quarkus-consul-config_quarkus.consul-config.agent.trust-certs]]`link:#quarkus-consul-config_quarkus.consul-config.agent.trust-certs[quarkus.consul-config.agent.trust-certs]`
 
+
 [.description]
 --
 When using HTTPS and no keyStore has been specified, whether or not to trust all certificates
@@ -172,6 +182,7 @@ endif::add-copy-button-to-env-var[]
 
 
 a| [[quarkus-consul-config_quarkus.consul-config.agent.connection-timeout]]`link:#quarkus-consul-config_quarkus.consul-config.agent.connection-timeout[quarkus.consul-config.agent.connection-timeout]`
+
 
 [.description]
 --
@@ -192,6 +203,7 @@ endif::add-copy-button-to-env-var[]
 
 a| [[quarkus-consul-config_quarkus.consul-config.agent.read-timeout]]`link:#quarkus-consul-config_quarkus.consul-config.agent.read-timeout[quarkus.consul-config.agent.read-timeout]`
 
+
 [.description]
 --
 The amount of time to wait for a read on a socket before an exception is thrown.
@@ -211,6 +223,7 @@ endif::add-copy-button-to-env-var[]
 
 a| [[quarkus-consul-config_quarkus.consul-config.prefix]]`link:#quarkus-consul-config_quarkus.consul-config.prefix[quarkus.consul-config.prefix]`
 
+
 [.description]
 --
 Common prefix that all keys share when looking up the keys from Consul. The prefix is *not* included in the keys of the user configuration
@@ -226,6 +239,7 @@ endif::add-copy-button-to-env-var[]
 
 
 a| [[quarkus-consul-config_quarkus.consul-config.raw-value-keys]]`link:#quarkus-consul-config_quarkus.consul-config.raw-value-keys[quarkus.consul-config.raw-value-keys]`
+
 
 [.description]
 --
@@ -243,6 +257,7 @@ endif::add-copy-button-to-env-var[]
 
 a| [[quarkus-consul-config_quarkus.consul-config.properties-value-keys]]`link:#quarkus-consul-config_quarkus.consul-config.properties-value-keys[quarkus.consul-config.properties-value-keys]`
 
+
 [.description]
 --
 Keys whose value represents a properties file. When this is used, the keys that end up in the user configuration are the keys of the properties file, not these keys
@@ -258,6 +273,7 @@ endif::add-copy-button-to-env-var[]
 
 
 a| [[quarkus-consul-config_quarkus.consul-config.fail-on-missing-key]]`link:#quarkus-consul-config_quarkus.consul-config.fail-on-missing-key[quarkus.consul-config.fail-on-missing-key]`
+
 
 [.description]
 --
