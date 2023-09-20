@@ -14,6 +14,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.eclipse.microprofile.config.spi.ConfigSource;
@@ -206,6 +207,36 @@ class ConsulConfigSourceFactoryTest {
         verify(mockGateway, times(1)).getValue("config/first");
         verify(mockGateway, times(1)).getValue("config/second");
     }
+
+  @Test
+  void testConfigSourcesOrdered() {
+    ConsulConfig config = mock(ConsulConfig.class);
+    // We want this order: first > second > third (first overrides second which overrides third)
+    when(config.rawValueKeys()).thenReturn(keyValues("some/first", "some/second", "some/third"));
+    AgentConfig agentConfig = mock(AgentConfig.class);
+    when(config.agent()).thenReturn(agentConfig);
+
+    ConsulConfigGateway mockGateway = mock(ConsulConfigGateway.class);
+    // make sure the third property is received first
+    when(mockGateway.getValue("some/first")).thenReturn(validResponse("some/third", "third"));
+    // make sure the first property is received in second
+    when(mockGateway.getValue("some/second")).thenReturn(validResponse("some/first", "first"));
+    // make sure the second property is received in third
+    when(mockGateway.getValue("some/third")).thenReturn(validResponse("some/second", "second"));
+
+    Iterable<ConfigSource> configSources = new ConsulConfigSourceFactory().getConfigSources(config, mockGateway);
+    assertThat(configSources).hasSize(3);
+    assertThat(configSources).extracting(ConfigSource::getProperties).containsExactly(
+      Map.of("some.first", "first"),
+      Map.of("some.second", "second"),
+      Map.of("some.third", "third")
+    );
+
+    //all keys should have been resolved because we resolve keys in the order they were given by the user
+    verify(mockGateway, times(1)).getValue("some/first");
+    verify(mockGateway, times(1)).getValue("some/second");
+    verify(mockGateway, times(1)).getValue("some/third");
+  }
 
     private Optional<List<String>> keyValues(String... keys) {
         return Optional.of(Arrays.asList(keys));

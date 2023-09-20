@@ -45,22 +45,24 @@ class ConsulConfigSourceFactory implements ConfigSourceFactory.ConfigurableConfi
             return Collections.emptyList();
         }
 
-        List<ConfigSource> result = new ArrayList<>(keys.size());
+        Map<String, ConfigSource> results = new LinkedHashMap<>(keys.size());
 
         List<Uni<?>> allUnis = new ArrayList<>();
 
         for (Map.Entry<String, ValueType> entry : keys.entrySet()) {
             String fullKey = config.prefix().isPresent() ? config.prefix().get() + "/" + entry.getKey() : entry.getKey();
+            results.put(fullKey, null);
             allUnis.add(consulConfigGateway.getValue(fullKey).invoke(new Consumer<Response>() {
                 @Override
                 public void accept(Response response) {
                     if (response != null) {
-                        result.add(ResponseConfigSourceUtil.toConfigSource(response, entry.getValue(), config.prefix()));
+                      results.put(response.getKey(), ResponseConfigSourceUtil.toConfigSource(response, entry.getValue(), config.prefix()));
                     } else {
                         String message = "Key '" + fullKey + "' not found in Consul.";
                         if (config.failOnMissingKey()) {
                             throw new RuntimeException(message);
                         } else {
+                            results.remove(fullKey);
                             log.info(message);
                         }
                     }
@@ -81,6 +83,6 @@ class ConsulConfigSourceFactory implements ConfigSourceFactory.ConfigurableConfi
             consulConfigGateway.close();
         }
 
-        return result;
+        return results.values();
     }
 }
