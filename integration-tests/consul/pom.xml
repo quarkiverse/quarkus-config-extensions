@@ -10,7 +10,7 @@
     <name>Quarkus - Config Extensions - Integration Tests - Consul</name>
 
     <properties>
-        <wiremock-jre8.version>2.27.2</wiremock-jre8.version>
+        <wiremock-jre8.version>2.35.1</wiremock-jre8.version>
         <wiremock-maven-plugin.version>7.3.0</wiremock-maven-plugin.version>
     </properties>
 
