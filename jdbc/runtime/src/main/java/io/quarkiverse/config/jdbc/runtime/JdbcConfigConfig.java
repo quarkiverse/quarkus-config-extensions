@@ -17,7 +17,7 @@ import io.smallrye.config.WithName;
  * The config itself is loaded using the ConfigSourceContext on the ConfigSourceFactory
  */
 @ConfigMapping(prefix = "quarkus.config.source.jdbc")
-@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigRoot(phase = ConfigPhase.RUN_TIME)
 public interface JdbcConfigConfig {
 
     /**
