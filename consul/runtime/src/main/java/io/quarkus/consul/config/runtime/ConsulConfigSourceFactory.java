@@ -56,7 +56,8 @@ class ConsulConfigSourceFactory implements ConfigSourceFactory.ConfigurableConfi
                 @Override
                 public void accept(Response response) {
                     if (response != null) {
-                      results.put(response.getKey(), ResponseConfigSourceUtil.toConfigSource(response, entry.getValue(), config.prefix()));
+                        results.put(response.getKey(),
+                                ResponseConfigSourceUtil.toConfigSource(response, entry.getValue(), config.prefix()));
                     } else {
                         String message = "Key '" + fullKey + "' not found in Consul.";
                         if (config.failOnMissingKey()) {
