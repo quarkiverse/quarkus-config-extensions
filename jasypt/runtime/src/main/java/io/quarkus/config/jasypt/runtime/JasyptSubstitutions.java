@@ -19,18 +19,16 @@ import com.oracle.svm.core.annotate.TargetElement;
 public class JasyptSubstitutions {
     @TargetClass(Normalizer.class)
     static final class Target_Normalizer {
-        @Alias
-        @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
-        private static Boolean useIcuNormalizer;
-
         @Substitute
-        static void initializeIcu4j() throws ClassNotFoundException {
-            useIcuNormalizer = Boolean.FALSE;
-        }
-
-        @Substitute
-        static char[] normalizeWithIcu4j(final char[] message) {
-            throw new UnsupportedOperationException();
+        public static char[] normalizeToNfc(final char[] message) {
+            final String messageStr = new String(message);
+            final String result;
+            try {
+                result = java.text.Normalizer.normalize(messageStr, java.text.Normalizer.Form.NFC);
+            } catch (final Exception e) {
+                throw new EncryptionInitializationException("Could not perform a valid UNICODE normalization", e);
+            }
+            return result.toCharArray();
         }
     }
 
