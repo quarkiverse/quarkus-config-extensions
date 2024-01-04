@@ -34,7 +34,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.version>3.6.4</quarkus.version>
     <smallrye-config.version>3.4.4</smallrye-config.version>
-    <assertj.version>3.25.0</assertj.version>
+    <assertj.version>3.25.1</assertj.version>
     <jsoup.version>1.17.2</jsoup.version>
   </properties>
   <dependencyManagement>
