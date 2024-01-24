@@ -1,5 +1,7 @@
 package io.quarkiverse.config.jdbc.runtime;
 
+import static io.agroal.api.configuration.AgroalDataSourceConfiguration.DataSourceImplementation.AGROAL;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,8 +15,6 @@ import java.util.Set;
 import org.jboss.logging.Logger;
 
 import io.agroal.api.AgroalDataSource;
-import io.agroal.api.configuration.supplier.AgroalConnectionFactoryConfigurationSupplier;
-import io.agroal.api.configuration.supplier.AgroalConnectionPoolConfigurationSupplier;
 import io.agroal.api.configuration.supplier.AgroalDataSourceConfigurationSupplier;
 import io.agroal.api.security.NamePrincipal;
 import io.agroal.api.security.SimplePassword;
@@ -82,29 +82,26 @@ public class Repository implements AutoCloseable {
     }
 
     private void prepareDataSource(final JdbcConfigConfig config) throws SQLException {
-        // create supplier
-        AgroalDataSourceConfigurationSupplier dataSourceConfiguration = new AgroalDataSourceConfigurationSupplier();
-        // get reference to connection pool
-        AgroalConnectionPoolConfigurationSupplier poolConfiguration = dataSourceConfiguration
-                .connectionPoolConfiguration();
-        // get reference to connection factory
-        AgroalConnectionFactoryConfigurationSupplier connectionFactoryConfiguration = poolConfiguration
-                .connectionFactoryConfiguration();
+        var configuration = new AgroalDataSourceConfigurationSupplier()
+                .dataSourceImplementation(AGROAL)
+                .metricsEnabled(false)
+                .connectionPoolConfiguration(cp -> cp
+                        .minSize(config.minSize())
+                        .maxSize(config.maxSize())
+                        .initialSize(config.initialSize())
+                        .acquisitionTimeout(config.acquisitionTimeout())
+                        .connectionFactoryConfiguration(cf -> cf
+                                .jdbcUrl(config.url())
+                                .connectionProviderClassName(config.driver()
+                                        .orElse(null))
+                                .principal(config.username()
+                                        .map(NamePrincipal::new)
+                                        .orElse(null))
+                                .credential(config.password()
+                                        .map(SimplePassword::new)
+                                        .orElse(null))));
 
-        // configure pool
-        poolConfiguration
-                .initialSize(config.initialSize())
-                .minSize(config.minSize())
-                .maxSize(config.maxSize())
-                .acquisitionTimeout(config.acquisitionTimeout());
-
-        // configure supplier
-        connectionFactoryConfiguration
-                .jdbcUrl(config.url())
-                .credential(new NamePrincipal(config.username()))
-                .credential(new SimplePassword(config.password()));
-
-        dataSource = AgroalDataSource.from(dataSourceConfiguration.get());
+        dataSource = AgroalDataSource.from(configuration);
     }
 
     private void prepareQueries(final JdbcConfigConfig config) {

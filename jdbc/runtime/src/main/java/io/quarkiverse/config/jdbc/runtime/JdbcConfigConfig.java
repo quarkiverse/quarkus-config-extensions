@@ -1,6 +1,7 @@
 package io.quarkiverse.config.jdbc.runtime;
 
 import java.time.Duration;
+import java.util.Optional;
 
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
@@ -57,19 +58,25 @@ public interface JdbcConfigConfig {
      * The datasource username, if not defined the username of the default datasource is used
      */
     @WithDefault("${quarkus.datasource.username}")
-    String username();
+    Optional<String> username();
 
     /**
      * The datasource password, if not defined the password of the default datasource is used
      */
     @WithDefault("${quarkus.datasource.password}")
-    String password();
+    Optional<String> password();
 
     /**
      * The datasource URL, if not defined the URL of the default datasource is used
      */
     @WithDefault("${quarkus.datasource.jdbc.url}")
     String url();
+
+    /**
+     * The datasource driver, if not defined the driver of the default datasource is used
+     */
+    @WithDefault("${quarkus.datasource.jdbc.driver}")
+    Optional<String> driver();
 
     /**
      * The initial size of the pool. Usually you will want to set the initial size to match at least the
