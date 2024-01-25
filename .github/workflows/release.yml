@@ -68,3 +68,11 @@ jobs:
         run: |
           git push
           git push origin ${{steps.metadata.outputs.current-version}}
+
+      - uses: radcortez/milestone-release-action@main
+        name: milestone release
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          milestone-title: ${{steps.metadata.outputs.current-version}}
+          milestone-next: ${{steps.metadata.outputs.next-version}}
+          
