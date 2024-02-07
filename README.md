@@ -15,6 +15,7 @@ These extensions allows reading the Quarkus configuration properties from variou
 * [HashiCorp Consul](https://www.consul.io)
 * HOCON
 * [Jasypt](http://www.jasypt.org)
+* [Git](https://github.com/quarkiverse/quarkus-jgit)
 
 ## Documentation
 

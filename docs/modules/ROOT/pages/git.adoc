@@ -1,0 +1,132 @@
+= Quarkus GIT Config
+
+include::./includes/attributes.adoc[]
+
+This guide explains how your Quarkus application can read configuration properties from a GIT repository.
+
+== Prerequisites
+
+To complete this guide, you need:
+
+* less than 15 minutes
+* an IDE
+* JDK 11+ installed with `JAVA_HOME` configured appropriately
+* Apache Maven {maven-version}
+
+
+== Solution
+
+We recommend that you follow the instructions in the next sections and create the application step by step.
+
+== Introduction
+
+TODO
+
+== Creating the Maven project
+
+First, we need a new project. Create a new project with the following command:
+
+[source,bash,subs=attributes+]
+----
+mvn io.quarkus.platform:quarkus-maven-plugin:{quarkus-version}:create \
+    -DprojectGroupId=org.acme \
+    -DprojectArtifactId=config-git-quickstart \
+    -DclassName="org.acme.git.config.GreetingResource" \
+    -Dpath="/greeting" \
+    -Dextensions="config-git"
+cd config-git-quickstart
+----
+
+This command generates a Maven project with a REST endpoint and imports the `config-git` extension.
+
+If you already have your Quarkus project configured, you can add the `config-git` extension
+to your project by running the following command in your project base directory:
+
+[source,bash]
+----
+./mvnw quarkus:add-extension -Dextensions="config-git"
+----
+
+This will add the following to your `pom.xml`:
+
+[source,xml,subs=attributes+]
+----
+<dependency>
+    <groupId>io.quarkiverse.config</groupId>
+    <artifactId>quarkus-config-git</artifactId>
+    <version>{quarkus-config-extensions-version}</version>
+</dependency>
+----
+
+== GreetingController
+
+The Quarkus Maven plugin automatically generated a `GreetingResource` JAX-RS resource in the
+`src/main/java/org/acme/consul/config/client/GreetingResource.java` file that looks like:
+
+[source,java]
+----
+package org.acme.consul.config.client;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+@Path("/greeting")
+public class GreetingResource {
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "hello";
+    }
+}
+----
+
+As we want to use configuration properties obtained from the Config Server, we will update the `GreetingResource` to inject the `message` property. The updated code will look like this:
+
+[source,java]
+----
+package org.acme.consul.config.client;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+@Path("/greeting")
+public class GreetingResource {
+    @ConfigProperty(name = "greeting.message", defaultValue="Hello from default")
+    String message;
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return message;
+    }
+}
+----
+
+== Configuring the application
+
+Quarkus provides various configuration knobs under the `quarkus.git-config-source` root. For the purposes of this guide, our Quarkus application is going to be configured in `application.properties` as follows:
+
+[source,properties]
+----
+quarkus.git-config-source.TODO
+----
+
+== Create a versioned property file
+
+TODO
+
+
+== Package and run the application
+
+Run the application with: `./mvnw compile quarkus:dev`.
+Open your browser to http://localhost:8080/greeting.
+
+The result should be: `Hello from GIT` as it is the value obtained from the database.
+
+== Run the application as a native executable
+
+You can of course create a native image using the instructions of the link:building-native-image[Building a native executable guide].
+
+== Configuration Reference
+
+include::./includes/quarkus-git-config.adoc[]

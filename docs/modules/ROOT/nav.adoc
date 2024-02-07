@@ -2,3 +2,4 @@
 * xref:consul.adoc[HashiCorp Consul]
 * xref:jdbc.adoc[JDBC Config]
 * xref:jasypt.adoc[Jasypt]
+* xref:git.adoc[GIT Config]

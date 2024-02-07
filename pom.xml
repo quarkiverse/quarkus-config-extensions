@@ -13,6 +13,7 @@
   <name>Quarkus - Config Extensions - Parent</name>
   <modules>
     <module>sample</module>
+    <module>git</module>
     <module>jdbc</module>
     <module>consul</module>
     <module>hocon</module>
