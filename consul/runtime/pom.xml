@@ -6,9 +6,11 @@
         <artifactId>quarkus-config-consul-parent</artifactId>
         <version>2.3.1-SNAPSHOT</version>
     </parent>
+
     <artifactId>quarkus-config-consul</artifactId>
     <name>Quarkus - Config Extensions - Consul - Runtime</name>
-    <description>Read runtime configuration from Consul Key - Value store</description>
+    <description>Read runtime configuration from a Consul Key - Value store</description>
+
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>

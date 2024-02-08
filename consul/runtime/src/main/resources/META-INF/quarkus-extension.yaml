@@ -1,6 +1,7 @@
 ---
 artifact: ${project.groupId}:${project.artifactId}:${project.version}
 name: "Consul Config"
+description: "Read runtime configuration from a Consul Key - Value store: https://www.consul.io"
 metadata:
   keywords:
   - "consul-client"

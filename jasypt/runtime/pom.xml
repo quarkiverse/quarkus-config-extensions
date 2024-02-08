@@ -9,6 +9,7 @@
 
   <artifactId>quarkus-config-jasypt</artifactId>
   <name>Quarkus - Config Extensions - Jasypt - Runtime</name>
+  <description>Secret Key Handler for Jasypt</description>
 
   <dependencies>
     <dependency>

@@ -1,4 +1,5 @@
 name: Config JDBC
+description: Read runtime configuration from a JDBC Datasource
 metadata:
   keywords:
   - "config"

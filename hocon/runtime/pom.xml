@@ -9,6 +9,7 @@
 
   <artifactId>quarkus-config-hocon</artifactId>
   <name>Quarkus - Config Extensions - HOCON - Runtime</name>
+  <description>Read runtime configuration with HOCON</description>
 
   <dependencies>
     <dependency>
