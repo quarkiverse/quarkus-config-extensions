@@ -6,9 +6,11 @@
         <artifactId>quarkus-config-jdbc-parent</artifactId>
         <version>2.3.1-SNAPSHOT</version>
     </parent>
+
     <artifactId>quarkus-config-jdbc</artifactId>
     <name>Quarkus - Config Extensions - JDBC - Runtime</name>
-    <description>Consume your configuration from a JDBC datastore</description>
+    <description>Read runtime configuration from a JDBC Datasource</description>
+
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>

@@ -1,6 +1,7 @@
 ---
 artifact: ${project.groupId}:${project.artifactId}:${project.version}
 name: "Jasypt Secret Keys Expressions"
+description: "Secret Key Handler for Jasypt - ${jasypt::...}"
 metadata:
   keywords:
   - "config"

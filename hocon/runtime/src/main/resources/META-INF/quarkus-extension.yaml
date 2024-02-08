@@ -1,6 +1,7 @@
 ---
 artifact: ${project.groupId}:${project.artifactId}:${project.version}
 name: "HOCON Config"
+description: "Read runtime configuration with the HOCON format: https://github.com/lightbend/config"
 metadata:
   keywords:
   - "config"
