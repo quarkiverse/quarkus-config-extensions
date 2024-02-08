@@ -10,7 +10,7 @@ h|[[quarkus-consul-config_configuration]]link:#quarkus-consul-config_configurati
 h|Type
 h|Default
 
-a| [[quarkus-consul-config_quarkus.consul-config.enabled]]`link:#quarkus-consul-config_quarkus.consul-config.enabled[quarkus.consul-config.enabled]`
+a| [[quarkus-consul-config_quarkus-consul-config-enabled]]`link:#quarkus-consul-config_quarkus-consul-config-enabled[quarkus.consul-config.enabled]`
 
 
 [.description]
@@ -27,7 +27,7 @@ endif::add-copy-button-to-env-var[]
 |`false`
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.agent.host-port]]`link:#quarkus-consul-config_quarkus.consul-config.agent.host-port[quarkus.consul-config.agent.host-port]`
+a| [[quarkus-consul-config_quarkus-consul-config-agent-host-port]]`link:#quarkus-consul-config_quarkus-consul-config-agent-host-port[quarkus.consul-config.agent.host-port]`
 
 
 [.description]
@@ -45,7 +45,7 @@ endif::add-copy-button-to-env-var[]
 |`localhost:8500`
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.agent.use-https]]`link:#quarkus-consul-config_quarkus.consul-config.agent.use-https[quarkus.consul-config.agent.use-https]`
+a| [[quarkus-consul-config_quarkus-consul-config-agent-use-https]]`link:#quarkus-consul-config_quarkus-consul-config-agent-use-https[quarkus.consul-config.agent.use-https]`
 
 
 [.description]
@@ -62,7 +62,7 @@ endif::add-copy-button-to-env-var[]
 |`false`
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.agent.token]]`link:#quarkus-consul-config_quarkus.consul-config.agent.token[quarkus.consul-config.agent.token]`
+a| [[quarkus-consul-config_quarkus-consul-config-agent-token]]`link:#quarkus-consul-config_quarkus-consul-config-agent-token[quarkus.consul-config.agent.token]`
 
 
 [.description]
@@ -79,7 +79,7 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.agent.trust-store]]`link:#quarkus-consul-config_quarkus.consul-config.agent.trust-store[quarkus.consul-config.agent.trust-store]`
+a| [[quarkus-consul-config_quarkus-consul-config-agent-trust-store]]`link:#quarkus-consul-config_quarkus-consul-config-agent-trust-store[quarkus.consul-config.agent.trust-store]`
 
 
 [.description]
@@ -96,7 +96,7 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.agent.trust-store-password]]`link:#quarkus-consul-config_quarkus.consul-config.agent.trust-store-password[quarkus.consul-config.agent.trust-store-password]`
+a| [[quarkus-consul-config_quarkus-consul-config-agent-trust-store-password]]`link:#quarkus-consul-config_quarkus-consul-config-agent-trust-store-password[quarkus.consul-config.agent.trust-store-password]`
 
 
 [.description]
@@ -113,7 +113,7 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.agent.key-store]]`link:#quarkus-consul-config_quarkus.consul-config.agent.key-store[quarkus.consul-config.agent.key-store]`
+a| [[quarkus-consul-config_quarkus-consul-config-agent-key-store]]`link:#quarkus-consul-config_quarkus-consul-config-agent-key-store[quarkus.consul-config.agent.key-store]`
 
 
 [.description]
@@ -130,7 +130,7 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.agent.key-store-password]]`link:#quarkus-consul-config_quarkus.consul-config.agent.key-store-password[quarkus.consul-config.agent.key-store-password]`
+a| [[quarkus-consul-config_quarkus-consul-config-agent-key-store-password]]`link:#quarkus-consul-config_quarkus-consul-config-agent-key-store-password[quarkus.consul-config.agent.key-store-password]`
 
 
 [.description]
@@ -147,7 +147,7 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.agent.key-password]]`link:#quarkus-consul-config_quarkus.consul-config.agent.key-password[quarkus.consul-config.agent.key-password]`
+a| [[quarkus-consul-config_quarkus-consul-config-agent-key-password]]`link:#quarkus-consul-config_quarkus-consul-config-agent-key-password[quarkus.consul-config.agent.key-password]`
 
 
 [.description]
@@ -164,7 +164,7 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.agent.trust-certs]]`link:#quarkus-consul-config_quarkus.consul-config.agent.trust-certs[quarkus.consul-config.agent.trust-certs]`
+a| [[quarkus-consul-config_quarkus-consul-config-agent-trust-certs]]`link:#quarkus-consul-config_quarkus-consul-config-agent-trust-certs[quarkus.consul-config.agent.trust-certs]`
 
 
 [.description]
@@ -181,7 +181,7 @@ endif::add-copy-button-to-env-var[]
 |`false`
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.agent.connection-timeout]]`link:#quarkus-consul-config_quarkus.consul-config.agent.connection-timeout[quarkus.consul-config.agent.connection-timeout]`
+a| [[quarkus-consul-config_quarkus-consul-config-agent-connection-timeout]]`link:#quarkus-consul-config_quarkus-consul-config-agent-connection-timeout[quarkus.consul-config.agent.connection-timeout]`
 
 
 [.description]
@@ -201,7 +201,7 @@ endif::add-copy-button-to-env-var[]
 |`10s`
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.agent.read-timeout]]`link:#quarkus-consul-config_quarkus.consul-config.agent.read-timeout[quarkus.consul-config.agent.read-timeout]`
+a| [[quarkus-consul-config_quarkus-consul-config-agent-read-timeout]]`link:#quarkus-consul-config_quarkus-consul-config-agent-read-timeout[quarkus.consul-config.agent.read-timeout]`
 
 
 [.description]
@@ -221,7 +221,7 @@ endif::add-copy-button-to-env-var[]
 |`60s`
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.prefix]]`link:#quarkus-consul-config_quarkus.consul-config.prefix[quarkus.consul-config.prefix]`
+a| [[quarkus-consul-config_quarkus-consul-config-prefix]]`link:#quarkus-consul-config_quarkus-consul-config-prefix[quarkus.consul-config.prefix]`
 
 
 [.description]
@@ -238,7 +238,7 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.raw-value-keys]]`link:#quarkus-consul-config_quarkus.consul-config.raw-value-keys[quarkus.consul-config.raw-value-keys]`
+a| [[quarkus-consul-config_quarkus-consul-config-raw-value-keys]]`link:#quarkus-consul-config_quarkus-consul-config-raw-value-keys[quarkus.consul-config.raw-value-keys]`
 
 
 [.description]
@@ -255,7 +255,7 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.properties-value-keys]]`link:#quarkus-consul-config_quarkus.consul-config.properties-value-keys[quarkus.consul-config.properties-value-keys]`
+a| [[quarkus-consul-config_quarkus-consul-config-properties-value-keys]]`link:#quarkus-consul-config_quarkus-consul-config-properties-value-keys[quarkus.consul-config.properties-value-keys]`
 
 
 [.description]
@@ -272,7 +272,7 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-a| [[quarkus-consul-config_quarkus.consul-config.fail-on-missing-key]]`link:#quarkus-consul-config_quarkus.consul-config.fail-on-missing-key[quarkus.consul-config.fail-on-missing-key]`
+a| [[quarkus-consul-config_quarkus-consul-config-fail-on-missing-key]]`link:#quarkus-consul-config_quarkus-consul-config-fail-on-missing-key[quarkus.consul-config.fail-on-missing-key]`
 
 
 [.description]
