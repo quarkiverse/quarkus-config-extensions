@@ -12,7 +12,6 @@
   <packaging>pom</packaging>
   <name>Quarkus - Config Extensions - Parent</name>
   <modules>
-    <module>sample</module>
     <module>jdbc</module>
     <module>consul</module>
     <module>hocon</module>

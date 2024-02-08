@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
     <name>Quarkus - Config Extensions - Integration Tests - Parent</name>
     <modules>
-        <module>sample</module>
         <module>consul</module>
         <module>jdbc</module>
         <module>hocon</module>
