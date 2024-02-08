@@ -100,9 +100,19 @@ public class Repository implements AutoCloseable {
 
         // configure supplier
         connectionFactoryConfiguration
-                .jdbcUrl(config.url())
-                .credential(new NamePrincipal(config.username()))
-                .credential(new SimplePassword(config.password()));
+                .jdbcUrl(config.url());
+
+        if (config.driver().isPresent()) {
+            connectionFactoryConfiguration.connectionProviderClassName(config.driver().get());
+        }
+
+        if (config.username().isPresent()) {
+            connectionFactoryConfiguration.credential(new NamePrincipal(config.username().get()));
+        }
+
+        if (config.password().isPresent()) {
+            connectionFactoryConfiguration.credential(new SimplePassword(config.password().get()));
+        }
 
         dataSource = AgroalDataSource.from(dataSourceConfiguration.get());
     }

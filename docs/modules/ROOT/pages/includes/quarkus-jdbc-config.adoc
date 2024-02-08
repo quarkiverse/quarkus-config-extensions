@@ -41,7 +41,7 @@ a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.key]]`link:#quarkus-jdbc-con
 --
 Name of the column containing the key
 --|string 
-|`key`
+|`configuration_key`
 
 
 a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.value]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.value[quarkus.config.source.jdbc.value]`
@@ -50,7 +50,7 @@ a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.value]]`link:#quarkus-jdbc-c
 --
 Name of the column containing the value
 --|string 
-|`value`
+|`configuration_value`
 
 
 a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.username]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.username[quarkus.config.source.jdbc.username]`
@@ -78,6 +78,15 @@ a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.url]]`link:#quarkus-jdbc-con
 The datasource URL, if not defined the URL of the default datasource is used
 --|string 
 | value of `quarkus.datasource..jdbc.url`
+
+
+a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.driver]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.driver[quarkus.config.source.jdbc.driver]`
+
+[.description]
+--
+The datasource driver, if not defined the driver of the default datasource is used
+--|string
+| value of `quarkus.datasource..jdbc.driver`
 
 
 a| [[quarkus-jdbc-config_quarkus.config.source.jdbc.initial-size]]`link:#quarkus-jdbc-config_quarkus.config.source.jdbc.initial-size[quarkus.config.source.jdbc.initial-size]`
