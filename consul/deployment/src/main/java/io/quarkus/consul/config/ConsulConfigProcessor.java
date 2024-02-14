@@ -25,7 +25,7 @@ public class ConsulConfigProcessor {
 
     @BuildStep
     public void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, false, Response.class));
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(Response.class).constructors().build());
     }
 
     @BuildStep
