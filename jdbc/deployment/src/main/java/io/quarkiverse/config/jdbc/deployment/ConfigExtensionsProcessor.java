@@ -20,7 +20,6 @@ class ConfigExtensionsProcessor {
     void jdbcConfigFactory(
             BuildProducer<StaticInitConfigBuilderBuildItem> staticInitConfigBuilder,
             BuildProducer<RunTimeConfigBuilderBuildItem> runTimeConfigBuilder) {
-        staticInitConfigBuilder.produce(new StaticInitConfigBuilderBuildItem(JdbcConfigSourceFactoryBuilder.class.getName()));
         runTimeConfigBuilder.produce(new RunTimeConfigBuilderBuildItem(JdbcConfigSourceFactoryBuilder.class.getName()));
     }
 }

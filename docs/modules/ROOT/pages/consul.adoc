@@ -154,7 +154,8 @@ The result should be: `Hello from Consul` as it is the value obtained from the C
 
 == Run the application as a native executable
 
-You can of course create a native image using the instructions of the link:building-native-image[Building a native executable guide].
+You can of course create a native image using the instructions of the
+link:https://quarkus.io/guides/building-native-image[Building a native executable guide].
 
 == Configuration Reference
 
