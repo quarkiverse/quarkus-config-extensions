@@ -43,4 +43,4 @@ jobs:
           cache-dependency-path: '**/pom.xml'
 
       - name: build with maven
-        run: mvn formatter:validate verify --file pom.xml -Pnative
+        run: mvn formatter:validate verify --file pom.xml -Dnative
