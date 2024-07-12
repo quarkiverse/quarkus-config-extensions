@@ -34,7 +34,7 @@
     <quarkus.version>3.12.2</quarkus.version>
     <smallrye-config.version>3.8.3</smallrye-config.version>
     <assertj.version>3.26.3</assertj.version>
-    <jsoup.version>1.17.2</jsoup.version>
+    <jsoup.version>1.18.1</jsoup.version>
   </properties>
   <dependencyManagement>
     <dependencies>
