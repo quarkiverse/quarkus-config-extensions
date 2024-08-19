@@ -11,6 +11,7 @@ import jakarta.inject.Singleton;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import io.quarkus.runtime.annotations.ConfigDocIgnore;
 import io.quarkus.test.QuarkusUnitTest;
 import io.smallrye.config.ConfigMapping;
 import io.smallrye.config.WithDefault;
@@ -48,25 +49,32 @@ public class InterfaceConfigPropertiesTest {
 
     @ConfigMapping(prefix = "sql")
     public interface SqlConfiguration {
-
         @WithName("max_pool_size")
         @WithDefault("50")
+        @ConfigDocIgnore
         int maxPoolSize();
 
         @WithName("max_idle_time_seconds")
         @WithDefault("100")
+        @ConfigDocIgnore
         int maxIdleTimeSeconds();
 
+        @ConfigDocIgnore
         String name();
 
+        @ConfigDocIgnore
         String user();
 
+        @ConfigDocIgnore
         String password();
 
+        @ConfigDocIgnore
         Type type();
 
+        @ConfigDocIgnore
         List<String> supportedVars();
 
+        @ConfigDocIgnore
         Map<String, String> customConfigs();
 
         enum Type {
@@ -76,5 +84,4 @@ public class InterfaceConfigPropertiesTest {
             DEFAULT_TYPE
         }
     }
-
 }
