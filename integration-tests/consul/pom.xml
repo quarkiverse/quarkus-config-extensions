@@ -10,7 +10,7 @@
     <name>Quarkus - Config Extensions - Integration Tests - Consul</name>
 
     <properties>
-        <wiremock-jre8.version>2.27.2</wiremock-jre8.version>
+        <wiremock.version>3.9.1</wiremock.version>
         <wiremock-maven-plugin.version>7.3.0</wiremock-maven-plugin.version>
     </properties>
 
@@ -99,12 +99,10 @@
                 <artifactId>wiremock-maven-plugin</artifactId>
                 <version>${wiremock-maven-plugin.version}</version>
                 <dependencies>
-                    <!-- plugin defines "wiremock" artifactId (in provided scope), not the preferred "wiremock-jre8"
-                         which cannot be forced here, see https://issues.apache.org/jira/browse/MNG-6222 -->
                     <dependency>
-                        <groupId>com.github.tomakehurst</groupId>
-                        <artifactId>wiremock</artifactId>
-                        <version>${wiremock-jre8.version}</version>
+                        <groupId>org.wiremock</groupId>
+                        <artifactId>wiremock-standalone</artifactId>
+                        <version>${wiremock.version}</version>
                     </dependency>
                 </dependencies>
                 <executions>
