@@ -44,7 +44,6 @@ public class Repository implements AutoCloseable {
                 return result;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             log.trace("config-jdbc: could not get values: " + e.getLocalizedMessage());
             return Collections.emptyMap();
         }
