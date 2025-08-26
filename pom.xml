@@ -31,7 +31,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.version>3.25.2</quarkus.version>
     <assertj.version>3.27.4</assertj.version>
-    <jsoup.version>1.21.1</jsoup.version>
+    <jsoup.version>1.21.2</jsoup.version>
   </properties>
   <dependencyManagement>
     <dependencies>
