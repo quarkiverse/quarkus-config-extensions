@@ -29,7 +29,7 @@
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus.version>3.26.3</quarkus.version>
+    <quarkus.version>3.28.0</quarkus.version>
     <assertj.version>3.27.6</assertj.version>
     <jsoup.version>1.21.2</jsoup.version>
   </properties>
