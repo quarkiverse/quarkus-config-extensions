@@ -1,0 +1,303 @@
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time - All other configuration properties are overridable at runtime
+[.configuration-reference.searchable, cols="80,.^10,.^10"]
+|===
+
+h|[.header-title]##Configuration property##
+h|Type
+h|Default
+
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-enabled]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-enabled[`quarkus.config.source.jdbc.enabled`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.jdbc.enabled+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+If set to true, the application will attempt to look up the configuration from DB
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_JDBC_ENABLED+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_JDBC_ENABLED+++`
+endif::add-copy-button-to-env-var[]
+--
+|boolean
+|`+++true+++`
+
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-cache]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-cache[`quarkus.config.source.jdbc.cache`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.jdbc.cache+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+If set to true, the application will cache all looked up the configuration from DB in memory If set to false, the application will always get the latest values from the DB
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_JDBC_CACHE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_JDBC_CACHE+++`
+endif::add-copy-button-to-env-var[]
+--
+|boolean
+|`+++true+++`
+
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-table]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-table[`quarkus.config.source.jdbc.table`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.jdbc.table+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+Table name for configuration records
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_JDBC_TABLE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_JDBC_TABLE+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|`+++configuration+++`
+
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-key]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-key[`quarkus.config.source.jdbc.key`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.jdbc.key+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+Name of the column containing the key
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_JDBC_KEY+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_JDBC_KEY+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|`+++configuration_key+++`
+
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-value]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-value[`quarkus.config.source.jdbc.value`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.jdbc.value+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+Name of the column containing the value
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_JDBC_VALUE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_JDBC_VALUE+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|`+++configuration_value+++`
+
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-username]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-username[`quarkus.config.source.jdbc.username`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.jdbc.username+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The datasource username, if not defined the username of the default datasource is used
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_JDBC_USERNAME+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_JDBC_USERNAME+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|`+++${quarkus.datasource.username}+++`
+
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-password]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-password[`quarkus.config.source.jdbc.password`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.jdbc.password+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The datasource password, if not defined the password of the default datasource is used
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_JDBC_PASSWORD+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_JDBC_PASSWORD+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|`+++${quarkus.datasource.password}+++`
+
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-url]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-url[`quarkus.config.source.jdbc.url`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.jdbc.url+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The datasource URL, if not defined the URL of the default datasource is used
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_JDBC_URL+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_JDBC_URL+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|`+++${quarkus.datasource.jdbc.url}+++`
+
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-driver]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-driver[`quarkus.config.source.jdbc.driver`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.jdbc.driver+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The datasource driver, if not defined the driver of the default datasource is used
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_JDBC_DRIVER+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_JDBC_DRIVER+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|`+++${quarkus.datasource.jdbc.driver}+++`
+
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-initial-size]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-initial-size[`quarkus.config.source.jdbc.initial-size`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.jdbc.initial-size+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The initial size of the pool. Usually you will want to set the initial size to match at least the minimal size, but this is not enforced so to allow for architectures which prefer a lazy initialization of the connections on boot, while being able to sustain a minimal pool size after boot.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_JDBC_INITIAL_SIZE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_JDBC_INITIAL_SIZE+++`
+endif::add-copy-button-to-env-var[]
+--
+|int
+|`+++0+++`
+
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-min-size]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-min-size[`quarkus.config.source.jdbc.min-size`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.jdbc.min-size+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The datasource pool minimum size
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_JDBC_MIN_SIZE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_JDBC_MIN_SIZE+++`
+endif::add-copy-button-to-env-var[]
+--
+|int
+|`+++0+++`
+
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-max-size]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-max-size[`quarkus.config.source.jdbc.max-size`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.jdbc.max-size+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The datasource pool maximum size
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_JDBC_MAX_SIZE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_JDBC_MAX_SIZE+++`
+endif::add-copy-button-to-env-var[]
+--
+|int
+|`+++5+++`
+
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-acquisition-timeout]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-acquisition-timeout[`quarkus.config.source.jdbc.acquisition-timeout`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.jdbc.acquisition-timeout+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The timeout before cancelling the acquisition of a new connection
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_JDBC_ACQUISITION_TIMEOUT+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_JDBC_ACQUISITION_TIMEOUT+++`
+endif::add-copy-button-to-env-var[]
+--
+|link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html[Duration] link:#duration-note-anchor-quarkus-config-jdbc_quarkus-config[icon:question-circle[title=More information about the Duration format]]
+|`+++5S+++`
+
+|===
+
+ifndef::no-duration-note[]
+[NOTE]
+[id=duration-note-anchor-quarkus-config-jdbc_quarkus-config]
+.About the Duration format
+====
+To write duration values, use the standard `java.time.Duration` format.
+See the link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html#parse(java.lang.CharSequence)[Duration#parse() Java API documentation] for more information.
+
+You can also use a simplified format, starting with a number:
+
+* If the value is only a number, it represents time in seconds.
+* If the value is a number followed by `ms`, it represents time in milliseconds.
+
+In other cases, the simplified format is translated to the `java.time.Duration` format for parsing:
+
+* If the value is a number followed by `h`, `m`, or `s`, it is prefixed with `PT`.
+* If the value is a number followed by `d`, it is prefixed with `P`.
+====
+endif::no-duration-note[]

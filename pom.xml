@@ -6,33 +6,33 @@
     <artifactId>quarkiverse-parent</artifactId>
     <version>20</version>
   </parent>
+
   <groupId>io.quarkiverse.config</groupId>
   <artifactId>quarkus-config-extensions</artifactId>
   <version>2.4.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Quarkus - Config Extensions - Parent</name>
+
+  <properties>
+    <quarkus.version>3.30.5</quarkus.version>
+    <assertj.version>3.27.6</assertj.version>
+    <jsoup.version>1.21.2</jsoup.version>
+  </properties>
+
   <modules>
     <module>jdbc</module>
     <module>consul</module>
     <module>hocon</module>
     <module>jasypt</module>
   </modules>
+
   <scm>
     <connection>scm:git:git@github.com:quarkiverse/quarkus-config-extensions.git</connection>
     <developerConnection>scm:git:git@github.com:quarkiverse/quarkus-config-extensions.git</developerConnection>
     <url>https://github.com/quarkiverse/quarkus-config-extensions</url>
     <tag>HEAD</tag>
   </scm>
-  <properties>
-    <maven.compiler.parameters>true</maven.compiler.parameters>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus.version>3.30.5</quarkus.version>
-    <assertj.version>3.27.6</assertj.version>
-    <jsoup.version>1.21.2</jsoup.version>
-  </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -51,9 +51,11 @@
         <groupId>org.assertj</groupId>
         <artifactId>assertj-core</artifactId>
         <version>${assertj.version}</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
+
   <build>
     <pluginManagement>
       <plugins>

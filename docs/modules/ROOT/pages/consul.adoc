@@ -159,4 +159,4 @@ link:https://quarkus.io/guides/building-native-image[Building a native executabl
 
 == Configuration Reference
 
-include::./includes/quarkus-consul-config.adoc[]
+include::./includes/quarkus-config-consul.adoc[]
