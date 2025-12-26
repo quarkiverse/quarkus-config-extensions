@@ -15,14 +15,20 @@
 
   <properties>
     <quarkus.version>3.30.5</quarkus.version>
+
+    <!-- Extensions -->
+    <nacos.version>3.1.0</nacos.version>
+    <nacos.image>nacos/nacos-server:v${nacos.version}</nacos.image>
+
+    <!-- Testing Properties -->
     <assertj.version>3.27.6</assertj.version>
-    <jsoup.version>1.21.2</jsoup.version>
   </properties>
 
   <modules>
     <module>jdbc</module>
     <module>consul</module>
     <module>hocon</module>
+    <module>nacos</module>
     <module>jasypt</module>
   </modules>
 

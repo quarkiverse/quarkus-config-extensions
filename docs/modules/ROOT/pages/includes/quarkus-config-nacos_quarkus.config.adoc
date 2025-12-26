@@ -1,0 +1,270 @@
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time - All other configuration properties are overridable at runtime
+[.configuration-reference.searchable, cols="80,.^10,.^10"]
+|===
+
+h|[.header-title]##Configuration property##
+h|Type
+h|Default
+
+a| [[quarkus-config-nacos_quarkus-config-source-nacos-server-addr]] [.property-path]##link:#quarkus-config-nacos_quarkus-config-source-nacos-server-addr[`quarkus.config.source.nacos.server-addr`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.nacos.server-addr+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The Nacos address.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_NACOS_SERVER_ADDR+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_NACOS_SERVER_ADDR+++`
+endif::add-copy-button-to-env-var[]
+--
+|host:port
+|required icon:exclamation-circle[title=Configuration property is required]
+
+a| [[quarkus-config-nacos_quarkus-config-source-nacos-username]] [.property-path]##link:#quarkus-config-nacos_quarkus-config-source-nacos-username[`quarkus.config.source.nacos.username`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.nacos.username+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The Nacos username.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_NACOS_USERNAME+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_NACOS_USERNAME+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|
+
+a| [[quarkus-config-nacos_quarkus-config-source-nacos-password]] [.property-path]##link:#quarkus-config-nacos_quarkus-config-source-nacos-password[`quarkus.config.source.nacos.password`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.nacos.password+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The Nacos password.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_NACOS_PASSWORD+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_NACOS_PASSWORD+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|
+
+a| [[quarkus-config-nacos_quarkus-config-source-nacos-namespace]] [.property-path]##link:#quarkus-config-nacos_quarkus-config-source-nacos-namespace[`quarkus.config.source.nacos.namespace`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.nacos.namespace+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The Nacos namespace.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_NACOS_NAMESPACE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_NACOS_NAMESPACE+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|`+++public+++`
+
+a| [[quarkus-config-nacos_quarkus-config-source-nacos-data-id]] [.property-path]##link:#quarkus-config-nacos_quarkus-config-source-nacos-data-id[`quarkus.config.source.nacos.data-id`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.nacos.data-id+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The Nacos configuration name.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_NACOS_DATA_ID+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_NACOS_DATA_ID+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|required icon:exclamation-circle[title=Configuration property is required]
+
+a| [[quarkus-config-nacos_quarkus-config-source-nacos-group]] [.property-path]##link:#quarkus-config-nacos_quarkus-config-source-nacos-group[`quarkus.config.source.nacos.group`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.nacos.group+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The Nacos configuration group.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_NACOS_GROUP+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_NACOS_GROUP+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|`+++DEFAULT_GROUP+++`
+
+h|[[quarkus-config-nacos_section_quarkus-config-source-nacos-devservices]] [.section-name.section-level0]##link:#quarkus-config-nacos_section_quarkus-config-source-nacos-devservices[Dev Services allows Quarkus to automatically start Nacos in dev and test mode]##
+h|Type
+h|Default
+
+a|icon:lock[title=Fixed at build time] [[quarkus-config-nacos_quarkus-config-source-nacos-devservices-enabled]] [.property-path]##link:#quarkus-config-nacos_quarkus-config-source-nacos-devservices-enabled[`quarkus.config.source.nacos.devservices.enabled`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.nacos.devservices.enabled+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+If DevServices has been explicitly enabled or disabled. DevServices is generally enabled by default, unless there is an existing configuration present.
+
+When DevServices is enabled Quarkus will attempt to automatically configure and start Nacos when running in Dev or Test mode and when Docker is running.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_NACOS_DEVSERVICES_ENABLED+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_NACOS_DEVSERVICES_ENABLED+++`
+endif::add-copy-button-to-env-var[]
+--
+|boolean
+|`+++true+++`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-config-nacos_quarkus-config-source-nacos-devservices-image-name]] [.property-path]##link:#quarkus-config-nacos_quarkus-config-source-nacos-devservices-image-name[`quarkus.config.source.nacos.devservices.image-name`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.nacos.devservices.image-name+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The container image name to use.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_NACOS_DEVSERVICES_IMAGE_NAME+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_NACOS_DEVSERVICES_IMAGE_NAME+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|
+
+a|icon:lock[title=Fixed at build time] [[quarkus-config-nacos_quarkus-config-source-nacos-devservices-load-config-namespace]] [.property-path]##link:#quarkus-config-nacos_quarkus-config-source-nacos-devservices-load-config-namespace[`quarkus.config.source.nacos.devservices.load-config.namespace`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.nacos.devservices.load-config.namespace+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The Nacos namespace.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_NACOS_DEVSERVICES_LOAD_CONFIG_NAMESPACE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_NACOS_DEVSERVICES_LOAD_CONFIG_NAMESPACE+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|`+++public+++`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-config-nacos_quarkus-config-source-nacos-devservices-load-config-data-id]] [.property-path]##link:#quarkus-config-nacos_quarkus-config-source-nacos-devservices-load-config-data-id[`quarkus.config.source.nacos.devservices.load-config.data-id`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.nacos.devservices.load-config.data-id+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The Nacos configuration name.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_NACOS_DEVSERVICES_LOAD_CONFIG_DATA_ID+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_NACOS_DEVSERVICES_LOAD_CONFIG_DATA_ID+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|`+++quarkus+++`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-config-nacos_quarkus-config-source-nacos-devservices-load-config-group]] [.property-path]##link:#quarkus-config-nacos_quarkus-config-source-nacos-devservices-load-config-group[`quarkus.config.source.nacos.devservices.load-config.group`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.nacos.devservices.load-config.group+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The Nacos configuration group.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_NACOS_DEVSERVICES_LOAD_CONFIG_GROUP+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_NACOS_DEVSERVICES_LOAD_CONFIG_GROUP+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|`+++quarkus+++`
+
+a|icon:lock[title=Fixed at build time] [[quarkus-config-nacos_quarkus-config-source-nacos-devservices-load-config-content]] [.property-path]##link:#quarkus-config-nacos_quarkus-config-source-nacos-devservices-load-config-content[`quarkus.config.source.nacos.devservices.load-config.content`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.config.source.nacos.devservices.load-config.content+++[]
+endif::add-copy-button-to-config-props[]
+
+
+[.description]
+--
+The configuration to load in Properties format.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_CONFIG_SOURCE_NACOS_DEVSERVICES_LOAD_CONFIG_CONTENT+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_CONFIG_SOURCE_NACOS_DEVSERVICES_LOAD_CONFIG_CONTENT+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|`+++empty=+++`
+
+
+|===
+

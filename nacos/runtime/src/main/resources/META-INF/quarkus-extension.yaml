@@ -1,0 +1,12 @@
+---
+artifact: ${project.groupId}:${project.artifactId}:${project.version}
+name: "Nacos Config"
+metadata:
+  keywords:
+  - "config"
+  - "nacos"
+  categories:
+  - "core"
+  guide: https://quarkiverse.github.io/quarkiverse-docs/quarkus-config-extensions/dev/nacos.html
+  config:
+  - "quarkus.config.source.nacos"
