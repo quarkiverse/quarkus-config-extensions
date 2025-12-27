@@ -1,0 +1,61 @@
+include::./includes/attributes.adoc[]
+
+= Quarkus Nacos Config
+
+This extension provides support to read configuration from a https://nacos.io/en/[Nacos] server.
+
+== Getting Started
+
+Add the `io.quarkiverse.jberet:quarkus-jberet` extension first to the build file:
+
+[source,xml,subs=attributes+,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
+.pom.xml
+----
+<dependency>
+    <groupId>io.quarkiverse.config</groupId>
+    <artifactId>quarkus-config-nacos</artifactId>
+    <version>{quarkus-config-extensions-version}</version>
+</dependency>
+----
+
+[source,gradle,subs=attributes+,role="secondary asciidoc-tabs-target-sync-gradle"]
+.build.gradle
+----
+implementation("io.quarkiverse.config:quarkus-config-nacos:{quarkus-config-extensions-version}")
+----
+
+To be able to connect to a https://nacos.io/en/[Nacos] server and retrieve the configuration, please configure the
+following properties:
+
+[source,properties]
+----
+quarkus.config.source.nacos.server-addr=[hostname]:[port]
+quarkus.config.source.nacos.data-id=[dataId]
+----
+
+Please refer to <<configuration_reference>> for more details.
+
+== Dev Services
+
+If there is no https://nacos.io/en/[Nacos] available, Quarkus will automatically start one with Dev Services.
+
+If you with to start your own server, you can do so with Docker:
+
+[source,bash]
+----
+docker run --name nacosc \
+  -e MODE=standalone \
+  -e NACOS_AUTH_ENABLE=false \
+  -e NACOS_AUTH_TOKEN=SecretKey012345678901234567890123456789012345678901234567890123456789 \
+  -e NACOS_AUTH_IDENTITY_KEY=serverIdentity \
+  -e NACOS_AUTH_IDENTITY_VALUE=security \
+  -p 8848:8848 -p 9848:9848 -p 8080:8080 \
+  -d nacos/nacos-server:v3.1.0
+----
+
+For additional details, please check the https://hub.docker.com/r/nacos/nacos-server[Nacos Docker] official image.
+
+[#configuration_reference]
+== Configuration Reference
+
+include::./includes/quarkus-config-nacos.adoc[]
