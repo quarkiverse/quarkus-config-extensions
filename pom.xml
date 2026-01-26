@@ -21,7 +21,7 @@
     <nacos.image>nacos/nacos-server:v${nacos.version}</nacos.image>
 
     <!-- Testing Properties -->
-    <assertj.version>3.27.6</assertj.version>
+    <assertj.version>3.27.7</assertj.version>
   </properties>
 
   <modules>
