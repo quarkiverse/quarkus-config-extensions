@@ -3,6 +3,7 @@ package io.quarkus.config.jasypt.runtime;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.exceptions.EncryptionInitializationException;
 import org.jasypt.iv.RandomIvGenerator;
 import org.jasypt.normalization.Normalizer;
@@ -12,9 +13,12 @@ import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Inject;
 import com.oracle.svm.core.annotate.InjectAccessors;
 import com.oracle.svm.core.annotate.RecomputeFieldValue;
+import com.oracle.svm.core.annotate.RecomputeFieldValue.Kind;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
 import com.oracle.svm.core.annotate.TargetElement;
+
+import io.smallrye.config.jasypt.JasyptSecretKeysHandler;
 
 public class JasyptSubstitutions {
     @TargetClass(Normalizer.class)
@@ -61,6 +65,23 @@ public class JasyptSubstitutions {
         @TargetElement(name = TargetElement.CONSTRUCTOR_NAME)
         public Target_RandomIvGenerator(final String secureRandomAlgorithm) {
             this.secureRandomAlgorithm = secureRandomAlgorithm;
+        }
+    }
+
+    @TargetClass(JasyptSecretKeysHandler.class)
+    static final class Target_JasyptSecretKeysHandler {
+        @Alias
+        @RecomputeFieldValue(kind = Kind.Reset)
+        private StandardPBEStringEncryptor encryptor;
+
+        @Substitute
+        @TargetElement(name = TargetElement.CONSTRUCTOR_NAME)
+        public Target_JasyptSecretKeysHandler(final String password, final String algorithm) {
+            encryptor = new StandardPBEStringEncryptor();
+            encryptor.setPassword(password);
+            encryptor.setAlgorithm(algorithm);
+            encryptor.setIvGenerator(new RandomIvGenerator());
+            encryptor.initialize();
         }
     }
 }
