@@ -8,8 +8,8 @@
 
 ## Introduction
 
-This repository is the home for additional Quarkus Configuration extensions.
-These extensions allows reading the Quarkus configuration properties from various sources such as:
+This repository is the home for additional Quarkus Configuration extensions. These extensions allow reading the 
+Quarkus configuration properties from various sources such as:
 
 * JDBC
 * [HashiCorp Consul](https://www.consul.io)
@@ -20,7 +20,7 @@ These extensions allows reading the Quarkus configuration properties from variou
 
 The documentation for these extensions can be found [here](https://quarkiverse.github.io/quarkiverse-docs/quarkus-config-extensions/dev/index.html).
 
-:information_source: **Recommended Quarkus version: `3.7.0` or higher**
+:information_source: **Recommended Quarkus version: `3.31.0` or higher**
 
 ## Contributors ✨
 
