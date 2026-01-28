@@ -14,7 +14,7 @@
   <name>Quarkus - Config Extensions - Parent</name>
 
   <properties>
-    <quarkus.version>3.31.0</quarkus.version>
+    <quarkus.version>3.31.1</quarkus.version>
 
     <!-- Extensions -->
     <nacos.version>3.1.0</nacos.version>
