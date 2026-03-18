@@ -2,6 +2,7 @@ package io.quarkiverse.config.jdbc.extensions.test;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -9,6 +10,7 @@ import jakarta.inject.Inject;
 
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Assertions;
@@ -45,6 +47,32 @@ public class JdbcConfigJsonValuesTest {
         // assert we are getting the updated message because cache is disabled
         message = c.getValue("greeting", String.class);
         Assertions.assertEquals("{\"message\":\"updated hello from json table\"}", message);
+    }
+
+    @Test
+    @DisplayName("Reads flattened JSON properties with multiple fields via getProperties")
+    public void readFlattenedJsonProperties() {
+        Config c = ConfigProvider.getConfig();
+
+        // Find the jdbc-config source and verify JSON flattening via getProperties()
+        ConfigSource jdbcConfigSource = null;
+        for (ConfigSource source : c.getConfigSources()) {
+            if (source.getName().equals("jdbc-config")) {
+                jdbcConfigSource = source;
+                break;
+            }
+        }
+        Assertions.assertNotNull(jdbcConfigSource, "jdbc-config source should be present");
+
+        // DB has key "appuser" with JSON value containing 5 properties
+        // JSON flattening (via isJson() and flattenJson()) should expose them in getProperties()
+        Map<String, String> properties = jdbcConfigSource.getProperties();
+
+        Assertions.assertEquals("John Doe", properties.get("appuser.name"));
+        Assertions.assertEquals("30", properties.get("appuser.age"));
+        Assertions.assertEquals("New York", properties.get("appuser.city"));
+        Assertions.assertEquals("true", properties.get("appuser.active"));
+        Assertions.assertEquals("john.doe@example.com", properties.get("appuser.email"));
     }
 
     private int updateConfigValue(String key, String value) throws SQLException {
