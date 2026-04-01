@@ -9,15 +9,33 @@
     <artifactId>quarkus-config-extensions-integration-tests-parent</artifactId>
     <packaging>pom</packaging>
     <name>Quarkus - Config Extensions - Integration Tests - Parent</name>
-    <modules>
-        <module>consul</module>
-        <module>jdbc</module>
-        <module>hocon</module>
-        <module>nacos</module>
-        <module>jasypt</module>
-    </modules>
 
     <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>consul</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>it</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>!true</value>
+                </property>
+            </activation>
+            <modules>
+                <module>consul</module>
+                <module>jdbc</module>
+                <module>hocon</module>
+                <module>nacos</module>
+                <module>jasypt</module>
+            </modules>
+        </profile>
         <profile>
             <id>native-image</id>
             <activation>
