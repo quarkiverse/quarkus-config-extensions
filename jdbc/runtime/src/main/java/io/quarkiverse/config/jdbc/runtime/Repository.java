@@ -4,13 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.jboss.logging.Logger;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.agroal.api.AgroalDataSource;
 import io.agroal.api.configuration.supplier.AgroalConnectionFactoryConfigurationSupplier;
@@ -27,6 +26,7 @@ public class Repository implements AutoCloseable {
     private String selectAllQuery;
     private String selectKeysQuery;
     private String selectValueQuery;
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     public Repository(JdbcConfigConfig config) throws SQLException {
         prepareDataSource(config);
@@ -39,7 +39,15 @@ public class Repository implements AutoCloseable {
                     ResultSet rs = selectAllStmt.executeQuery()) {
                 final Map<String, String> result = new HashMap<>();
                 while (rs.next()) {
-                    result.put(rs.getString(1), rs.getString(2));
+                    String key = rs.getString(1);
+                    String value = rs.getString(2);
+                    if (isJson(value)) {
+                        Map<String, String> flattened = flattenJson(key, value);
+                        result.putAll(flattened);
+                    } else {
+                        result.put(key, value);
+                    }
+
                 }
                 return result;
             }
@@ -122,6 +130,50 @@ public class Repository implements AutoCloseable {
         selectKeysQuery = "SELECT conf." + config.keyColumn() + " FROM " + config.table() + " conf";
         selectValueQuery = "SELECT conf." + config.valueColumn() + " FROM " + config.table() + " conf WHERE conf."
                 + config.keyColumn() + " = ?";
+    }
+
+    private static boolean isJson(String value) {
+        if (value == null || value.isEmpty()) {
+            return false;
+        }
+        String trimmed = value.trim();
+        return (trimmed.startsWith("{") && trimmed.endsWith("}")) ||
+                (trimmed.startsWith("[") && trimmed.endsWith("]"));
+    }
+
+    private static Map<String, String> flattenJson(String baseKey, String jsonValue) {
+        Map<String, String> result = new HashMap<>();
+        try {
+            JsonNode root = MAPPER.readTree(jsonValue);
+            flattenJsonNode(baseKey, root, result);
+        } catch (Exception exception) {
+            log.warn("Failed to parse JSON for key %s: %s", baseKey, exception);
+            result.put(baseKey, jsonValue);
+        }
+        return result;
+    }
+
+    private static void flattenJsonNode(String prefix, JsonNode node, Map<String, String> result) {
+        if (node.isObject()) {
+            for (Map.Entry<String, JsonNode> field : node.properties()) {
+                String newPrefix = prefix.isEmpty() ? field.getKey() : prefix + "." + field.getKey();
+                flattenJsonNode(newPrefix, field.getValue(), result);
+            }
+        } else if (node.isArray()) {
+            for (int i = 0; i < node.size(); i++) {
+                flattenJsonNode(prefix + "[" + i + "]", node.get(i), result);
+            }
+        } else if (node.isValueNode()) {
+            if (node.isTextual()) {
+                result.put(prefix, node.asText());
+            } else if (node.isNumber()) {
+                result.put(prefix, node.numberValue().toString());
+            } else if (node.isBoolean()) {
+                result.put(prefix, String.valueOf(node.booleanValue()));
+            } else if (!node.isNull()) {
+                result.put(prefix, node.toString());
+            }
+        }
     }
 
     @Override
