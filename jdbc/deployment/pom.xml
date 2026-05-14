@@ -18,6 +18,10 @@
             <artifactId>quarkus-agroal-deployment</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jackson-deployment</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.quarkiverse.config</groupId>
             <artifactId>quarkus-config-jdbc</artifactId>
             <version>${project.version}</version>
