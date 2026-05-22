@@ -4,12 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import org.jboss.logging.Logger;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.agroal.api.AgroalDataSource;
 import io.agroal.api.configuration.supplier.AgroalConnectionFactoryConfigurationSupplier;
@@ -17,6 +18,8 @@ import io.agroal.api.configuration.supplier.AgroalConnectionPoolConfigurationSup
 import io.agroal.api.configuration.supplier.AgroalDataSourceConfigurationSupplier;
 import io.agroal.api.security.NamePrincipal;
 import io.agroal.api.security.SimplePassword;
+import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
 
 public class Repository implements AutoCloseable {
     private static final Logger log = Logger.getLogger(Repository.class);
@@ -26,7 +29,6 @@ public class Repository implements AutoCloseable {
     private String selectAllQuery;
     private String selectKeysQuery;
     private String selectValueQuery;
-    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     public Repository(JdbcConfigConfig config) throws SQLException {
         prepareDataSource(config);
@@ -144,8 +146,11 @@ public class Repository implements AutoCloseable {
     private static Map<String, String> flattenJson(String baseKey, String jsonValue) {
         Map<String, String> result = new HashMap<>();
         try {
-            JsonNode root = MAPPER.readTree(jsonValue);
-            flattenJsonNode(baseKey, root, result);
+            if (jsonValue.trim().startsWith("{")) {
+                flattenObject(baseKey, new JsonObject(jsonValue), result);
+            } else {
+                flattenArray(baseKey, new JsonArray(jsonValue), result);
+            }
         } catch (Exception exception) {
             log.warn("Failed to parse JSON for key %s: %s", baseKey, exception);
             result.put(baseKey, jsonValue);
@@ -153,26 +158,26 @@ public class Repository implements AutoCloseable {
         return result;
     }
 
-    private static void flattenJsonNode(String prefix, JsonNode node, Map<String, String> result) {
-        if (node.isObject()) {
-            for (Map.Entry<String, JsonNode> field : node.properties()) {
-                String newPrefix = prefix.isEmpty() ? field.getKey() : prefix + "." + field.getKey();
-                flattenJsonNode(newPrefix, field.getValue(), result);
-            }
-        } else if (node.isArray()) {
-            for (int i = 0; i < node.size(); i++) {
-                flattenJsonNode(prefix + "[" + i + "]", node.get(i), result);
-            }
-        } else if (node.isValueNode()) {
-            if (node.isTextual()) {
-                result.put(prefix, node.asText());
-            } else if (node.isNumber()) {
-                result.put(prefix, node.numberValue().toString());
-            } else if (node.isBoolean()) {
-                result.put(prefix, String.valueOf(node.booleanValue()));
-            } else if (!node.isNull()) {
-                result.put(prefix, node.toString());
-            }
+    private static void flattenObject(String prefix, JsonObject obj, Map<String, String> result) {
+        for (String key : obj.fieldNames()) {
+            String newPrefix = prefix.isEmpty() ? key : prefix + "." + key;
+            flattenValue(newPrefix, obj.getValue(key), result);
+        }
+    }
+
+    private static void flattenArray(String prefix, JsonArray array, Map<String, String> result) {
+        for (int i = 0; i < array.size(); i++) {
+            flattenValue(prefix + "[" + i + "]", array.getValue(i), result);
+        }
+    }
+
+    private static void flattenValue(String prefix, Object value, Map<String, String> result) {
+        if (value instanceof JsonObject) {
+            flattenObject(prefix, (JsonObject) value, result);
+        } else if (value instanceof JsonArray) {
+            flattenArray(prefix, (JsonArray) value, result);
+        } else if (value != null) {
+            result.put(prefix, value.toString());
         }
     }
 
