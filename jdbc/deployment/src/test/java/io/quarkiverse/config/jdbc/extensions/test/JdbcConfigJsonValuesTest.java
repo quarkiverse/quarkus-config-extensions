@@ -33,20 +33,20 @@ public class JdbcConfigJsonValuesTest {
     DataSource dataSource;
 
     @Test
-    @DisplayName("Reads a json property from json DB")
+    @DisplayName("Reads a flattened json property from DB")
     public void readGreetingFromDB() throws SQLException {
         Config c = ConfigProvider.getConfig();
         // DB has key "greeting" with JSON value {"message":"hello from json table"}
-        // JSON flattening exposes it as "greeting.message"
-        String message = c.getValue("greeting", String.class);
-        Assertions.assertEquals("{\"message\":\"hello from json table\"}", message);
+        // flatten-json=true exposes it as "greeting.message"
+        String message = c.getValue("greeting.message", String.class);
+        Assertions.assertEquals("hello from json table", message);
 
         // Update the JSON value for key "greeting" in the database
         int result = updateConfigValue("greeting", "{\"message\":\"updated hello from json table\"}");
         Assertions.assertTrue(result > 0);
         // assert we are getting the updated message because cache is disabled
-        message = c.getValue("greeting", String.class);
-        Assertions.assertEquals("{\"message\":\"updated hello from json table\"}", message);
+        message = c.getValue("greeting.message", String.class);
+        Assertions.assertEquals("updated hello from json table", message);
     }
 
     @Test

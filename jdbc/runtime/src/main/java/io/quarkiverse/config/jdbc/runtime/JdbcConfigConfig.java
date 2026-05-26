@@ -104,4 +104,17 @@ public interface JdbcConfigConfig {
     @WithDefault("5")
     @WithConverter(DurationConverter.class)
     Duration acquisitionTimeout();
+
+    /**
+     * If set to true, config values that are valid JSON objects or arrays will be flattened into dot-notation
+     * sub-keys in addition to being available as the original raw string.
+     * <p>
+     * Example: a DB row {@code my.service = {"timeout":"30"}} also exposes {@code my.service.timeout = 30}.
+     * <p>
+     * Disabled by default to avoid unintentionally parsing JSON strings that are not meant to be
+     * interpreted as structured config.
+     */
+    @WithName("flatten-json")
+    @WithDefault("false")
+    boolean flattenJson();
 }

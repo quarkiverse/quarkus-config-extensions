@@ -29,8 +29,10 @@ public class Repository implements AutoCloseable {
     private String selectAllQuery;
     private String selectKeysQuery;
     private String selectValueQuery;
+    private boolean flattenJson;
 
     public Repository(JdbcConfigConfig config) throws SQLException {
+        this.flattenJson = config.flattenJson();
         prepareDataSource(config);
         prepareQueries(config);
     }
@@ -43,9 +45,8 @@ public class Repository implements AutoCloseable {
                 while (rs.next()) {
                     String key = rs.getString(1);
                     String value = rs.getString(2);
-                    if (isJson(value)) {
-                        Map<String, String> flattened = flattenJson(key, value);
-                        result.putAll(flattened);
+                    if (flattenJson && isJson(value)) {
+                        result.putAll(flattenJson(key, value));
                     } else {
                         result.put(key, value);
                     }
@@ -76,6 +77,9 @@ public class Repository implements AutoCloseable {
     }
 
     public String getValue(String propertyName) {
+        if (flattenJson) {
+            return getAllConfigValues().get(propertyName);
+        }
         try (final Connection connection = dataSource.getConnection()) {
             final PreparedStatement selectValueStmt = connection.prepareStatement(selectValueQuery);
             selectValueStmt.setString(1, propertyName);
