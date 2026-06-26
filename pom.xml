@@ -31,7 +31,8 @@
     <module>nacos</module>
     <module>jasypt</module>
     <module>integration-tests</module>
-  </modules>
+      <module>docs-rag</module>
+    </modules>
 
   <scm>
     <connection>scm:git:git@github.com:quarkiverse/quarkus-config-extensions.git</connection>
