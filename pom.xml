@@ -14,7 +14,7 @@
   <name>Quarkus - Config Extensions - Parent</name>
 
   <properties>
-    <quarkus.version>3.38.2</quarkus.version>
+    <quarkus.version>999-SNAPSHOT</quarkus.version>
 
     <!-- Extensions -->
     <nacos.version>3.1.0</nacos.version>
@@ -29,9 +29,8 @@
     <module>consul</module>
     <module>hocon</module>
     <module>nacos</module>
-    <module>jasypt</module>
     <module>integration-tests</module>
-      <module>docs-rag</module>
+    <module>docs-rag</module>
     </modules>
 
   <scm>

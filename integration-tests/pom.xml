@@ -33,7 +33,6 @@
                 <module>jdbc</module>
                 <module>hocon</module>
                 <module>nacos</module>
-                <module>jasypt</module>
             </modules>
         </profile>
         <profile>
