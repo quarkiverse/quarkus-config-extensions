@@ -1,7 +1,5 @@
 package io.quarkus.consul.config.runtime;
 
-import static io.vertx.core.spi.resolver.ResolverProvider.DISABLE_DNS_RESOLVER_PROP_NAME;
-
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -12,6 +10,7 @@ import org.jboss.logging.Logger;
 
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.VertxOptions;
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.JksOptions;
@@ -19,7 +18,6 @@ import io.vertx.core.net.KeyStoreOptionsBase;
 import io.vertx.core.net.PfxOptions;
 import io.vertx.ext.web.client.WebClientOptions;
 import io.vertx.mutiny.core.Vertx;
-import io.vertx.mutiny.core.buffer.Buffer;
 import io.vertx.mutiny.ext.web.client.HttpRequest;
 import io.vertx.mutiny.ext.web.client.WebClient;
 
@@ -27,6 +25,7 @@ public class VertxConsulConfigGateway implements ConsulConfigGateway {
 
     private static final Logger log = Logger.getLogger(VertxConsulConfigGateway.class);
 
+    private static final String DISABLE_DNS_RESOLVER_PROP_NAME = "vertx.disableDnsResolver";
     private static final String PKS_12 = "PKS12";
     private static final String JKS = "JKS";
 
@@ -74,11 +73,7 @@ public class VertxConsulConfigGateway implements ConsulConfigGateway {
                 String type = determineStoreType(trustStorePath);
                 KeyStoreOptionsBase storeOptions = storeOptions(trustStorePath, agentConfig.trustStorePassword(),
                         createStoreOptions(type));
-                if (isPfx(type)) {
-                    webClientOptions.setPfxTrustOptions((PfxOptions) storeOptions);
-                } else {
-                    webClientOptions.setTrustStoreOptions((JksOptions) storeOptions);
-                }
+                webClientOptions.setTrustOptions(storeOptions);
             } else if (trustAll) {
                 skipVerify(webClientOptions);
             } else if (agentConfig.keyStore().isPresent()) {
@@ -86,11 +81,7 @@ public class VertxConsulConfigGateway implements ConsulConfigGateway {
                 String type = determineStoreType(trustStorePath);
                 KeyStoreOptionsBase storeOptions = storeOptions(trustStorePath, agentConfig.keyStorePassword(),
                         createStoreOptions(type));
-                if (isPfx(type)) {
-                    webClientOptions.setPfxTrustOptions((PfxOptions) storeOptions);
-                } else {
-                    webClientOptions.setTrustStoreOptions((JksOptions) storeOptions);
-                }
+                webClientOptions.setTrustOptions(storeOptions);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -119,7 +110,7 @@ public class VertxConsulConfigGateway implements ConsulConfigGateway {
             Optional<String> storePassword, T store) throws Exception {
         return store
                 .setPassword(storePassword.orElse(""))
-                .setValue(io.vertx.core.buffer.Buffer.buffer(storeBytes(storePath)));
+                .setValue(Buffer.buffer(storeBytes(storePath)));
     }
 
     private static String determineStoreType(Path keyStorePath) {

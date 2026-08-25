@@ -20,7 +20,8 @@ Quarkus configuration properties from various sources such as:
 
 The documentation for these extensions can be found [here](https://quarkiverse.github.io/quarkiverse-docs/quarkus-config-extensions/dev/index.html).
 
-:information_source: **Recommended Quarkus version: `3.40.0` or higher**
+- :information_source: **Recommended Quarkus version: `3.40.x` or higher for Config Extensions 2.6.x **
+- :information_source: **Recommended Quarkus version: `4.0.x` or higher for Config Extensions 3.0.x **
 
 ## Contributors ✨
 
