@@ -29,7 +29,6 @@
     <module>consul</module>
     <module>hocon</module>
     <module>nacos</module>
-    <module>jasypt</module>
     <module>integration-tests</module>
       <module>docs-rag</module>
     </modules>
