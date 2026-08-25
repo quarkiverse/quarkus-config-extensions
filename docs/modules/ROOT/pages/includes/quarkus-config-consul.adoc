@@ -7,7 +7,7 @@ h|[.header-title]##Configuration property##
 h|Type
 h|Default
 
-a| [[quarkus-config-consul_quarkus-consul-config-enabled]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-enabled[`quarkus.consul-config.enabled`]##
+a| [[quarkus-config-consul_quarkus-consul-config-enabled]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-enabled[`+++quarkus.consul-config.enabled+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.enabled+++[]
 endif::add-copy-button-to-config-props[]
@@ -28,7 +28,7 @@ endif::add-copy-button-to-env-var[]
 |boolean
 |`+++false+++`
 
-a| [[quarkus-config-consul_quarkus-consul-config-agent-host-port]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-host-port[`quarkus.consul-config.agent.host-port`]##
+a| [[quarkus-config-consul_quarkus-consul-config-agent-host-port]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-host-port[`+++quarkus.consul-config.agent.host-port+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.agent.host-port+++[]
 endif::add-copy-button-to-config-props[]
@@ -49,7 +49,7 @@ endif::add-copy-button-to-env-var[]
 |host:port
 |`+++localhost:8500+++`
 
-a| [[quarkus-config-consul_quarkus-consul-config-agent-use-https]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-use-https[`quarkus.consul-config.agent.use-https`]##
+a| [[quarkus-config-consul_quarkus-consul-config-agent-use-https]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-use-https[`+++quarkus.consul-config.agent.use-https+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.agent.use-https+++[]
 endif::add-copy-button-to-config-props[]
@@ -70,7 +70,7 @@ endif::add-copy-button-to-env-var[]
 |boolean
 |`+++false+++`
 
-a| [[quarkus-config-consul_quarkus-consul-config-agent-token]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-token[`quarkus.consul-config.agent.token`]##
+a| [[quarkus-config-consul_quarkus-consul-config-agent-token]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-token[`+++quarkus.consul-config.agent.token+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.agent.token+++[]
 endif::add-copy-button-to-config-props[]
@@ -91,7 +91,7 @@ endif::add-copy-button-to-env-var[]
 |string
 |
 
-a| [[quarkus-config-consul_quarkus-consul-config-agent-trust-store]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-trust-store[`quarkus.consul-config.agent.trust-store`]##
+a| [[quarkus-config-consul_quarkus-consul-config-agent-trust-store]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-trust-store[`+++quarkus.consul-config.agent.trust-store+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.agent.trust-store+++[]
 endif::add-copy-button-to-config-props[]
@@ -112,7 +112,7 @@ endif::add-copy-button-to-env-var[]
 |path
 |
 
-a| [[quarkus-config-consul_quarkus-consul-config-agent-trust-store-password]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-trust-store-password[`quarkus.consul-config.agent.trust-store-password`]##
+a| [[quarkus-config-consul_quarkus-consul-config-agent-trust-store-password]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-trust-store-password[`+++quarkus.consul-config.agent.trust-store-password+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.agent.trust-store-password+++[]
 endif::add-copy-button-to-config-props[]
@@ -133,7 +133,7 @@ endif::add-copy-button-to-env-var[]
 |string
 |
 
-a| [[quarkus-config-consul_quarkus-consul-config-agent-key-store]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-key-store[`quarkus.consul-config.agent.key-store`]##
+a| [[quarkus-config-consul_quarkus-consul-config-agent-key-store]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-key-store[`+++quarkus.consul-config.agent.key-store+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.agent.key-store+++[]
 endif::add-copy-button-to-config-props[]
@@ -154,7 +154,7 @@ endif::add-copy-button-to-env-var[]
 |path
 |
 
-a| [[quarkus-config-consul_quarkus-consul-config-agent-key-store-password]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-key-store-password[`quarkus.consul-config.agent.key-store-password`]##
+a| [[quarkus-config-consul_quarkus-consul-config-agent-key-store-password]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-key-store-password[`+++quarkus.consul-config.agent.key-store-password+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.agent.key-store-password+++[]
 endif::add-copy-button-to-config-props[]
@@ -175,7 +175,7 @@ endif::add-copy-button-to-env-var[]
 |string
 |
 
-a| [[quarkus-config-consul_quarkus-consul-config-agent-key-password]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-key-password[`quarkus.consul-config.agent.key-password`]##
+a| [[quarkus-config-consul_quarkus-consul-config-agent-key-password]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-key-password[`+++quarkus.consul-config.agent.key-password+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.agent.key-password+++[]
 endif::add-copy-button-to-config-props[]
@@ -196,7 +196,7 @@ endif::add-copy-button-to-env-var[]
 |string
 |
 
-a| [[quarkus-config-consul_quarkus-consul-config-agent-trust-certs]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-trust-certs[`quarkus.consul-config.agent.trust-certs`]##
+a| [[quarkus-config-consul_quarkus-consul-config-agent-trust-certs]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-trust-certs[`+++quarkus.consul-config.agent.trust-certs+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.agent.trust-certs+++[]
 endif::add-copy-button-to-config-props[]
@@ -217,7 +217,7 @@ endif::add-copy-button-to-env-var[]
 |boolean
 |`+++false+++`
 
-a| [[quarkus-config-consul_quarkus-consul-config-agent-connection-timeout]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-connection-timeout[`quarkus.consul-config.agent.connection-timeout`]##
+a| [[quarkus-config-consul_quarkus-consul-config-agent-connection-timeout]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-connection-timeout[`+++quarkus.consul-config.agent.connection-timeout+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.agent.connection-timeout+++[]
 endif::add-copy-button-to-config-props[]
@@ -240,7 +240,7 @@ endif::add-copy-button-to-env-var[]
 |link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html[Duration] link:#duration-note-anchor-quarkus-config-consul_quarkus-consul-config[icon:question-circle[title=More information about the Duration format]]
 |`+++10S+++`
 
-a| [[quarkus-config-consul_quarkus-consul-config-agent-read-timeout]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-read-timeout[`quarkus.consul-config.agent.read-timeout`]##
+a| [[quarkus-config-consul_quarkus-consul-config-agent-read-timeout]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-agent-read-timeout[`+++quarkus.consul-config.agent.read-timeout+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.agent.read-timeout+++[]
 endif::add-copy-button-to-config-props[]
@@ -263,7 +263,7 @@ endif::add-copy-button-to-env-var[]
 |link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html[Duration] link:#duration-note-anchor-quarkus-config-consul_quarkus-consul-config[icon:question-circle[title=More information about the Duration format]]
 |`+++60S+++`
 
-a| [[quarkus-config-consul_quarkus-consul-config-prefix]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-prefix[`quarkus.consul-config.prefix`]##
+a| [[quarkus-config-consul_quarkus-consul-config-prefix]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-prefix[`+++quarkus.consul-config.prefix+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.prefix+++[]
 endif::add-copy-button-to-config-props[]
@@ -284,7 +284,7 @@ endif::add-copy-button-to-env-var[]
 |string
 |
 
-a| [[quarkus-config-consul_quarkus-consul-config-raw-value-keys]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-raw-value-keys[`quarkus.consul-config.raw-value-keys`]##
+a| [[quarkus-config-consul_quarkus-consul-config-raw-value-keys]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-raw-value-keys[`+++quarkus.consul-config.raw-value-keys+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.raw-value-keys+++[]
 endif::add-copy-button-to-config-props[]
@@ -305,7 +305,7 @@ endif::add-copy-button-to-env-var[]
 |list of string
 |
 
-a| [[quarkus-config-consul_quarkus-consul-config-properties-value-keys]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-properties-value-keys[`quarkus.consul-config.properties-value-keys`]##
+a| [[quarkus-config-consul_quarkus-consul-config-properties-value-keys]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-properties-value-keys[`+++quarkus.consul-config.properties-value-keys+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.properties-value-keys+++[]
 endif::add-copy-button-to-config-props[]
@@ -326,7 +326,7 @@ endif::add-copy-button-to-env-var[]
 |list of string
 |
 
-a| [[quarkus-config-consul_quarkus-consul-config-fail-on-missing-key]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-fail-on-missing-key[`quarkus.consul-config.fail-on-missing-key`]##
+a| [[quarkus-config-consul_quarkus-consul-config-fail-on-missing-key]] [.property-path]##link:#quarkus-config-consul_quarkus-consul-config-fail-on-missing-key[`+++quarkus.consul-config.fail-on-missing-key+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.consul-config.fail-on-missing-key+++[]
 endif::add-copy-button-to-config-props[]

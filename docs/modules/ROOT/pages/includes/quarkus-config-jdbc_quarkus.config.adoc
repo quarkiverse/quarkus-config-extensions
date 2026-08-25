@@ -7,7 +7,7 @@ h|[.header-title]##Configuration property##
 h|Type
 h|Default
 
-a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-enabled]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-enabled[`quarkus.config.source.jdbc.enabled`]##
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-enabled]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-enabled[`+++quarkus.config.source.jdbc.enabled+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.config.source.jdbc.enabled+++[]
 endif::add-copy-button-to-config-props[]
@@ -28,7 +28,7 @@ endif::add-copy-button-to-env-var[]
 |boolean
 |`+++true+++`
 
-a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-cache]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-cache[`quarkus.config.source.jdbc.cache`]##
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-cache]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-cache[`+++quarkus.config.source.jdbc.cache+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.config.source.jdbc.cache+++[]
 endif::add-copy-button-to-config-props[]
@@ -49,7 +49,7 @@ endif::add-copy-button-to-env-var[]
 |boolean
 |`+++true+++`
 
-a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-table]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-table[`quarkus.config.source.jdbc.table`]##
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-table]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-table[`+++quarkus.config.source.jdbc.table+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.config.source.jdbc.table+++[]
 endif::add-copy-button-to-config-props[]
@@ -70,7 +70,7 @@ endif::add-copy-button-to-env-var[]
 |string
 |`+++configuration+++`
 
-a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-key]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-key[`quarkus.config.source.jdbc.key`]##
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-key]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-key[`+++quarkus.config.source.jdbc.key+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.config.source.jdbc.key+++[]
 endif::add-copy-button-to-config-props[]
@@ -91,7 +91,7 @@ endif::add-copy-button-to-env-var[]
 |string
 |`+++configuration_key+++`
 
-a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-value]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-value[`quarkus.config.source.jdbc.value`]##
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-value]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-value[`+++quarkus.config.source.jdbc.value+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.config.source.jdbc.value+++[]
 endif::add-copy-button-to-config-props[]
@@ -112,7 +112,7 @@ endif::add-copy-button-to-env-var[]
 |string
 |`+++configuration_value+++`
 
-a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-username]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-username[`quarkus.config.source.jdbc.username`]##
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-username]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-username[`+++quarkus.config.source.jdbc.username+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.config.source.jdbc.username+++[]
 endif::add-copy-button-to-config-props[]
@@ -133,7 +133,7 @@ endif::add-copy-button-to-env-var[]
 |string
 |`+++${quarkus.datasource.username}+++`
 
-a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-password]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-password[`quarkus.config.source.jdbc.password`]##
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-password]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-password[`+++quarkus.config.source.jdbc.password+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.config.source.jdbc.password+++[]
 endif::add-copy-button-to-config-props[]
@@ -154,7 +154,7 @@ endif::add-copy-button-to-env-var[]
 |string
 |`+++${quarkus.datasource.password}+++`
 
-a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-url]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-url[`quarkus.config.source.jdbc.url`]##
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-url]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-url[`+++quarkus.config.source.jdbc.url+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.config.source.jdbc.url+++[]
 endif::add-copy-button-to-config-props[]
@@ -175,7 +175,7 @@ endif::add-copy-button-to-env-var[]
 |string
 |`+++${quarkus.datasource.jdbc.url}+++`
 
-a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-driver]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-driver[`quarkus.config.source.jdbc.driver`]##
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-driver]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-driver[`+++quarkus.config.source.jdbc.driver+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.config.source.jdbc.driver+++[]
 endif::add-copy-button-to-config-props[]
@@ -196,7 +196,7 @@ endif::add-copy-button-to-env-var[]
 |string
 |`+++${quarkus.datasource.jdbc.driver}+++`
 
-a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-initial-size]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-initial-size[`quarkus.config.source.jdbc.initial-size`]##
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-initial-size]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-initial-size[`+++quarkus.config.source.jdbc.initial-size+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.config.source.jdbc.initial-size+++[]
 endif::add-copy-button-to-config-props[]
@@ -217,7 +217,7 @@ endif::add-copy-button-to-env-var[]
 |int
 |`+++0+++`
 
-a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-min-size]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-min-size[`quarkus.config.source.jdbc.min-size`]##
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-min-size]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-min-size[`+++quarkus.config.source.jdbc.min-size+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.config.source.jdbc.min-size+++[]
 endif::add-copy-button-to-config-props[]
@@ -238,7 +238,7 @@ endif::add-copy-button-to-env-var[]
 |int
 |`+++0+++`
 
-a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-max-size]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-max-size[`quarkus.config.source.jdbc.max-size`]##
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-max-size]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-max-size[`+++quarkus.config.source.jdbc.max-size+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.config.source.jdbc.max-size+++[]
 endif::add-copy-button-to-config-props[]
@@ -259,7 +259,7 @@ endif::add-copy-button-to-env-var[]
 |int
 |`+++5+++`
 
-a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-acquisition-timeout]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-acquisition-timeout[`quarkus.config.source.jdbc.acquisition-timeout`]##
+a| [[quarkus-config-jdbc_quarkus-config-source-jdbc-acquisition-timeout]] [.property-path]##link:#quarkus-config-jdbc_quarkus-config-source-jdbc-acquisition-timeout[`+++quarkus.config.source.jdbc.acquisition-timeout+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.config.source.jdbc.acquisition-timeout+++[]
 endif::add-copy-button-to-config-props[]
