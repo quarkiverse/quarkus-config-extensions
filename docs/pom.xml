@@ -36,12 +36,6 @@
             <artifactId>quarkus-config-nacos-deployment</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>io.quarkiverse.config</groupId>
-            <artifactId>quarkus-config-jasypt-deployment</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
