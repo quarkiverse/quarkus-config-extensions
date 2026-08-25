@@ -20,7 +20,7 @@ public class UnknownQuarkusConfigPropertyTest {
             .setLogRecordPredicate(record -> record.getLevel().intValue() >= Level.WARNING.intValue())
             .assertLogRecords(logRecords -> assertTrue(logRecords.stream()
                     .map(LogRecord::getMessage)
-                    .anyMatch(message -> message.startsWith("Unrecognized configuration key"))));
+                    .anyMatch(message -> message.startsWith("Unrecognized configuration property"))));
 
     @Test
     void unknownConfig() {
