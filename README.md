@@ -14,7 +14,7 @@ Quarkus configuration properties from various sources such as:
 * JDBC
 * [HashiCorp Consul](https://www.consul.io)
 * HOCON
-* [Jasypt](http://www.jasypt.org)
+* [Nacos](https://nacos.io)
 
 ## Documentation
 
