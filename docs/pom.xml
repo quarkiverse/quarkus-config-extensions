@@ -8,7 +8,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>quarkus-consul-config-docs</artifactId>
+    <artifactId>quarkus-config-docs</artifactId>
     <name>Quarkus - Config Extensions - Documentation</name>
 
     <dependencies>
