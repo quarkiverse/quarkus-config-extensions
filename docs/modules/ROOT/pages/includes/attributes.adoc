@@ -1,5 +1,5 @@
 :quarkus-version: 4.0.0.Beta1
-:quarkus-config-extensions-version: 2.6.0
+:quarkus-config-extensions-version: 3.0.0.Beta1
 :maven-version: 3.8.1+
 
 :quarkus-org-url: https://github.com/quarkusio
