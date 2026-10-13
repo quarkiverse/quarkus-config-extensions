@@ -4,7 +4,7 @@
   <parent>
     <groupId>io.quarkiverse.config</groupId>
     <artifactId>quarkus-config-extensions</artifactId>
-    <version>3.0.0.Beta1</version>
+    <version>999-SNAPSHOT</version>
   </parent>
 
   <artifactId>quarkus-config-hocon-parent</artifactId>
